@@ -1354,19 +1354,22 @@ let customOrder = { fabric: '', color: '', colorHex: '', cut: '', size: '' };
 // ══════════════════════════════
 // PRODUCTS DATA
 // ══════════════════════════════
-const _imgs = [
-  'תמונות בגד ים/WhatsApp Image 2026-04-11 at 20.49.03.jpeg',
-  'תמונות בגד ים/WhatsApp Image 2026-04-11 at 20.49.03 (1).jpeg',
-  'תמונות בגד ים/WhatsApp Image 2026-04-11 at 20.49.03 (2).jpeg',
-];
+const _UNS = 'https://images.unsplash.com/photo-';
+const _Q   = '?w=400&h=533&fit=crop&crop=top&q=80';
 
 const products = [
-  { id:1, name:'The Tobacco Top',  type:'טופ',     price:180, img:_imgs[0], gradient:'linear-gradient(135deg,#B59E7D,#F1EADA)', desc:'טרייאנגל רך' },
-  { id:2, name:'Desert Bottom',    type:'תחתית',   price:140, img:_imgs[1], gradient:'linear-gradient(135deg,#CEC1A8,#B59E7D)', desc:'ביקיני גבוה' },
-  { id:3, name:'Mahogany Set',     type:'סט מלא',  price:380, img:_imgs[2], gradient:'linear-gradient(135deg,#3D2318,#7A5240)', desc:'סט בנדו' },
-  { id:4, name:'Sand One-Piece',   type:'בגד שלם', price:320, img:_imgs[0], gradient:'linear-gradient(135deg,#CEC1A8,#F1EADA)', desc:'שלם ספורטיבי' },
-  { id:5, name:'Vanilla Halter',   type:'טופ',     price:195, img:_imgs[1], gradient:'linear-gradient(135deg,#F1EADA,#CEC1A8)', desc:'הולטר עדין' },
-  { id:6, name:'Mountain Midi',    type:'תחתית',   price:155, img:_imgs[2], gradient:'linear-gradient(135deg,#AAA398,#CEC1A8)', desc:'מידי שורט' },
+  { id:1, name:'The Tobacco Top',  type:'טופ',     price:180, desc:'טרייאנגל רך',   gradient:'linear-gradient(135deg,#B59E7D,#F1EADA)',
+    img: _UNS+'1571019613454-1cb2f99b2d8b'+_Q },  // triangle bikini top
+  { id:2, name:'Desert Bottom',    type:'תחתית',   price:140, desc:'ביקיני גבוה',   gradient:'linear-gradient(135deg,#CEC1A8,#B59E7D)',
+    img: _UNS+'1520367445093-50dc08a59d9d'+_Q },  // high-waist bottom
+  { id:3, name:'Mahogany Set',     type:'סט מלא',  price:380, desc:'סט בנדו',       gradient:'linear-gradient(135deg,#3D2318,#7A5240)',
+    img: _UNS+'1507525428034-b723cf961d3e'+_Q },  // full bikini set
+  { id:4, name:'Sand One-Piece',   type:'בגד שלם', price:320, desc:'שלם ספורטיבי', gradient:'linear-gradient(135deg,#CEC1A8,#F1EADA)',
+    img: _UNS+'1544551763-46a013bb70d5'+_Q },     // one-piece swimsuit
+  { id:5, name:'Vanilla Halter',   type:'טופ',     price:195, desc:'הולטר עדין',    gradient:'linear-gradient(135deg,#F1EADA,#CEC1A8)',
+    img: _UNS+'1559563362-c667ba5f5480'+_Q },     // halter top
+  { id:6, name:'Mountain Midi',    type:'תחתית',   price:155, desc:'מידי שורט',     gradient:'linear-gradient(135deg,#AAA398,#CEC1A8)',
+    img: _UNS+'1568702846914-96b305d2aaeb'+_Q },  // midi / high-rise
 ];
 
 function renderProducts(filter = 'הכל') {
