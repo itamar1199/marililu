@@ -963,6 +963,23 @@
     }
     .toast.show { transform: translateX(-50%) translateY(0); }
 
+    /* ── LOGO ── */
+    .brand-logo-hero {
+      width: 180px;
+      height: 180px;
+      display: block;
+      margin: 0 auto 20px;
+      border-radius: 4px;
+    }
+    .brand-logo-sm {
+      width: 52px;
+      height: 52px;
+      border-radius: 4px;
+      display: block;
+      margin: 0 0 18px auto;
+      flex-shrink: 0;
+    }
+
     /* ── EMPTY IMAGE SLOTS ── */
     .img-empty-slot {
       border: 2px dashed var(--sand);
@@ -996,7 +1013,16 @@
     <div class="hero">
       <div class="hero-overlay"></div>
       <div class="hero-content">
-        <div class="brand-name">MARILILU</div>
+        <svg class="brand-logo-hero" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" aria-label="MARILILU">
+          <rect width="500" height="500" fill="#CA4535"/>
+          <text x="250" y="295"
+            font-family="'Cormorant Garamond', Didot, Georgia, serif"
+            font-weight="300"
+            font-size="78"
+            fill="#F0A0BC"
+            text-anchor="middle"
+            letter-spacing="7">MARILILU</text>
+        </svg>
         <div class="brand-tagline">Handcrafted Swimwear · Made for you</div>
         <div class="hero-cta">
           <button class="btn-primary" onclick="navigate('custom')">עצבי את שלך</button>
@@ -1007,6 +1033,7 @@
 
     <!-- About -->
     <div class="section">
+      <img src="logo.svg" alt="MARILILU" class="brand-logo-sm" />
       <div class="section-label">אודות המותג</div>
       <div class="section-title">כל אישה ראויה ללבוש<br/>בגד שנתפר עבורה בלבד</div>
       <div class="section-body">
