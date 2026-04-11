@@ -137,25 +137,9 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: transparent;
+      background: url("תמונות בגד ים/WhatsApp Image 2026-04-11 at 20.49.03.jpeg") center/cover no-repeat;
+      opacity: 0.35;
     }
-    .hero-img-slot {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      color: rgba(241,234,218,0.35);
-      font-size: 12px;
-      font-style: italic;
-      letter-spacing: 0.05em;
-      text-align: center;
-      border: 2px dashed rgba(241,234,218,0.15);
-      pointer-events: none;
-    }
-    .hero-img-slot .slot-icon { font-size: 28px; font-style: normal; }
     .hero-overlay {
       position: absolute;
       inset: 0;
@@ -1011,10 +995,6 @@
 
     <div class="hero">
       <div class="hero-overlay"></div>
-      <div class="hero-img-slot">
-        <span class="slot-icon">📷</span>
-        תמונת רקע לhero — צילום בגד ים באווירת חוף / שמש
-      </div>
       <div class="hero-content">
         <div class="brand-name">MARILILU</div>
         <div class="brand-tagline">Handcrafted Swimwear · Made for you</div>
@@ -1028,7 +1008,7 @@
     <!-- About -->
     <div class="section">
       <div class="section-label">אודות המותג</div>
-      <div class="section-title">בגדי ים שנולדו מאהבה לגוף הנשי</div>
+      <div class="section-title">כל אישה ראויה ללבוש<br/>בגד שנתפר עבורה בלבד</div>
       <div class="section-body">
         MARILILU הוא מותג בגדי ים ישראלי בוטיק, שנולד מתוך אמונה אחת פשוטה — כל אישה ראויה ללבוש שנתפר עבורה בלבד.
         כל פריט מעוצב ביד, מבדים מובחרים ואיכותיים, ומותאם אישית לגזרה ולצבע שיגרמו לה להרגיש הכי עצמה.
@@ -1148,22 +1128,30 @@
       <div class="step-subtitle">שלב 1 מתוך 4</div>
       <div class="fabric-grid">
         <div class="fabric-card" onclick="selectFabric('ליקרה קלאסית','1')">
-          <div class="fabric-icon">🌊</div>
+          <div class="fabric-icon img-empty-slot" style="height:56px;border-radius:6px;font-size:9px;gap:3px">
+            <span style="font-size:14px;font-style:normal;opacity:0.4">📷</span>תמונת בד ליקרה — מרקם גמיש
+          </div>
           <div class="fabric-name">ליקרה קלאסית</div>
           <div class="fabric-desc">עמיד, מחזיק צורה, מושלם לים</div>
         </div>
         <div class="fabric-card" onclick="selectFabric('ניאופרן','2')">
-          <div class="fabric-icon">🏄</div>
+          <div class="fabric-icon img-empty-slot" style="height:56px;border-radius:6px;font-size:9px;gap:3px">
+            <span style="font-size:14px;font-style:normal;opacity:0.4">📷</span>תמונת בד ניאופרן — מרקם עבה
+          </div>
           <div class="fabric-name">ניאופרן</div>
           <div class="fabric-desc">תמיכה מרבית, מראה ספורטיבי</div>
         </div>
         <div class="fabric-card" onclick="selectFabric('שימר לורקס','3')">
-          <div class="fabric-icon">✨</div>
+          <div class="fabric-icon img-empty-slot" style="height:56px;border-radius:6px;font-size:9px;gap:3px">
+            <span style="font-size:14px;font-style:normal;opacity:0.4">📷</span>תמונת בד שימר — ברק מתכתי
+          </div>
           <div class="fabric-name">שימר לורקס</div>
           <div class="fabric-desc">ברק עדין, מראה מפנק ויוקרתי</div>
         </div>
         <div class="fabric-card" onclick="selectFabric('וולאור','4')">
-          <div class="fabric-icon">🌸</div>
+          <div class="fabric-icon img-empty-slot" style="height:56px;border-radius:6px;font-size:9px;gap:3px">
+            <span style="font-size:14px;font-style:normal;opacity:0.4">📷</span>תמונת בד וולאור — מרקם קטיפתי
+          </div>
           <div class="fabric-name">וולאור</div>
           <div class="fabric-desc">מרקם עשיר, מגע רך ועוטף</div>
         </div>
@@ -1195,32 +1183,44 @@
       <div class="step-subtitle">שלב 3 מתוך 4</div>
       <div class="cut-grid">
         <div class="cut-card" onclick="selectCut('טרייאנגל','triangle')">
-          <div class="cut-illustration">🔺</div>
+          <div class="cut-illustration img-empty-slot" style="height:80px;border-radius:8px;font-size:9px;gap:3px">
+            <span style="font-size:14px;font-style:normal;opacity:0.4">📷</span>איור גזרת טרייאנגל
+          </div>
           <div class="cut-name">טרייאנגל</div>
           <div class="cut-desc">קלאסי ונצחי, מתאים לכל גוף</div>
         </div>
         <div class="cut-card" onclick="selectCut('בנדו','bandeau')">
-          <div class="cut-illustration">〰️</div>
+          <div class="cut-illustration img-empty-slot" style="height:80px;border-radius:8px;font-size:9px;gap:3px">
+            <span style="font-size:14px;font-style:normal;opacity:0.4">📷</span>איור גזרת בנדו
+          </div>
           <div class="cut-name">בנדו</div>
           <div class="cut-desc">טרנדי, ללא כתפיות</div>
         </div>
         <div class="cut-card" onclick="selectCut('הולטר','halter')">
-          <div class="cut-illustration">⬆️</div>
+          <div class="cut-illustration img-empty-slot" style="height:80px;border-radius:8px;font-size:9px;gap:3px">
+            <span style="font-size:14px;font-style:normal;opacity:0.4">📷</span>איור גזרת הולטר
+          </div>
           <div class="cut-name">הולטר</div>
           <div class="cut-desc">תמיכה מקסימלית, מחמיא לחזה</div>
         </div>
         <div class="cut-card" onclick="selectCut('ספורט','sport')">
-          <div class="cut-illustration">🏊</div>
+          <div class="cut-illustration img-empty-slot" style="height:80px;border-radius:8px;font-size:9px;gap:3px">
+            <span style="font-size:14px;font-style:normal;opacity:0.4">📷</span>איור גזרת ספורט
+          </div>
           <div class="cut-name">ספורט</div>
           <div class="cut-desc">כיסוי מלא, נוח לתנועה</div>
         </div>
         <div class="cut-card" onclick="selectCut('מידי','midi')">
-          <div class="cut-illustration">🩱</div>
+          <div class="cut-illustration img-empty-slot" style="height:80px;border-radius:8px;font-size:9px;gap:3px">
+            <span style="font-size:14px;font-style:normal;opacity:0.4">📷</span>איור גזרת מידי שורט
+          </div>
           <div class="cut-name">מידי שורט</div>
           <div class="cut-desc">מכנסון גבוה, אלגנטי</div>
         </div>
         <div class="cut-card" onclick="selectCut('ביקיני','bikini')">
-          <div class="cut-illustration">👙</div>
+          <div class="cut-illustration img-empty-slot" style="height:80px;border-radius:8px;font-size:9px;gap:3px">
+            <span style="font-size:14px;font-style:normal;opacity:0.4">📷</span>איור גזרת ביקיני קלאסי
+          </div>
           <div class="cut-name">ביקיני</div>
           <div class="cut-desc">קלאסיק שלא עובר</div>
         </div>
