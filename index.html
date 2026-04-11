@@ -962,6 +962,28 @@
       pointer-events: none;
     }
     .toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* ── EMPTY IMAGE SLOTS ── */
+    .img-empty-slot {
+      border: 2px dashed var(--sand);
+      background: var(--vanilla);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      color: var(--mountain);
+      font-size: 11px;
+      font-style: italic;
+      text-align: center;
+      padding: 10px;
+      line-height: 1.4;
+    }
+    .img-empty-slot .slot-icon {
+      font-size: 20px;
+      font-style: normal;
+      opacity: 0.4;
+    }
   </style>
 </head>
 <body>
@@ -1000,12 +1022,10 @@
     <div class="section">
       <div class="section-label">המעצבת</div>
       <div class="designer-card">
-        <img
-          src="תמונות בגד ים/WhatsApp Image 2026-04-11 at 20.49.03 (1).jpeg"
-          alt="המעצבת"
-          class="designer-photo"
-          onerror="this.style.background='linear-gradient(135deg,#CEC1A8,#B59E7D)';this.alt=''"
-        />
+        <div class="designer-photo img-empty-slot" style="border-radius:var(--radius-md)">
+          <span class="slot-icon">📷</span>
+          תמונת פורטרט של המעצבת ליהי אבוחצירא
+        </div>
         <div class="designer-info">
           <div class="designer-name">ליהי אבוחצירא</div>
           <div class="designer-title">מייסדת ומעצבת ראשית</div>
@@ -1023,7 +1043,7 @@
     <!-- Instagram -->
     <div class="insta-section">
       <div class="section-label">אינסטגרם</div>
-      <div class="section-title" style="color:var(--vanilla)">@marililu.swimwear</div>
+      <div class="section-title" style="color:var(--vanilla)">@___marililu___</div>
       <div class="section-body" style="color:var(--sand);margin-bottom:0">
         עקבי אחרינו לקבלת השראה יומיומית, הצצות מאחורי הקלעים ומהדורות חדשות.
       </div>
@@ -1037,11 +1057,23 @@
         <div class="insta-cell">
           <img src="תמונות בגד ים/WhatsApp Image 2026-04-11 at 20.49.03 (2).jpeg" alt="" onerror="this.outerHTML='<div class=insta-placeholder></div>'" />
         </div>
-        <div class="insta-cell"><div class="insta-placeholder" style="opacity:0.5;background:linear-gradient(135deg,#5C3825,#B59E7D)"></div></div>
-        <div class="insta-cell"><div class="insta-placeholder" style="opacity:0.4;background:linear-gradient(135deg,#7A5240,#AAA398)"></div></div>
-        <div class="insta-cell"><div class="insta-placeholder" style="opacity:0.45;background:linear-gradient(135deg,#3D2318,#B59E7D)"></div></div>
+        <div class="insta-cell">
+          <div class="img-empty-slot" style="aspect-ratio:1;border-radius:0">
+            <span class="slot-icon">📸</span>תמונה מהאינסטגרם — פריט מהקולקציה
+          </div>
+        </div>
+        <div class="insta-cell">
+          <div class="img-empty-slot" style="aspect-ratio:1;border-radius:0">
+            <span class="slot-icon">📸</span>תמונה מהאינסטגרם — behind the scenes
+          </div>
+        </div>
+        <div class="insta-cell">
+          <div class="img-empty-slot" style="aspect-ratio:1;border-radius:0">
+            <span class="slot-icon">📸</span>תמונה מהאינסטגרם — לוק של לקוחה
+          </div>
+        </div>
       </div>
-      <a href="https://instagram.com/marililu.swimwear" target="_blank" class="insta-btn">
+      <a href="https://www.instagram.com/___marililu___/" target="_blank" class="insta-btn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
           <circle cx="12" cy="12" r="4"/>
@@ -1253,11 +1285,15 @@
           <div class="inspo-label">טון על טון</div>
         </div>
         <div class="inspo-card">
-          <div class="inspo-img-placeholder" style="background:linear-gradient(135deg,var(--mahogany),var(--mahogany2))">🏖️</div>
+          <div class="img-empty-slot" style="height:180px;border-radius:0">
+            <span class="slot-icon">📷</span>תמונת השראה — מינימל שיק, טונים כהים
+          </div>
           <div class="inspo-label">מינימל שיק</div>
         </div>
         <div class="inspo-card">
-          <div class="inspo-img-placeholder" style="background:linear-gradient(135deg,var(--sand),var(--tobacco))">💫</div>
+          <div class="img-empty-slot" style="height:180px;border-radius:0">
+            <span class="slot-icon">📷</span>תמונת השראה — אור זהב, שעת שקיעה
+          </div>
           <div class="inspo-label">גולד אוור</div>
         </div>
       </div>
