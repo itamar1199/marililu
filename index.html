@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>MARILILU — בגדי ים בהתאמה אישית</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&family=Heebo:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <style>
+    /* ── TOKENS ── */
+    :root {
+      --vanilla:   #F1EADA;
+      --tobacco:   #B59E7D;
+      --mountain:  #AAA398;
+      --sand:      #CEC1A8;
+      --mahogany:  #3D2318;
+      --mahogany2: #5C3825;
+      --dark:      #1C1008;
+      --light-bg:  #FAF7F2;
+      --white:     #FFFFFF;
+
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans:  'Heebo', 'Montserrat', sans-serif;
+
+      --radius-sm:  8px;
+      --radius-md:  16px;
+      --radius-lg:  28px;
+
+      --nav-height: 68px;
+      --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ── RESET ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      background: var(--dark);
+      font-family: var(--font-sans);
+      color: var(--dark);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── APP SHELL ── */
+    #app {
+      position: relative;
+      width: 100%;
+      max-width: 430px;
+      min-height: 100dvh;
+      margin: 0 auto;
+      background: var(--light-bg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── SCREENS ── */
+    .screen {
+      display: none;
+      flex: 1;
+      flex-direction: column;
+      overflow-y: auto;
+      padding-bottom: calc(var(--nav-height) + 16px);
+      animation: fadeSlide 0.35s ease forwards;
+    }
+    .screen.active { display: flex; }
+
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── BOTTOM NAV ── */
+    #bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 430px;
+      height: var(--nav-height);
+      background: var(--mahogany);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      z-index: 100;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .nav-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px 16px;
+      color: rgba(241,234,218,0.5);
+      transition: color var(--transition);
+      font-family: var(--font-sans);
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+    }
+    .nav-btn svg { width: 22px; height: 22px; stroke-width: 1.5; }
+    .nav-btn.active { color: var(--vanilla); }
+    .nav-btn.active svg { stroke: var(--vanilla); }
+    .nav-btn svg { stroke: currentColor; fill: none; }
+    .cart-badge {
+      position: absolute;
+      top: -4px; right: -4px;
+      background: var(--tobacco);
+      color: var(--vanilla);
+      font-size: 9px;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 600;
+    }
+    .nav-icon-wrap { position: relative; }
+
+    /* ══════════════════════════════
+       SCREEN 1 — HOME
+    ══════════════════════════════ */
+    .hero {
+      position: relative;
+      height: 520px;
+      background: linear-gradient(160deg, var(--mahogany) 0%, var(--mahogany2) 40%, #7A5240 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("תמונות בגד ים/WhatsApp Image 2026-04-11 at 20.49.03.jpeg") center/cover no-repeat;
+      opacity: 0.35;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(29,16,8,0.4) 0%, rgba(29,16,8,0.7) 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 0 24px;
+    }
+    .brand-name {
+      font-family: var(--font-serif);
+      font-size: 56px;
+      font-weight: 300;
+      letter-spacing: 0.18em;
+      color: var(--vanilla);
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+    .brand-tagline {
+      font-size: 13px;
+      letter-spacing: 0.22em;
+      color: var(--sand);
+      text-transform: uppercase;
+      font-weight: 300;
+    }
+    .hero-cta {
+      margin-top: 36px;
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+    .btn-primary {
+      background: var(--tobacco);
+      color: var(--vanilla);
+      border: none;
+      padding: 12px 28px;
+      border-radius: 100px;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: background var(--transition), transform 0.15s;
+    }
+    .btn-primary:active { transform: scale(0.97); }
+    .btn-primary:hover { background: var(--mahogany2); }
+    .btn-outline {
+      background: transparent;
+      color: var(--vanilla);
+      border: 1px solid rgba(241,234,218,0.5);
+      padding: 12px 28px;
+      border-radius: 100px;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: border-color var(--transition);
+    }
+    .btn-outline:hover { border-color: var(--vanilla); }
+
+    .section { padding: 36px 24px; }
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--tobacco);
+      margin-bottom: 10px;
+      font-weight: 500;
+    }
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: 30px;
+      font-weight: 400;
+      color: var(--mahogany);
+      line-height: 1.25;
+      margin-bottom: 14px;
+    }
+    .section-body {
+      font-size: 14px;
+      line-height: 1.8;
+      color: #5A4535;
+      font-weight: 300;
+    }
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--sand), transparent);
+      margin: 0 24px;
+    }
+
+    /* designer card */
+    .designer-card {
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      margin-top: 20px;
+    }
+    .designer-photo {
+      width: 90px;
+      height: 110px;
+      border-radius: var(--radius-md);
+      object-fit: cover;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, var(--sand), var(--tobacco));
+    }
+    .designer-info { flex: 1; }
+    .designer-name {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--mahogany);
+      margin-bottom: 6px;
+    }
+    .designer-title {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--tobacco);
+      margin-bottom: 10px;
+    }
+    .designer-bio {
+      font-size: 13px;
+      line-height: 1.7;
+      color: #6A5040;
+      font-weight: 300;
+    }
+
+    /* instagram */
+    .insta-section { background: var(--mahogany); padding: 36px 24px; }
+    .insta-section .section-label,
+    .insta-section .section-title { color: var(--vanilla); }
+    .insta-section .section-body { color: var(--sand); }
+    .insta-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+      margin-top: 20px;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+    .insta-cell {
+      aspect-ratio: 1;
+      background: var(--mahogany2);
+      position: relative;
+      overflow: hidden;
+    }
+    .insta-cell img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.85;
+      transition: opacity var(--transition);
+    }
+    .insta-cell:hover img { opacity: 1; }
+    .insta-cell .insta-placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--mahogany2), var(--tobacco));
+      opacity: 0.6;
+    }
+    .insta-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 20px;
+      background: rgba(241,234,218,0.1);
+      border: 1px solid rgba(241,234,218,0.2);
+      color: var(--vanilla);
+      padding: 14px;
+      border-radius: 100px;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: background var(--transition);
+      width: 100%;
+      text-decoration: none;
+    }
+    .insta-btn:hover { background: rgba(241,234,218,0.18); }
+    .insta-btn svg { width: 18px; height: 18px; }
+
+    /* contact */
+    .contact-form { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+    .form-input {
+      background: var(--white);
+      border: 1px solid var(--sand);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      color: var(--dark);
+      outline: none;
+      transition: border-color var(--transition);
+      width: 100%;
+      text-align: right;
+    }
+    .form-input:focus { border-color: var(--tobacco); }
+    .form-input::placeholder { color: var(--mountain); }
+    textarea.form-input { resize: none; min-height: 100px; }
+
+    /* ══════════════════════════════
+       SCREEN 2 — CUSTOM ORDER
+    ══════════════════════════════ */
+    .custom-header {
+      background: var(--mahogany);
+      padding: 52px 24px 28px;
+    }
+    .custom-header .section-label { color: var(--sand); }
+    .custom-header .section-title { color: var(--vanilla); font-size: 34px; }
+    .custom-header .section-body { color: rgba(206,193,168,0.7); font-size: 13px; }
+
+    .steps-progress {
+      display: flex;
+      gap: 6px;
+      padding: 20px 24px 0;
+    }
+    .step-dot {
+      flex: 1;
+      height: 3px;
+      border-radius: 2px;
+      background: var(--sand);
+      transition: background var(--transition);
+    }
+    .step-dot.done { background: var(--tobacco); }
+    .step-dot.active { background: var(--mahogany); }
+
+    .step-panel { padding: 28px 24px; }
+    .step-title {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      color: var(--mahogany);
+      margin-bottom: 6px;
+    }
+    .step-subtitle {
+      font-size: 12px;
+      color: var(--mountain);
+      margin-bottom: 22px;
+      letter-spacing: 0.05em;
+    }
+
+    /* fabric options */
+    .fabric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .fabric-card {
+      border: 2px solid var(--sand);
+      border-radius: var(--radius-md);
+      padding: 20px 16px;
+      cursor: pointer;
+      transition: border-color var(--transition), background var(--transition);
+      text-align: center;
+    }
+    .fabric-card:hover { border-color: var(--tobacco); }
+    .fabric-card.selected { border-color: var(--mahogany); background: rgba(61,35,24,0.05); }
+    .fabric-icon { font-size: 28px; margin-bottom: 8px; }
+    .fabric-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--mahogany);
+      margin-bottom: 4px;
+    }
+    .fabric-desc { font-size: 11px; color: var(--mountain); }
+
+    /* color picker */
+    .color-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+    .color-swatch {
+      aspect-ratio: 1;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 3px solid transparent;
+      transition: transform 0.2s, border-color 0.2s;
+      position: relative;
+    }
+    .color-swatch:hover { transform: scale(1.1); }
+    .color-swatch.selected { border-color: var(--mahogany); transform: scale(1.12); }
+    .color-swatch.selected::after {
+      content: '✓';
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: rgba(255,255,255,0.9);
+      font-weight: 600;
+    }
+    .color-name-display {
+      text-align: center;
+      margin-top: 14px;
+      font-size: 13px;
+      color: var(--mahogany);
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      min-height: 20px;
+    }
+
+    /* cut / style */
+    .cut-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .cut-card {
+      border: 2px solid var(--sand);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      cursor: pointer;
+      transition: border-color var(--transition), background var(--transition);
+    }
+    .cut-card.selected { border-color: var(--mahogany); background: rgba(61,35,24,0.05); }
+    .cut-illustration {
+      width: 100%;
+      height: 80px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      background: linear-gradient(135deg, var(--vanilla), var(--sand));
+    }
+    .cut-name { font-size: 13px; font-weight: 500; color: var(--mahogany); margin-bottom: 3px; }
+    .cut-desc { font-size: 11px; color: var(--mountain); }
+
+    /* size */
+    .size-grid { display: flex; gap: 10px; flex-wrap: wrap; }
+    .size-btn {
+      width: 58px; height: 58px;
+      border: 2px solid var(--sand);
+      border-radius: var(--radius-sm);
+      background: none;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--mahogany);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .size-btn:hover { border-color: var(--tobacco); }
+    .size-btn.selected { background: var(--mahogany); color: var(--vanilla); border-color: var(--mahogany); }
+
+    /* summary card */
+    .summary-card {
+      margin: 0 24px;
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      border: 1px solid var(--sand);
+    }
+    .summary-title {
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--tobacco);
+      margin-bottom: 14px;
+      font-weight: 500;
+    }
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--vanilla);
+      font-size: 13px;
+    }
+    .summary-row:last-child { border-bottom: none; }
+    .summary-row .label { color: var(--mountain); }
+    .summary-row .value { color: var(--mahogany); font-weight: 500; }
+
+    .step-nav {
+      display: flex;
+      gap: 10px;
+      padding: 20px 24px;
+    }
+    .step-nav .btn-back {
+      background: var(--sand);
+      color: var(--mahogany);
+      border: none;
+      padding: 14px 20px;
+      border-radius: 100px;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      flex: 0 0 auto;
+      transition: background var(--transition);
+    }
+    .step-nav .btn-back:hover { background: var(--mountain); color: var(--vanilla); }
+    .step-nav .btn-primary { flex: 1; padding: 14px; font-size: 14px; }
+
+    .price-tag {
+      font-family: var(--font-serif);
+      font-size: 28px;
+      color: var(--mahogany);
+      text-align: center;
+      margin: 8px 0 4px;
+    }
+    .price-note { font-size: 11px; color: var(--mountain); text-align: center; }
+
+    /* ══════════════════════════════
+       SCREEN 3 — COLLECTION
+    ══════════════════════════════ */
+    .collection-header {
+      background: var(--mahogany);
+      padding: 52px 24px 28px;
+    }
+    .filter-tabs {
+      display: flex;
+      gap: 8px;
+      padding: 16px 24px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .filter-tabs::-webkit-scrollbar { display: none; }
+    .filter-tab {
+      white-space: nowrap;
+      padding: 8px 18px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      border: 1.5px solid var(--sand);
+      background: none;
+      color: var(--mountain);
+      font-family: var(--font-sans);
+      transition: all var(--transition);
+    }
+    .filter-tab.active {
+      background: var(--mahogany);
+      color: var(--vanilla);
+      border-color: var(--mahogany);
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      padding: 0 16px;
+    }
+    .product-card {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .product-card:active { transform: scale(0.98); }
+    .product-img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      display: block;
+    }
+    .product-img-placeholder {
+      width: 100%;
+      aspect-ratio: 3/4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 42px;
+    }
+    .product-info { padding: 12px; }
+    .product-name {
+      font-family: var(--font-serif);
+      font-size: 16px;
+      color: var(--mahogany);
+      margin-bottom: 2px;
+    }
+    .product-type {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--mountain);
+      margin-bottom: 8px;
+    }
+    .product-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .product-price {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      color: var(--mahogany);
+      font-weight: 500;
+    }
+    .add-btn {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--mahogany);
+      border: none;
+      color: var(--vanilla);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+      transition: background var(--transition);
+    }
+    .add-btn:hover { background: var(--tobacco); }
+
+    /* inspiration strip */
+    .inspo-strip {
+      padding: 24px;
+      background: var(--vanilla);
+      margin: 16px 0 0;
+    }
+    .inspo-strip .section-label { margin-bottom: 14px; }
+    .inspo-scroll {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-bottom: 4px;
+    }
+    .inspo-scroll::-webkit-scrollbar { display: none; }
+    .inspo-card {
+      flex-shrink: 0;
+      width: 140px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: var(--sand);
+    }
+    .inspo-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+    }
+    .inspo-img-placeholder {
+      width: 100%;
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+    }
+    .inspo-label {
+      padding: 8px 10px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--mahogany);
+      letter-spacing: 0.05em;
+    }
+
+    /* ══════════════════════════════
+       SCREEN 4 — CART & CHECKOUT
+    ══════════════════════════════ */
+    .cart-header {
+      background: var(--mahogany);
+      padding: 52px 24px 28px;
+    }
+    .cart-count-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--tobacco);
+      color: var(--vanilla);
+      border-radius: 100px;
+      padding: 4px 12px;
+      font-size: 12px;
+      font-weight: 500;
+      margin-top: 8px;
+    }
+
+    .cart-list { padding: 20px 24px; display: flex; flex-direction: column; gap: 14px; }
+    .cart-item {
+      display: flex;
+      gap: 14px;
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      align-items: center;
+    }
+    .cart-item-img {
+      width: 70px; height: 85px;
+      border-radius: var(--radius-sm);
+      object-fit: cover;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, var(--sand), var(--tobacco));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px;
+    }
+    .cart-item-details { flex: 1; }
+    .cart-item-name {
+      font-family: var(--font-serif);
+      font-size: 17px;
+      color: var(--mahogany);
+      margin-bottom: 4px;
+    }
+    .cart-item-meta {
+      font-size: 11px;
+      color: var(--mountain);
+      margin-bottom: 8px;
+      letter-spacing: 0.04em;
+    }
+    .cart-item-price {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      color: var(--mahogany);
+    }
+    .remove-btn {
+      background: none;
+      border: none;
+      color: var(--mountain);
+      cursor: pointer;
+      font-size: 18px;
+      padding: 4px;
+      transition: color var(--transition);
+    }
+    .remove-btn:hover { color: var(--mahogany); }
+
+    .empty-cart {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 24px;
+      text-align: center;
+      gap: 16px;
+    }
+    .empty-cart-icon { font-size: 56px; opacity: 0.3; }
+    .empty-cart-text { font-family: var(--font-serif); font-size: 22px; color: var(--mountain); }
+    .empty-cart-sub { font-size: 13px; color: var(--mountain); font-weight: 300; }
+
+    .order-summary {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      margin: 0 24px;
+      padding: 20px;
+      border: 1px solid var(--sand);
+    }
+    .order-summary-title {
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--tobacco);
+      margin-bottom: 14px;
+      font-weight: 500;
+    }
+    .order-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      padding: 6px 0;
+      color: var(--mountain);
+    }
+    .order-total {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0 0;
+      margin-top: 8px;
+      border-top: 1px solid var(--sand);
+    }
+    .order-total .label { font-size: 15px; font-weight: 500; color: var(--mahogany); }
+    .order-total .amount { font-family: var(--font-serif); font-size: 22px; color: var(--mahogany); }
+
+    .checkout-section {
+      padding: 24px;
+    }
+    .checkout-section-title {
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--tobacco);
+      margin-bottom: 14px;
+      font-weight: 500;
+    }
+    .checkout-form { display: flex; flex-direction: column; gap: 10px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    .pay-btn {
+      width: 100%;
+      background: var(--mahogany);
+      color: var(--vanilla);
+      border: none;
+      padding: 18px;
+      border-radius: 100px;
+      font-family: var(--font-sans);
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: background var(--transition);
+      margin-top: 8px;
+    }
+    .pay-btn:hover { background: var(--mahogany2); }
+
+    .secure-note {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--mountain);
+      margin-top: 12px;
+    }
+    .secure-note svg { width: 14px; height: 14px; stroke: var(--mountain); fill: none; }
+
+    /* Success modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 40px 28px;
+      text-align: center;
+      max-width: 320px;
+      width: 90%;
+      animation: modalIn 0.3s cubic-bezier(0.34,1.56,0.64,1) forwards;
+    }
+    @keyframes modalIn {
+      from { opacity:0; transform: scale(0.8); }
+      to   { opacity:1; transform: scale(1); }
+    }
+    .modal-icon { font-size: 52px; margin-bottom: 16px; }
+    .modal-title {
+      font-family: var(--font-serif);
+      font-size: 26px;
+      color: var(--mahogany);
+      margin-bottom: 10px;
+    }
+    .modal-body { font-size: 14px; color: var(--mountain); line-height: 1.6; margin-bottom: 24px; }
+    .modal-btn {
+      background: var(--mahogany);
+      color: var(--vanilla);
+      border: none;
+      padding: 14px 36px;
+      border-radius: 100px;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    /* toast */
+    .toast {
+      position: fixed;
+      bottom: calc(var(--nav-height) + 16px);
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--mahogany);
+      color: var(--vanilla);
+      padding: 12px 24px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 500;
+      z-index: 300;
+      transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+  </style>
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ───────────────────────────── SCREEN 1: HOME ───────────────────────────── -->
+  <section id="screen-home" class="screen active">
+
+    <div class="hero">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="brand-name">MARILILU</div>
+        <div class="brand-tagline">Handcrafted Swimwear · Made for you</div>
+        <div class="hero-cta">
+          <button class="btn-primary" onclick="navigate('custom')">עצבי את שלך</button>
+          <button class="btn-outline" onclick="navigate('collection')">הקולקציה</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- About -->
+    <div class="section">
+      <div class="section-label">אודות המותג</div>
+      <div class="section-title">בגדי ים שנולדו מאהבה לגוף הנשי</div>
+      <div class="section-body">
+        MARILILU הוא מותג בגדי ים ישראלי בוטיק, שנוצר מתוך אמונה שכל גוף ראויה ללבוש שנתפר עבורה בלבד.
+        כל פריט מעוצב בקפידה תוך שימוש בבדים איכותיים, ומותאם אישית לגזרה ולצבע שתבחרי.
+        אנחנו לא מוכרות בגד ים — אנחנו מוכרות הרגשה.
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Designer -->
+    <div class="section">
+      <div class="section-label">המעצבת</div>
+      <div class="designer-card">
+        <img
+          src="תמונות בגד ים/WhatsApp Image 2026-04-11 at 20.49.03 (1).jpeg"
+          alt="המעצבת"
+          class="designer-photo"
+          onerror="this.style.background='linear-gradient(135deg,#CEC1A8,#B59E7D)';this.alt=''"
+        />
+        <div class="designer-info">
+          <div class="designer-name">מרי לילו</div>
+          <div class="designer-title">מייסדת ומעצבת ראשית</div>
+          <div class="designer-bio">
+            מעצבת אופנה עם ניסיון של מעל עשור בעולם בגדי הים.
+            כל קולקציה מגיעה ממקום אישי — מסע, צבע, תחושה.
+            "אני מאמינה שבגד ים טוב מתחיל מהקשבה לגוף."
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Instagram -->
+    <div class="insta-section">
+      <div class="section-label">אינסטגרם</div>
+      <div class="section-title" style="color:var(--vanilla)">@marililu.swimwear</div>
+      <div class="section-body" style="color:var(--sand);margin-bottom:0">
+        עקבי אחרינו לקבלת השראה יומיומית, הצצות מאחורי הקלעים ומהדורות חדשות.
+      </div>
+      <div class="insta-grid" style="margin-top:20px">
+        <div class="insta-cell">
+          <img src="תמונות בגד ים/WhatsApp Image 2026-04-11 at 20.49.03.jpeg" alt="" onerror="this.outerHTML='<div class=insta-placeholder></div>'" />
+        </div>
+        <div class="insta-cell">
+          <img src="תמונות בגד ים/WhatsApp Image 2026-04-11 at 20.49.03 (1).jpeg" alt="" onerror="this.outerHTML='<div class=insta-placeholder></div>'" />
+        </div>
+        <div class="insta-cell">
+          <img src="תמונות בגד ים/WhatsApp Image 2026-04-11 at 20.49.03 (2).jpeg" alt="" onerror="this.outerHTML='<div class=insta-placeholder></div>'" />
+        </div>
+        <div class="insta-cell"><div class="insta-placeholder" style="opacity:0.5;background:linear-gradient(135deg,#5C3825,#B59E7D)"></div></div>
+        <div class="insta-cell"><div class="insta-placeholder" style="opacity:0.4;background:linear-gradient(135deg,#7A5240,#AAA398)"></div></div>
+        <div class="insta-cell"><div class="insta-placeholder" style="opacity:0.45;background:linear-gradient(135deg,#3D2318,#B59E7D)"></div></div>
+      </div>
+      <a href="https://instagram.com/marililu.swimwear" target="_blank" class="insta-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+        </svg>
+        מעבר לאינסטגרם
+      </a>
+    </div>
+
+    <!-- Contact -->
+    <div class="section">
+      <div class="section-label">צרי קשר</div>
+      <div class="section-title">נשמח לשמוע ממך</div>
+      <div class="section-body">לשאלות, הזמנות מיוחדות או שיתופי פעולה — אנחנו כאן.</div>
+      <form class="contact-form" onsubmit="handleContact(event)">
+        <input class="form-input" type="text" name="name" placeholder="שם מלא" required />
+        <input class="form-input" type="email" name="email" placeholder="כתובת מייל" required />
+        <input class="form-input" type="tel" name="phone" placeholder="טלפון (אופציונלי)" />
+        <textarea class="form-input" name="message" placeholder="הודעה..." rows="4"></textarea>
+        <button type="submit" class="btn-primary" style="padding:14px;font-size:14px">שלחי הודעה</button>
+      </form>
+    </div>
+
+  </section>
+
+
+  <!-- ───────────────────────────── SCREEN 2: CUSTOM ORDER ───────────────────────────── -->
+  <section id="screen-custom" class="screen">
+
+    <div class="custom-header">
+      <div class="section-label">עיצוב אישי</div>
+      <div class="section-title">בגד הים שלך,<br/>בדיוק כמו שדמיינת</div>
+      <div class="section-body">ארבעה שלבים פשוטים ליצירת הפריט המושלם</div>
+    </div>
+
+    <div class="steps-progress" id="steps-progress">
+      <div class="step-dot active" id="dot-0"></div>
+      <div class="step-dot" id="dot-1"></div>
+      <div class="step-dot" id="dot-2"></div>
+      <div class="step-dot" id="dot-3"></div>
+    </div>
+
+    <!-- STEP 1: Fabric -->
+    <div class="step-panel" id="step-0">
+      <div class="step-title">בחרי סוג בד</div>
+      <div class="step-subtitle">שלב 1 מתוך 4</div>
+      <div class="fabric-grid">
+        <div class="fabric-card" onclick="selectFabric('ליקרה קלאסית','1')">
+          <div class="fabric-icon">🌊</div>
+          <div class="fabric-name">ליקרה קלאסית</div>
+          <div class="fabric-desc">עמיד, מחזיק צורה, מושלם לים</div>
+        </div>
+        <div class="fabric-card" onclick="selectFabric('ניאופרן','2')">
+          <div class="fabric-icon">🏄</div>
+          <div class="fabric-name">ניאופרן</div>
+          <div class="fabric-desc">תמיכה מרבית, מראה ספורטיבי</div>
+        </div>
+        <div class="fabric-card" onclick="selectFabric('שימר לורקס','3')">
+          <div class="fabric-icon">✨</div>
+          <div class="fabric-name">שימר לורקס</div>
+          <div class="fabric-desc">ברק עדין, מראה מפנק ויוקרתי</div>
+        </div>
+        <div class="fabric-card" onclick="selectFabric('וולאור','4')">
+          <div class="fabric-icon">🌸</div>
+          <div class="fabric-name">וולאור</div>
+          <div class="fabric-desc">מרקם עשיר, מגע רך ועוטף</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2: Color -->
+    <div class="step-panel" id="step-1" style="display:none">
+      <div class="step-title">בחרי צבע</div>
+      <div class="step-subtitle">שלב 2 מתוך 4</div>
+      <div class="color-grid">
+        <div class="color-swatch" style="background:#F1EADA" onclick="selectColor('וניל','#F1EADA',this)"></div>
+        <div class="color-swatch" style="background:#B59E7D" onclick="selectColor('טבקו','#B59E7D',this)"></div>
+        <div class="color-swatch" style="background:#AAA398" onclick="selectColor('מאונטיין','#AAA398',this)"></div>
+        <div class="color-swatch" style="background:#CEC1A8" onclick="selectColor('סנד','#CEC1A8',this)"></div>
+        <div class="color-swatch" style="background:#3D2318" onclick="selectColor('מהגוני','#3D2318',this)"></div>
+        <div class="color-swatch" style="background:#8B6E5A" onclick="selectColor('ברונז','#8B6E5A',this)"></div>
+        <div class="color-swatch" style="background:#D4A58A" onclick="selectColor('פיצ\'','#D4A58A',this)"></div>
+        <div class="color-swatch" style="background:#2C2C2C" onclick="selectColor('שחור','#2C2C2C',this)"></div>
+        <div class="color-swatch" style="background:#FFFFFF;border:2px solid var(--sand)" onclick="selectColor('לבן','#FFFFFF',this)"></div>
+        <div class="color-swatch" style="background:#7A8C6E" onclick="selectColor('זית','#7A8C6E',this)"></div>
+      </div>
+      <div class="color-name-display" id="color-name">בחרי צבע מהרשימה</div>
+    </div>
+
+    <!-- STEP 3: Cut -->
+    <div class="step-panel" id="step-2" style="display:none">
+      <div class="step-title">בחרי גזרה</div>
+      <div class="step-subtitle">שלב 3 מתוך 4</div>
+      <div class="cut-grid">
+        <div class="cut-card" onclick="selectCut('טרייאנגל','triangle')">
+          <div class="cut-illustration">🔺</div>
+          <div class="cut-name">טרייאנגל</div>
+          <div class="cut-desc">קלאסי ונצחי, מתאים לכל גוף</div>
+        </div>
+        <div class="cut-card" onclick="selectCut('בנדו','bandeau')">
+          <div class="cut-illustration">〰️</div>
+          <div class="cut-name">בנדו</div>
+          <div class="cut-desc">טרנדי, ללא כתפיות</div>
+        </div>
+        <div class="cut-card" onclick="selectCut('הולטר','halter')">
+          <div class="cut-illustration">⬆️</div>
+          <div class="cut-name">הולטר</div>
+          <div class="cut-desc">תמיכה מקסימלית, מחמיא לחזה</div>
+        </div>
+        <div class="cut-card" onclick="selectCut('ספורט','sport')">
+          <div class="cut-illustration">🏊</div>
+          <div class="cut-name">ספורט</div>
+          <div class="cut-desc">כיסוי מלא, נוח לתנועה</div>
+        </div>
+        <div class="cut-card" onclick="selectCut('מידי','midi')">
+          <div class="cut-illustration">🩱</div>
+          <div class="cut-name">מידי שורט</div>
+          <div class="cut-desc">מכנסון גבוה, אלגנטי</div>
+        </div>
+        <div class="cut-card" onclick="selectCut('ביקיני','bikini')">
+          <div class="cut-illustration">👙</div>
+          <div class="cut-name">ביקיני</div>
+          <div class="cut-desc">קלאסיק שלא עובר</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4: Size -->
+    <div class="step-panel" id="step-3" style="display:none">
+      <div class="step-title">בחרי מידה</div>
+      <div class="step-subtitle">שלב 4 מתוך 4</div>
+
+      <div class="size-grid" style="margin-bottom:24px">
+        <button class="size-btn" onclick="selectSize('XS',this)">XS</button>
+        <button class="size-btn" onclick="selectSize('S',this)">S</button>
+        <button class="size-btn" onclick="selectSize('M',this)">M</button>
+        <button class="size-btn" onclick="selectSize('L',this)">L</button>
+        <button class="size-btn" onclick="selectSize('XL',this)">XL</button>
+        <button class="size-btn" onclick="selectSize('XXL',this)">XXL</button>
+      </div>
+
+      <div style="padding:0 0 20px">
+        <div class="summary-title" style="font-size:11px;letter-spacing:0.25em;text-transform:uppercase;color:var(--tobacco);margin-bottom:14px;font-weight:500">סיכום הזמנה</div>
+        <div class="summary-card">
+          <div class="summary-row"><span class="label">בד</span><span class="value" id="sum-fabric">—</span></div>
+          <div class="summary-row"><span class="label">צבע</span><span class="value"><span id="sum-color-dot" style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#ccc;margin-left:6px;vertical-align:middle"></span><span id="sum-color">—</span></span></div>
+          <div class="summary-row"><span class="label">גזרה</span><span class="value" id="sum-cut">—</span></div>
+          <div class="summary-row"><span class="label">מידה</span><span class="value" id="sum-size">—</span></div>
+        </div>
+        <div class="price-tag" style="margin-top:20px">₪ 380</div>
+        <div class="price-note">כולל התאמה אישית מלאה · משלוח חינם</div>
+      </div>
+    </div>
+
+    <!-- Nav buttons -->
+    <div class="step-nav" id="step-nav">
+      <button class="btn-back" id="btn-back" onclick="prevStep()" style="display:none">חזרה</button>
+      <button class="btn-primary" id="btn-next" onclick="nextStep()">המשך</button>
+    </div>
+
+  </section>
+
+
+  <!-- ───────────────────────────── SCREEN 3: COLLECTION ───────────────────────────── -->
+  <section id="screen-collection" class="screen">
+
+    <div class="collection-header">
+      <div class="section-label">קולקציה</div>
+      <div class="section-title" style="color:var(--vanilla);font-size:34px">הפריטים שלנו</div>
+      <div class="section-body" style="color:var(--sand);font-size:13px">פריטים מוכנים ואינסטגרם להשראה</div>
+    </div>
+
+    <div class="filter-tabs" id="filter-tabs">
+      <button class="filter-tab active" onclick="filterProducts('הכל',this)">הכל</button>
+      <button class="filter-tab" onclick="filterProducts('טופ',this)">טופ</button>
+      <button class="filter-tab" onclick="filterProducts('תחתית',this)">תחתית</button>
+      <button class="filter-tab" onclick="filterProducts('סט מלא',this)">סט מלא</button>
+      <button class="filter-tab" onclick="filterProducts('בגד שלם',this)">בגד שלם</button>
+    </div>
+
+    <div class="product-grid" id="product-grid"></div>
+
+    <!-- Inspiration -->
+    <div class="inspo-strip">
+      <div class="section-label">השראה מהסטודיו</div>
+      <div class="inspo-scroll">
+        <div class="inspo-card">
+          <img src="תמונות בגד ים/WhatsApp Image 2026-04-11 at 20.49.03.jpeg"
+               class="inspo-img"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+               alt="השראה 1"/>
+          <div class="inspo-img-placeholder" style="display:none;background:linear-gradient(135deg,var(--tobacco),var(--sand))">🌊</div>
+          <div class="inspo-label">קולקציית קיץ</div>
+        </div>
+        <div class="inspo-card">
+          <img src="תמונות בגד ים/WhatsApp Image 2026-04-11 at 20.49.03 (1).jpeg"
+               class="inspo-img"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+               alt="השראה 2"/>
+          <div class="inspo-img-placeholder" style="display:none;background:linear-gradient(135deg,var(--mahogany2),var(--tobacco))">✨</div>
+          <div class="inspo-label">אור שקיעה</div>
+        </div>
+        <div class="inspo-card">
+          <img src="תמונות בגד ים/WhatsApp Image 2026-04-11 at 20.49.03 (2).jpeg"
+               class="inspo-img"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+               alt="השראה 3"/>
+          <div class="inspo-img-placeholder" style="display:none;background:linear-gradient(135deg,var(--mountain),var(--vanilla))">🌸</div>
+          <div class="inspo-label">טון על טון</div>
+        </div>
+        <div class="inspo-card">
+          <div class="inspo-img-placeholder" style="background:linear-gradient(135deg,var(--mahogany),var(--mahogany2))">🏖️</div>
+          <div class="inspo-label">מינימל שיק</div>
+        </div>
+        <div class="inspo-card">
+          <div class="inspo-img-placeholder" style="background:linear-gradient(135deg,var(--sand),var(--tobacco))">💫</div>
+          <div class="inspo-label">גולד אוור</div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- ───────────────────────────── SCREEN 4: CART ───────────────────────────── -->
+  <section id="screen-cart" class="screen">
+
+    <div class="cart-header">
+      <div class="section-label">עגלת קניות</div>
+      <div class="section-title" style="color:var(--vanilla);font-size:34px">ההזמנה שלך</div>
+      <div id="cart-count-display"></div>
+    </div>
+
+    <div id="cart-content">
+      <!-- filled by JS -->
+    </div>
+
+  </section>
+
+</div><!-- /#app -->
+
+
+<!-- BOTTOM NAV -->
+<nav id="bottom-nav">
+  <button class="nav-btn active" id="nav-home" onclick="navigate('home')">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    בית
+  </button>
+  <button class="nav-btn" id="nav-custom" onclick="navigate('custom')">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
+    עיצוב
+  </button>
+  <button class="nav-btn" id="nav-collection" onclick="navigate('collection')">
+    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+    קולקציה
+  </button>
+  <button class="nav-btn" id="nav-cart" onclick="navigate('cart')">
+    <div class="nav-icon-wrap">
+      <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      <span class="cart-badge" id="cart-badge" style="display:none">0</span>
+    </div>
+    עגלה
+  </button>
+</nav>
+
+<!-- Success Modal -->
+<div class="modal-overlay" id="success-modal">
+  <div class="modal">
+    <div class="modal-icon">🎉</div>
+    <div class="modal-title">ההזמנה נשלחה!</div>
+    <div class="modal-body" id="modal-message">תודה על הזמנתך. נחזור אליך תוך 24 שעות עם אישור ומועד אספקה.</div>
+    <button class="modal-btn" onclick="closeModal()">תודה רבה!</button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+
+<script>
+// ══════════════════════════════
+// SUPABASE
+// ══════════════════════════════
+const _sb = supabase.createClient(
+  'https://xabdrjyglfolaoxmwcya.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhhYmRyanlnbGZvbGFveG13Y3lhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU3ODMxNDcsImV4cCI6MjA5MTM1OTE0N30.vcEhnyZeB-s1I905d1FxN-0MJAcsMb3PllYzfatNeTY'
+);
+
+async function saveLead({ name, email, phone, source }) {
+  try {
+    const { error } = await _sb.from('leads').insert([{
+      name:  name  || null,
+      email: email || null,
+      phone: phone || null,
+      source: source || null,
+    }]);
+    if (error) console.error('Supabase error:', error.message);
+  } catch (err) {
+    console.error('saveLead failed:', err);
+  }
+}
+
+// ══════════════════════════════
+// STATE
+// ══════════════════════════════
+let cart = [];
+let currentStep = 0;
+let customOrder = { fabric: '', color: '', colorHex: '', cut: '', size: '' };
+
+// ══════════════════════════════
+// PRODUCTS DATA
+// ══════════════════════════════
+const products = [
+  { id:1, name:'The Tobacco Top',     type:'טופ',     price:180, emoji:'🩱', gradient:'linear-gradient(135deg,#B59E7D,#F1EADA)', desc:'טרייאנגל רך' },
+  { id:2, name:'Desert Bottom',       type:'תחתית',   price:140, emoji:'👙', gradient:'linear-gradient(135deg,#CEC1A8,#B59E7D)', desc:'ביקיני גבוה' },
+  { id:3, name:'Mahogany Set',         type:'סט מלא',  price:380, emoji:'✨', gradient:'linear-gradient(135deg,#3D2318,#7A5240)', desc:'סט בנדו' },
+  { id:4, name:'Sand One-Piece',       type:'בגד שלם', price:320, emoji:'🌊', gradient:'linear-gradient(135deg,#CEC1A8,#F1EADA)', desc:'שלם ספורטיבי' },
+  { id:5, name:'Vanilla Halter',       type:'טופ',     price:195, emoji:'🌸', gradient:'linear-gradient(135deg,#F1EADA,#CEC1A8)', desc:'הולטר עדין' },
+  { id:6, name:'Mountain Midi',        type:'תחתית',   price:155, emoji:'💫', gradient:'linear-gradient(135deg,#AAA398,#CEC1A8)', desc:'מידי שורט' },
+];
+
+function renderProducts(filter = 'הכל') {
+  const grid = document.getElementById('product-grid');
+  const filtered = filter === 'הכל' ? products : products.filter(p => p.type === filter);
+  grid.innerHTML = filtered.map(p => `
+    <div class="product-card">
+      <div class="product-img-placeholder" style="background:${p.gradient}">${p.emoji}</div>
+      <div class="product-info">
+        <div class="product-name">${p.name}</div>
+        <div class="product-type">${p.type} · ${p.desc}</div>
+        <div class="product-bottom">
+          <div class="product-price">₪ ${p.price}</div>
+          <button class="add-btn" onclick="addToCart(${p.id})" title="הוסף לעגלה">+</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterProducts(filter, btn) {
+  document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderProducts(filter);
+}
+
+// ══════════════════════════════
+// NAVIGATION
+// ══════════════════════════════
+function navigate(screen) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('screen-' + screen).classList.add('active');
+  document.getElementById('nav-' + screen).classList.add('active');
+  if (screen === 'cart') renderCart();
+  // scroll to top
+  document.getElementById('screen-' + screen).scrollTop = 0;
+}
+
+// ══════════════════════════════
+// CUSTOM ORDER STEPS
+// ══════════════════════════════
+function updateProgress() {
+  for (let i = 0; i < 4; i++) {
+    const dot = document.getElementById('dot-' + i);
+    dot.classList.remove('active','done');
+    if (i < currentStep) dot.classList.add('done');
+    if (i === currentStep) dot.classList.add('active');
+  }
+  document.getElementById('btn-back').style.display = currentStep > 0 ? 'block' : 'none';
+  const nextBtn = document.getElementById('btn-next');
+  nextBtn.textContent = currentStep === 3 ? 'הוסף לעגלה' : 'המשך';
+}
+
+function showStep(i) {
+  for (let s = 0; s < 4; s++) {
+    document.getElementById('step-' + s).style.display = s === i ? 'block' : 'none';
+  }
+  updateProgress();
+}
+
+function nextStep() {
+  if (currentStep === 0 && !customOrder.fabric) { showToast('בחרי סוג בד תחילה'); return; }
+  if (currentStep === 1 && !customOrder.color)  { showToast('בחרי צבע תחילה'); return; }
+  if (currentStep === 2 && !customOrder.cut)    { showToast('בחרי גזרה תחילה'); return; }
+  if (currentStep === 3) {
+    if (!customOrder.size) { showToast('בחרי מידה תחילה'); return; }
+    addCustomToCart();
+    return;
+  }
+  currentStep++;
+  showStep(currentStep);
+}
+
+function prevStep() {
+  if (currentStep > 0) { currentStep--; showStep(currentStep); }
+}
+
+function selectFabric(name, id) {
+  customOrder.fabric = name;
+  document.querySelectorAll('.fabric-card').forEach((c,i) => {
+    c.classList.toggle('selected', c.getAttribute('onclick').includes("'" + name + "'"));
+  });
+  document.getElementById('sum-fabric').textContent = name;
+}
+
+function selectColor(name, hex, el) {
+  customOrder.color = name;
+  customOrder.colorHex = hex;
+  document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('color-name').textContent = name;
+  document.getElementById('sum-color').textContent = name;
+  document.getElementById('sum-color-dot').style.background = hex;
+}
+
+function selectCut(name, id) {
+  customOrder.cut = name;
+  document.querySelectorAll('.cut-card').forEach(c => {
+    c.classList.toggle('selected', c.getAttribute('onclick').includes("'" + name + "'"));
+  });
+  document.getElementById('sum-cut').textContent = name;
+}
+
+function selectSize(size, btn) {
+  customOrder.size = size;
+  document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  document.getElementById('sum-size').textContent = size;
+}
+
+function addCustomToCart() {
+  cart.push({
+    id: Date.now(),
+    name: `${customOrder.cut} ${customOrder.color}`,
+    meta: `${customOrder.fabric} · מידה ${customOrder.size}`,
+    price: 380,
+    emoji: '✨',
+    custom: true
+  });
+  updateCartBadge();
+  showToast('הפריט נוסף לעגלה!');
+  // reset
+  currentStep = 0;
+  customOrder = { fabric:'', color:'', colorHex:'', cut:'', size:'' };
+  document.querySelectorAll('.fabric-card,.cut-card,.size-btn,.color-swatch').forEach(el => {
+    el.classList.remove('selected');
+  });
+  document.getElementById('color-name').textContent = 'בחרי צבע מהרשימה';
+  ['sum-fabric','sum-color','sum-cut','sum-size'].forEach(id => document.getElementById(id).textContent = '—');
+  document.getElementById('sum-color-dot').style.background = '#ccc';
+  showStep(0);
+  setTimeout(() => navigate('cart'), 800);
+}
+
+// ══════════════════════════════
+// CART
+// ══════════════════════════════
+function addToCart(productId) {
+  const p = products.find(x => x.id === productId);
+  if (!p) return;
+  cart.push({ id: Date.now(), name: p.name, meta: p.type + ' · ' + p.desc, price: p.price, emoji: p.emoji, custom: false });
+  updateCartBadge();
+  showToast(p.name + ' נוסף לעגלה');
+}
+
+function removeFromCart(id) {
+  cart = cart.filter(i => i.id !== id);
+  updateCartBadge();
+  renderCart();
+}
+
+function updateCartBadge() {
+  const badge = document.getElementById('cart-badge');
+  if (cart.length > 0) {
+    badge.style.display = 'flex';
+    badge.textContent = cart.length;
+  } else {
+    badge.style.display = 'none';
+  }
+}
+
+function renderCart() {
+  const content = document.getElementById('cart-content');
+  const countDisplay = document.getElementById('cart-count-display');
+
+  if (cart.length === 0) {
+    countDisplay.innerHTML = '';
+    content.innerHTML = `
+      <div class="empty-cart">
+        <div class="empty-cart-icon">🛍️</div>
+        <div class="empty-cart-text">העגלה ריקה</div>
+        <div class="empty-cart-sub">הוסיפי פריטים מהקולקציה או עצבי פריט אישי</div>
+        <button class="btn-primary" style="margin-top:8px" onclick="navigate('collection')">לקולקציה</button>
+      </div>`;
+    return;
+  }
+
+  countDisplay.innerHTML = `<div class="cart-count-badge">${cart.length} פריט${cart.length !== 1 ? 'ים' : ''}</div>`;
+  const total = cart.reduce((s,i) => s + i.price, 0);
+  const shipping = total >= 300 ? 0 : 35;
+
+  content.innerHTML = `
+    <div class="cart-list">
+      ${cart.map(item => `
+        <div class="cart-item">
+          <div class="cart-item-img">${item.emoji}</div>
+          <div class="cart-item-details">
+            <div class="cart-item-name">${item.name}</div>
+            <div class="cart-item-meta">${item.meta}</div>
+            <div class="cart-item-price">₪ ${item.price}</div>
+          </div>
+          <button class="remove-btn" onclick="removeFromCart(${item.id})">✕</button>
+        </div>
+      `).join('')}
+    </div>
+
+    <div class="order-summary" style="margin-bottom:20px">
+      <div class="order-summary-title">סיכום הזמנה</div>
+      <div class="order-row"><span>מוצרים (${cart.length})</span><span>₪ ${total}</span></div>
+      <div class="order-row"><span>משלוח</span><span>${shipping === 0 ? 'חינם' : '₪ ' + shipping}</span></div>
+      ${shipping > 0 ? `<div class="order-row" style="font-size:11px;color:var(--tobacco)"><span>משלוח חינם מ-₪300</span><span></span></div>` : ''}
+      <div class="order-total">
+        <span class="label">סה"כ לתשלום</span>
+        <span class="amount">₪ ${total + shipping}</span>
+      </div>
+    </div>
+
+    <div class="checkout-section">
+      <div class="checkout-section-title">פרטי משלוח</div>
+      <form class="checkout-form" onsubmit="handleCheckout(event)">
+        <div class="form-row">
+          <input class="form-input" type="text" name="first_name" placeholder="שם פרטי" required />
+          <input class="form-input" type="text" name="last_name" placeholder="שם משפחה" required />
+        </div>
+        <input class="form-input" type="email" name="email" placeholder="כתובת מייל" required />
+        <input class="form-input" type="tel" name="phone" placeholder="מספר טלפון" required />
+        <input class="form-input" type="text" placeholder="כתובת מלאה" required />
+        <div class="form-row">
+          <input class="form-input" type="text" placeholder="עיר" required />
+          <input class="form-input" type="text" placeholder="מיקוד" />
+        </div>
+
+        <div class="checkout-section-title" style="margin-top:16px">פרטי תשלום</div>
+        <input class="form-input" type="text" placeholder="מספר כרטיס אשראי" maxlength="19" />
+        <div class="form-row">
+          <input class="form-input" type="text" placeholder="MM/YY" maxlength="5" />
+          <input class="form-input" type="text" placeholder="CVV" maxlength="4" />
+        </div>
+        <input class="form-input" type="text" placeholder="שם בעל הכרטיס" />
+
+        <button type="submit" class="pay-btn">לתשלום · ₪ ${total + shipping}</button>
+        <div class="secure-note">
+          <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          תשלום מאובטח SSL · מוצפן בחלוטין
+        </div>
+      </form>
+    </div>
+  `;
+}
+
+function handleCheckout(e) {
+  e.preventDefault();
+  const fd = new FormData(e.target);
+  const firstName = fd.get('first_name') || '';
+  const lastName  = fd.get('last_name')  || '';
+  saveLead({
+    name:   (firstName + ' ' + lastName).trim(),
+    email:  fd.get('email'),
+    phone:  fd.get('phone'),
+    source: 'checkout',
+  });
+  cart = [];
+  updateCartBadge();
+  document.getElementById('modal-message').textContent = 'תודה על הזמנתך! נחזור אליך תוך 24 שעות עם אישור ומועד אספקה. ❤️';
+  document.getElementById('success-modal').classList.add('open');
+}
+
+function handleContact(e) {
+  e.preventDefault();
+  const fd = new FormData(e.target);
+  saveLead({
+    name:   fd.get('name'),
+    email:  fd.get('email'),
+    phone:  fd.get('phone'),
+    source: 'contact',
+  });
+  e.target.reset();
+  document.getElementById('modal-message').textContent = 'ההודעה שלך נשלחה בהצלחה! נחזור אליך בהקדם. 💌';
+  document.getElementById('success-modal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('success-modal').classList.remove('open');
+  renderCart();
+}
+
+// ══════════════════════════════
+// TOAST
+// ══════════════════════════════
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+// ══════════════════════════════
+// INIT
+// ══════════════════════════════
+renderProducts();
+showStep(0);
+</script>
+</body>
+</html>
