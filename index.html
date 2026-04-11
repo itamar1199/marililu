@@ -137,9 +137,25 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: url("תמונות בגד ים/WhatsApp Image 2026-04-11 at 20.49.03.jpeg") center/cover no-repeat;
-      opacity: 0.35;
+      background: transparent;
     }
+    .hero-img-slot {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: rgba(241,234,218,0.35);
+      font-size: 12px;
+      font-style: italic;
+      letter-spacing: 0.05em;
+      text-align: center;
+      border: 2px dashed rgba(241,234,218,0.15);
+      pointer-events: none;
+    }
+    .hero-img-slot .slot-icon { font-size: 28px; font-style: normal; }
     .hero-overlay {
       position: absolute;
       inset: 0;
@@ -995,6 +1011,10 @@
 
     <div class="hero">
       <div class="hero-overlay"></div>
+      <div class="hero-img-slot">
+        <span class="slot-icon">📷</span>
+        תמונת רקע לhero — צילום בגד ים באווירת חוף / שמש
+      </div>
       <div class="hero-content">
         <div class="brand-name">MARILILU</div>
         <div class="brand-tagline">Handcrafted Swimwear · Made for you</div>
@@ -1010,9 +1030,9 @@
       <div class="section-label">אודות המותג</div>
       <div class="section-title">בגדי ים שנולדו מאהבה לגוף הנשי</div>
       <div class="section-body">
-        MARILILU הוא מותג בגדי ים ישראלי בוטיק, שנוצר מתוך אמונה שכל גוף ראויה ללבוש שנתפר עבורה בלבד.
-        כל פריט מעוצב בקפידה תוך שימוש בבדים איכותיים, ומותאם אישית לגזרה ולצבע שתבחרי.
-        אנחנו לא מוכרות בגד ים — אנחנו מוכרות הרגשה.
+        MARILILU הוא מותג בגדי ים ישראלי בוטיק, שנולד מתוך אמונה אחת פשוטה — כל אישה ראויה ללבוש שנתפר עבורה בלבד.
+        כל פריט מעוצב ביד, מבדים מובחרים ואיכותיים, ומותאם אישית לגזרה ולצבע שיגרמו לה להרגיש הכי עצמה.
+        כי אנחנו לא מוכרות בגד ים — אנחנו מוכרות הרגשה.
       </div>
     </div>
 
@@ -1049,13 +1069,19 @@
       </div>
       <div class="insta-grid" style="margin-top:20px">
         <div class="insta-cell">
-          <img src="תמונות בגד ים/WhatsApp Image 2026-04-11 at 20.49.03.jpeg" alt="" onerror="this.outerHTML='<div class=insta-placeholder></div>'" />
+          <div class="img-empty-slot" style="aspect-ratio:1;border-radius:0">
+            <span class="slot-icon">📸</span>תמונה מהאינסטגרם — לוק חוף קיצי
+          </div>
         </div>
         <div class="insta-cell">
-          <img src="תמונות בגד ים/WhatsApp Image 2026-04-11 at 20.49.03 (1).jpeg" alt="" onerror="this.outerHTML='<div class=insta-placeholder></div>'" />
+          <div class="img-empty-slot" style="aspect-ratio:1;border-radius:0">
+            <span class="slot-icon">📸</span>תמונה מהאינסטגרם — שמש ומים
+          </div>
         </div>
         <div class="insta-cell">
-          <img src="תמונות בגד ים/WhatsApp Image 2026-04-11 at 20.49.03 (2).jpeg" alt="" onerror="this.outerHTML='<div class=insta-placeholder></div>'" />
+          <div class="img-empty-slot" style="aspect-ratio:1;border-radius:0">
+            <span class="slot-icon">📸</span>תמונה מהאינסטגרם — לוק קיצי מלא
+          </div>
         </div>
         <div class="insta-cell">
           <div class="img-empty-slot" style="aspect-ratio:1;border-radius:0">
@@ -1261,27 +1287,21 @@
       <div class="section-label">השראה מהסטודיו</div>
       <div class="inspo-scroll">
         <div class="inspo-card">
-          <img src="תמונות בגד ים/WhatsApp Image 2026-04-11 at 20.49.03.jpeg"
-               class="inspo-img"
-               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
-               alt="השראה 1"/>
-          <div class="inspo-img-placeholder" style="display:none;background:linear-gradient(135deg,var(--tobacco),var(--sand))">🌊</div>
+          <div class="img-empty-slot" style="height:180px;border-radius:0">
+            <span class="slot-icon">📷</span>תמונת השראה — קולקציית קיץ, אווירת חוף
+          </div>
           <div class="inspo-label">קולקציית קיץ</div>
         </div>
         <div class="inspo-card">
-          <img src="תמונות בגד ים/WhatsApp Image 2026-04-11 at 20.49.03 (1).jpeg"
-               class="inspo-img"
-               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
-               alt="השראה 2"/>
-          <div class="inspo-img-placeholder" style="display:none;background:linear-gradient(135deg,var(--mahogany2),var(--tobacco))">✨</div>
+          <div class="img-empty-slot" style="height:180px;border-radius:0">
+            <span class="slot-icon">📷</span>תמונת השראה — לוק שקיעה, אור רך
+          </div>
           <div class="inspo-label">אור שקיעה</div>
         </div>
         <div class="inspo-card">
-          <img src="תמונות בגד ים/WhatsApp Image 2026-04-11 at 20.49.03 (2).jpeg"
-               class="inspo-img"
-               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
-               alt="השראה 3"/>
-          <div class="inspo-img-placeholder" style="display:none;background:linear-gradient(135deg,var(--mountain),var(--vanilla))">🌸</div>
+          <div class="img-empty-slot" style="height:180px;border-radius:0">
+            <span class="slot-icon">📷</span>תמונת השראה — טון על טון, מונוכרום
+          </div>
           <div class="inspo-label">טון על טון</div>
         </div>
         <div class="inspo-card">
@@ -1413,10 +1433,9 @@ function renderProducts(filter = 'הכל') {
   const filtered = filter === 'הכל' ? products : products.filter(p => p.type === filter);
   grid.innerHTML = filtered.map(p => `
     <div class="product-card">
-      <img class="product-img" src="${p.img}" alt="${p.name}"
-           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
-           style="object-position:center top" />
-      <div class="product-img-placeholder" style="display:none;background:${p.gradient}"></div>
+      <div class="product-img img-empty-slot" style="aspect-ratio:3/4;border-radius:0;width:100%">
+        <span class="slot-icon">📷</span>${p.name}
+      </div>
       <div class="product-info">
         <div class="product-name">${p.name}</div>
         <div class="product-type">${p.type} · ${p.desc}</div>
