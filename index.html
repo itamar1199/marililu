@@ -979,6 +979,13 @@
       margin: 0 0 18px auto;
       flex-shrink: 0;
     }
+    .brand-logo-corner {
+      width: 42px;
+      height: 42px;
+      border-radius: 4px;
+      display: block;
+      margin-bottom: 16px;
+    }
 
     /* ── EMPTY IMAGE SLOTS ── */
     .img-empty-slot {
@@ -1013,16 +1020,7 @@
     <div class="hero">
       <div class="hero-overlay"></div>
       <div class="hero-content">
-        <svg class="brand-logo-hero" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" aria-label="MARILILU">
-          <rect width="500" height="500" fill="#CA4535"/>
-          <text x="250" y="295"
-            font-family="'Cormorant Garamond', Didot, Georgia, serif"
-            font-weight="300"
-            font-size="78"
-            fill="#F0A0BC"
-            text-anchor="middle"
-            letter-spacing="7">MARILILU</text>
-        </svg>
+        <div class="brand-name">MARILILU</div>
         <div class="brand-tagline">Handcrafted Swimwear · Made for you</div>
         <div class="hero-cta">
           <button class="btn-primary" onclick="navigate('custom')">עצבי את שלך</button>
@@ -1137,6 +1135,7 @@
   <section id="screen-custom" class="screen">
 
     <div class="custom-header">
+      <img src="logo.svg" alt="MARILILU" class="brand-logo-corner" />
       <div class="section-label">עיצוב אישי</div>
       <div class="section-title">בגד הים שלך,<br/>בדיוק כמו שדמיינת</div>
       <div class="section-body">ארבעה שלבים פשוטים ליצירת הפריט המושלם</div>
@@ -1294,6 +1293,7 @@
   <section id="screen-collection" class="screen">
 
     <div class="collection-header">
+      <img src="logo.svg" alt="MARILILU" class="brand-logo-corner" />
       <div class="section-label">קולקציה</div>
       <div class="section-title" style="color:var(--vanilla);font-size:34px">הפריטים שלנו</div>
       <div class="section-body" style="color:var(--sand);font-size:13px">פריטים מוכנים ואינסטגרם להשראה</div>
@@ -1353,6 +1353,7 @@
   <section id="screen-cart" class="screen">
 
     <div class="cart-header">
+      <img src="logo.svg" alt="MARILILU" class="brand-logo-corner" />
       <div class="section-label">עגלת קניות</div>
       <div class="section-title" style="color:var(--vanilla);font-size:34px">ההזמנה שלך</div>
       <div id="cart-count-display"></div>
