@@ -205,16 +205,17 @@
 
     .section { padding: 36px 24px; }
     .section-label {
-      font-size: 10px;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--tobacco);
+      font-family: var(--font-serif);
+      font-size: 13px;
+      letter-spacing: 0.15em;
+      text-transform: none;
+      color: var(--mahogany);
       margin-bottom: 10px;
-      font-weight: 500;
+      font-weight: 400;
     }
     .section-title {
       font-family: var(--font-serif);
-      font-size: 30px;
+      font-size: 32px;
       font-weight: 400;
       color: var(--mahogany);
       line-height: 1.25;
@@ -256,11 +257,13 @@
       margin-bottom: 6px;
     }
     .designer-title {
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--tobacco);
+      font-family: var(--font-serif);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: none;
+      color: var(--mahogany);
       margin-bottom: 10px;
+      font-weight: 400;
     }
     .designer-bio {
       font-size: 13px;
@@ -271,8 +274,14 @@
 
     /* instagram */
     .insta-section { background: var(--mahogany); padding: 36px 24px; }
-    .insta-section .section-label,
-    .insta-section .section-title { color: var(--vanilla); }
+    .insta-section .section-label { 
+      color: var(--vanilla); 
+      font-family: var(--font-serif);
+    }
+    .insta-section .section-title { 
+      color: var(--vanilla); 
+      font-family: var(--font-serif);
+    }
     .insta-section .section-body { color: var(--sand); }
     .insta-grid {
       display: grid;
@@ -350,9 +359,19 @@
       background: var(--mahogany);
       padding: 52px 24px 28px;
     }
-    .custom-header .section-label { color: var(--sand); }
-    .custom-header .section-title { color: var(--vanilla); font-size: 34px; }
-    .custom-header .section-body { color: rgba(206,193,168,0.7); font-size: 13px; }
+    .custom-header .section-label { 
+      color: var(--sand); 
+      font-family: var(--font-serif);
+    }
+    .custom-header .section-title { 
+      color: var(--vanilla); 
+      font-size: 34px;
+      font-family: var(--font-serif);
+    }
+    .custom-header .section-body { 
+      color: rgba(206,193,168,0.7); 
+      font-size: 13px; 
+    }
 
     .steps-progress {
       display: flex;
@@ -372,15 +391,18 @@
     .step-panel { padding: 28px 24px; }
     .step-title {
       font-family: var(--font-serif);
-      font-size: 22px;
+      font-size: 26px;
       color: var(--mahogany);
       margin-bottom: 6px;
+      font-weight: 400;
     }
     .step-subtitle {
-      font-size: 12px;
-      color: var(--mountain);
+      font-family: var(--font-serif);
+      font-size: 13px;
+      color: var(--mahogany);
       margin-bottom: 22px;
       letter-spacing: 0.05em;
+      font-weight: 400;
     }
 
     /* fabric options */
@@ -397,12 +419,18 @@
     .fabric-card.selected { border-color: var(--mahogany); background: rgba(61,35,24,0.05); }
     .fabric-icon { font-size: 28px; margin-bottom: 8px; }
     .fabric-name {
-      font-size: 14px;
-      font-weight: 500;
+      font-family: var(--font-serif);
+      font-size: 15px;
+      font-weight: 400;
       color: var(--mahogany);
       margin-bottom: 4px;
     }
-    .fabric-desc { font-size: 11px; color: var(--mountain); }
+    .fabric-desc { 
+      font-family: var(--font-serif);
+      font-size: 12px; 
+      color: var(--mahogany); 
+      font-weight: 400;
+    }
 
     /* color picker */
     .color-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
@@ -430,9 +458,10 @@
     .color-name-display {
       text-align: center;
       margin-top: 14px;
-      font-size: 13px;
+      font-family: var(--font-serif);
+      font-size: 14px;
       color: var(--mahogany);
-      font-weight: 500;
+      font-weight: 400;
       letter-spacing: 0.05em;
       min-height: 20px;
     }
@@ -458,8 +487,19 @@
       font-size: 36px;
       background: linear-gradient(135deg, var(--vanilla), var(--sand));
     }
-    .cut-name { font-size: 13px; font-weight: 500; color: var(--mahogany); margin-bottom: 3px; }
-    .cut-desc { font-size: 11px; color: var(--mountain); }
+    .cut-name { 
+      font-family: var(--font-serif);
+      font-size: 14px; 
+      font-weight: 400; 
+      color: var(--mahogany); 
+      margin-bottom: 3px; 
+    }
+    .cut-desc { 
+      font-family: var(--font-serif);
+      font-size: 12px; 
+      color: var(--mahogany); 
+      font-weight: 400;
+    }
 
     /* size */
     .size-grid { display: flex; gap: 10px; flex-wrap: wrap; }
@@ -487,12 +527,13 @@
       border: 1px solid var(--sand);
     }
     .summary-title {
-      font-size: 11px;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--tobacco);
+      font-family: var(--font-serif);
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: none;
+      color: var(--mahogany);
       margin-bottom: 14px;
-      font-weight: 500;
+      font-weight: 400;
     }
     .summary-row {
       display: flex;
@@ -543,6 +584,12 @@
       background: var(--mahogany);
       padding: 52px 24px 28px;
     }
+    .collection-header .section-label {
+      font-family: var(--font-serif);
+    }
+    .collection-header .section-title {
+      font-family: var(--font-serif);
+    }
     .filter-tabs {
       display: flex;
       gap: 8px;
@@ -555,14 +602,14 @@
       white-space: nowrap;
       padding: 8px 18px;
       border-radius: 100px;
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.06em;
+      font-family: var(--font-serif);
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.05em;
       cursor: pointer;
       border: 1.5px solid var(--sand);
       background: none;
-      color: var(--mountain);
-      font-family: var(--font-sans);
+      color: var(--mahogany);
       transition: all var(--transition);
     }
     .filter-tab.active {
@@ -602,16 +649,19 @@
     .product-info { padding: 12px; }
     .product-name {
       font-family: var(--font-serif);
-      font-size: 16px;
+      font-size: 17px;
       color: var(--mahogany);
       margin-bottom: 2px;
+      font-weight: 400;
     }
     .product-type {
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: var(--mountain);
+      font-family: var(--font-serif);
+      font-size: 11px;
+      text-transform: none;
+      letter-spacing: 0.1em;
+      color: var(--mahogany);
       margin-bottom: 8px;
+      font-weight: 400;
     }
     .product-bottom {
       display: flex;
@@ -675,8 +725,9 @@
     }
     .inspo-label {
       padding: 8px 10px;
-      font-size: 11px;
-      font-weight: 500;
+      font-family: var(--font-serif);
+      font-size: 12px;
+      font-weight: 400;
       color: var(--mahogany);
       letter-spacing: 0.05em;
     }
@@ -687,6 +738,12 @@
     .cart-header {
       background: var(--mahogany);
       padding: 52px 24px 28px;
+    }
+    .cart-header .section-label {
+      font-family: var(--font-serif);
+    }
+    .cart-header .section-title {
+      font-family: var(--font-serif);
     }
     .cart-count-badge {
       display: inline-flex;
@@ -759,7 +816,12 @@
       gap: 16px;
     }
     .empty-cart-icon { font-size: 56px; opacity: 0.3; }
-    .empty-cart-text { font-family: var(--font-serif); font-size: 22px; color: var(--mountain); }
+    .empty-cart-text { 
+      font-family: var(--font-serif); 
+      font-size: 24px; 
+      color: var(--mahogany); 
+      font-weight: 400;
+    }
     .empty-cart-sub { font-size: 13px; color: var(--mountain); font-weight: 300; }
 
     .order-summary {
@@ -770,12 +832,13 @@
       border: 1px solid var(--sand);
     }
     .order-summary-title {
-      font-size: 11px;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--tobacco);
+      font-family: var(--font-serif);
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: none;
+      color: var(--mahogany);
       margin-bottom: 14px;
-      font-weight: 500;
+      font-weight: 400;
     }
     .order-row {
       display: flex;
@@ -798,12 +861,13 @@
       padding: 24px;
     }
     .checkout-section-title {
-      font-size: 11px;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--tobacco);
+      font-family: var(--font-serif);
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: none;
+      color: var(--mahogany);
       margin-bottom: 14px;
-      font-weight: 500;
+      font-weight: 400;
     }
     .checkout-form { display: flex; flex-direction: column; gap: 10px; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
@@ -863,9 +927,10 @@
     .modal-icon { font-size: 52px; margin-bottom: 16px; }
     .modal-title {
       font-family: var(--font-serif);
-      font-size: 26px;
+      font-size: 28px;
       color: var(--mahogany);
       margin-bottom: 10px;
+      font-weight: 400;
     }
     .modal-body { font-size: 14px; color: var(--mountain); line-height: 1.6; margin-bottom: 24px; }
     .modal-btn {
@@ -1289,13 +1354,19 @@ let customOrder = { fabric: '', color: '', colorHex: '', cut: '', size: '' };
 // ══════════════════════════════
 // PRODUCTS DATA
 // ══════════════════════════════
+const _imgs = [
+  'תמונות בגד ים/WhatsApp Image 2026-04-11 at 20.49.03.jpeg',
+  'תמונות בגד ים/WhatsApp Image 2026-04-11 at 20.49.03 (1).jpeg',
+  'תמונות בגד ים/WhatsApp Image 2026-04-11 at 20.49.03 (2).jpeg',
+];
+
 const products = [
-  { id:1, name:'The Tobacco Top',     type:'טופ',     price:180, emoji:'🩱', gradient:'linear-gradient(135deg,#B59E7D,#F1EADA)', desc:'טרייאנגל רך' },
-  { id:2, name:'Desert Bottom',       type:'תחתית',   price:140, emoji:'👙', gradient:'linear-gradient(135deg,#CEC1A8,#B59E7D)', desc:'ביקיני גבוה' },
-  { id:3, name:'Mahogany Set',         type:'סט מלא',  price:380, emoji:'✨', gradient:'linear-gradient(135deg,#3D2318,#7A5240)', desc:'סט בנדו' },
-  { id:4, name:'Sand One-Piece',       type:'בגד שלם', price:320, emoji:'🌊', gradient:'linear-gradient(135deg,#CEC1A8,#F1EADA)', desc:'שלם ספורטיבי' },
-  { id:5, name:'Vanilla Halter',       type:'טופ',     price:195, emoji:'🌸', gradient:'linear-gradient(135deg,#F1EADA,#CEC1A8)', desc:'הולטר עדין' },
-  { id:6, name:'Mountain Midi',        type:'תחתית',   price:155, emoji:'💫', gradient:'linear-gradient(135deg,#AAA398,#CEC1A8)', desc:'מידי שורט' },
+  { id:1, name:'The Tobacco Top',  type:'טופ',     price:180, img:_imgs[0], gradient:'linear-gradient(135deg,#B59E7D,#F1EADA)', desc:'טרייאנגל רך' },
+  { id:2, name:'Desert Bottom',    type:'תחתית',   price:140, img:_imgs[1], gradient:'linear-gradient(135deg,#CEC1A8,#B59E7D)', desc:'ביקיני גבוה' },
+  { id:3, name:'Mahogany Set',     type:'סט מלא',  price:380, img:_imgs[2], gradient:'linear-gradient(135deg,#3D2318,#7A5240)', desc:'סט בנדו' },
+  { id:4, name:'Sand One-Piece',   type:'בגד שלם', price:320, img:_imgs[0], gradient:'linear-gradient(135deg,#CEC1A8,#F1EADA)', desc:'שלם ספורטיבי' },
+  { id:5, name:'Vanilla Halter',   type:'טופ',     price:195, img:_imgs[1], gradient:'linear-gradient(135deg,#F1EADA,#CEC1A8)', desc:'הולטר עדין' },
+  { id:6, name:'Mountain Midi',    type:'תחתית',   price:155, img:_imgs[2], gradient:'linear-gradient(135deg,#AAA398,#CEC1A8)', desc:'מידי שורט' },
 ];
 
 function renderProducts(filter = 'הכל') {
@@ -1303,7 +1374,10 @@ function renderProducts(filter = 'הכל') {
   const filtered = filter === 'הכל' ? products : products.filter(p => p.type === filter);
   grid.innerHTML = filtered.map(p => `
     <div class="product-card">
-      <div class="product-img-placeholder" style="background:${p.gradient}">${p.emoji}</div>
+      <img class="product-img" src="${p.img}" alt="${p.name}"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+           style="object-position:center top" />
+      <div class="product-img-placeholder" style="display:none;background:${p.gradient}"></div>
       <div class="product-info">
         <div class="product-name">${p.name}</div>
         <div class="product-type">${p.type} · ${p.desc}</div>
