@@ -1964,6 +1964,7 @@ function navigate(screen) {
   if (screen === 'cart') renderCart();
   target.scrollTop = 0;
   currentScreen = screen;
+  localStorage.setItem('marililu_screen', screen);
   closeMenu();
 }
 
@@ -2290,6 +2291,10 @@ function closeSizeGuide() { document.getElementById('size-guide-overlay').classL
 renderProducts();
 showStep(0);
 updateCartBadge();
+const _savedScreen = localStorage.getItem('marililu_screen');
+if (_savedScreen && document.getElementById('screen-' + _savedScreen)) {
+  navigate(_savedScreen);
+}
 </script>
 </body>
 </html>
