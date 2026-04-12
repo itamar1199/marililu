@@ -4,10 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
   <title>MARILILU — בגדי ים בהתאמה אישית</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="logo.svg" type="image/svg+xml" />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://marililu.vercel.app/" />
+  <meta property="og:title"       content="MARILILU — בגדי ים בהתאמה אישית" />
+  <meta property="og:description" content="מותג בגדי ים ישראלי בוטיק. כל פריט מעוצב ביד ומותאם אישית לגזרה ולצבע שלך." />
+  <meta property="og:image"       content="https://marililu.vercel.app/logo.svg" />
+  <meta name="twitter:card"       content="summary" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&family=Heebo:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <style>
     /* ── TOKENS ── */
     :root {
@@ -61,7 +74,7 @@
       flex: 1;
       flex-direction: column;
       overflow-y: auto;
-      padding-bottom: calc(var(--nav-height) + 16px);
+      padding-bottom: 40px;
       animation: fadeSlide 0.35s ease forwards;
     }
     .screen.active { display: flex; }
@@ -947,7 +960,7 @@
     /* toast */
     .toast {
       position: fixed;
-      bottom: calc(var(--nav-height) + 16px);
+      bottom: 24px;
       left: 50%;
       transform: translateX(-50%) translateY(80px);
       background: var(--mahogany);
@@ -1009,6 +1022,183 @@
       font-style: normal;
       opacity: 0.4;
     }
+
+    /* ── HAMBURGER BUTTON ── */
+    .hamburger-btn {
+      position: fixed;
+      top: 14px;
+      right: 14px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(29,16,8,0.72);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(241,234,218,0.18);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      cursor: pointer;
+      z-index: 10000;
+      padding: 0;
+      transition: background var(--transition);
+    }
+    .hamburger-btn:hover { background: rgba(29,16,8,0.92); }
+    .hamburger-btn span {
+      display: block;
+      width: 20px;
+      height: 1.5px;
+      background: var(--vanilla);
+      border-radius: 2px;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+      transform-origin: center;
+    }
+    .hamburger-btn.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger-btn.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger-btn.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    .hamburger-badge {
+      position: absolute;
+      top: 7px;
+      right: 7px;
+      background: var(--tobacco);
+      color: var(--vanilla);
+      font-size: 9px;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+    }
+
+    /* ── NAV DRAWER ── */
+    .nav-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0);
+      z-index: 9000;
+      display: none;
+      transition: background 0.3s ease;
+      pointer-events: none;
+    }
+    .nav-overlay.open {
+      display: block;
+      background: rgba(0,0,0,0.52);
+      pointer-events: all;
+    }
+    .nav-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: min(300px, 82vw);
+      height: 100dvh;
+      background: var(--mahogany);
+      z-index: 9500;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+    }
+    .nav-drawer.open { transform: translateX(0); }
+
+    .nav-drawer-top {
+      padding: 60px 24px 20px;
+      border-bottom: 1px solid rgba(241,234,218,0.1);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .nav-drawer-logo { width: 40px; height: 40px; border-radius: 4px; flex-shrink: 0; }
+    .nav-drawer-brand {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      font-weight: 300;
+      letter-spacing: 0.18em;
+      color: var(--vanilla);
+    }
+    .nav-drawer-items {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 8px 0;
+      overflow-y: auto;
+    }
+    .nav-drawer-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 15px 24px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: var(--font-sans);
+      font-size: 15px;
+      font-weight: 400;
+      color: rgba(241,234,218,0.55);
+      letter-spacing: 0.03em;
+      transition: color var(--transition), background var(--transition);
+      text-align: right;
+      width: 100%;
+      position: relative;
+    }
+    .nav-drawer-item:hover { color: var(--vanilla); background: rgba(255,255,255,0.05); }
+    .nav-drawer-item.active { color: var(--vanilla); }
+    .nav-drawer-item.active::before {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 20%;
+      height: 60%;
+      width: 3px;
+      background: var(--tobacco);
+      border-radius: 2px;
+    }
+    .nav-drawer-item svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.5; flex-shrink: 0; }
+    .drawer-cart-badge {
+      margin-right: auto;
+      background: var(--tobacco);
+      color: var(--vanilla);
+      font-size: 10px;
+      min-width: 18px;
+      height: 18px;
+      border-radius: 9px;
+      padding: 0 5px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+    }
+
+    .nav-drawer-contact {
+      border-top: 1px solid rgba(241,234,218,0.1);
+      padding: 16px 24px 28px;
+    }
+    .nav-drawer-contact-title {
+      font-family: var(--font-serif);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: rgba(241,234,218,0.38);
+      margin-bottom: 6px;
+    }
+    .nav-contact-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      color: rgba(241,234,218,0.65);
+      text-decoration: none;
+      font-size: 13px;
+      font-family: var(--font-sans);
+      font-weight: 300;
+      transition: color var(--transition);
+      width: 100%;
+    }
+    .nav-contact-link:hover { color: var(--vanilla); }
+    .nav-contact-link svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.5; flex-shrink: 0; }
+    .nav-contact-link .wa-icon { fill: #25D366; stroke: none; }
   </style>
 </head>
 <body>
@@ -1369,28 +1559,59 @@
 </div><!-- /#app -->
 
 
-<!-- BOTTOM NAV -->
-<nav id="bottom-nav">
-  <button class="nav-btn active" id="nav-home" onclick="navigate('home')">
-    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-    בית
-  </button>
-  <button class="nav-btn" id="nav-custom" onclick="navigate('custom')">
-    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
-    עיצוב
-  </button>
-  <button class="nav-btn" id="nav-collection" onclick="navigate('collection')">
-    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-    קולקציה
-  </button>
-  <button class="nav-btn" id="nav-cart" onclick="navigate('cart')">
-    <div class="nav-icon-wrap">
+<!-- Hamburger Button -->
+<button class="hamburger-btn" id="hamburger-btn" onclick="toggleMenu()" aria-label="תפריט">
+  <div class="hamburger-badge" id="hamburger-badge"></div>
+  <span></span>
+  <span></span>
+  <span></span>
+</button>
+
+<!-- Nav Overlay -->
+<div class="nav-overlay" id="nav-overlay" onclick="closeMenu()"></div>
+
+<!-- Nav Drawer -->
+<div class="nav-drawer" id="nav-drawer">
+  <div class="nav-drawer-top">
+    <img src="logo.svg" alt="MARILILU" class="nav-drawer-logo" />
+    <div class="nav-drawer-brand">MARILILU</div>
+  </div>
+  <div class="nav-drawer-items">
+    <button class="nav-drawer-item active" id="drawer-home" onclick="navigate('home')">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      בית
+    </button>
+    <button class="nav-drawer-item" id="drawer-custom" onclick="navigate('custom')">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
+      עיצוב אישי
+    </button>
+    <button class="nav-drawer-item" id="drawer-collection" onclick="navigate('collection')">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      קולקציה
+    </button>
+    <button class="nav-drawer-item" id="drawer-cart" onclick="navigate('cart')">
       <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-      <span class="cart-badge" id="cart-badge" style="display:none">0</span>
-    </div>
-    עגלה
-  </button>
-</nav>
+      עגלה
+      <div class="drawer-cart-badge" id="drawer-cart-badge"></div>
+    </button>
+  </div>
+  <div class="nav-drawer-contact">
+    <div class="nav-drawer-contact-title">יצירת קשר</div>
+    <a class="nav-contact-link" href="https://wa.me/972544848686" target="_blank">
+      <svg class="wa-icon" viewBox="0 0 32 32"><path d="M16 0C7.163 0 0 7.163 0 16c0 2.822.737 5.469 2.027 7.77L0 32l8.438-2.012A15.93 15.93 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm0 29.333a13.27 13.27 0 01-6.77-1.847l-.485-.288-5.009 1.195 1.236-4.878-.317-.5A13.267 13.267 0 012.667 16C2.667 8.636 8.636 2.667 16 2.667S29.333 8.636 29.333 16 23.364 29.333 16 29.333zm7.27-9.87c-.398-.199-2.354-1.161-2.718-1.294-.364-.133-.63-.199-.895.199-.265.398-1.028 1.294-1.26 1.56-.232.265-.464.298-.862.1-.398-.199-1.681-.619-3.202-1.976-1.183-1.056-1.982-2.36-2.214-2.758-.232-.398-.025-.613.174-.811.179-.178.398-.464.597-.696.199-.232.265-.398.398-.663.133-.265.066-.497-.033-.696-.1-.199-.895-2.157-1.226-2.953-.322-.775-.65-.67-.895-.682l-.762-.013c-.265 0-.696.1-1.061.497-.364.398-1.393 1.361-1.393 3.319s1.427 3.85 1.626 4.116c.199.265 2.808 4.285 6.803 6.01.951.41 1.693.655 2.272.839.954.303 1.823.26 2.51.157.766-.113 2.354-.963 2.686-1.893.332-.93.332-1.727.232-1.893-.099-.166-.364-.265-.762-.464z"/></svg>
+      WhatsApp · 054-484-8686
+    </a>
+    <a class="nav-contact-link" href="https://www.instagram.com/___marililu___/" target="_blank">
+      <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      @___marililu___
+    </a>
+    <!-- Replace YOUR_EMAIL below with the brand email address -->
+    <a class="nav-contact-link" href="mailto:YOUR_EMAIL">
+      <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      מייל
+    </a>
+  </div>
+</div>
 
 <!-- Success Modal -->
 <div class="modal-overlay" id="success-modal">
@@ -1406,7 +1627,38 @@
 <div class="toast" id="toast"></div>
 
 
+
 <script>
+// ══════════════════════════════
+// EMAILJS
+// ══════════════════════════════
+// To activate: sign up at https://www.emailjs.com (free)
+// Then replace the three placeholders below with your actual IDs.
+const _EJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';   // Account → API Keys
+const _EJS_SERVICE_ID  = 'YOUR_SERVICE_ID';   // Email Services → Service ID
+const _EJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';  // Email Templates → Template ID
+
+if (_EJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY') {
+  emailjs.init({ publicKey: _EJS_PUBLIC_KEY });
+}
+
+async function sendOrderConfirmationEmail({ toEmail, toName, items, total, shipping }) {
+  if (_EJS_PUBLIC_KEY === 'YOUR_PUBLIC_KEY') return; // not configured yet
+  const itemsList = items.map(i => `• ${i.name} (${i.meta}) — ₪${i.price}`).join('\n');
+  try {
+    await emailjs.send(_EJS_SERVICE_ID, _EJS_TEMPLATE_ID, {
+      to_email:   toEmail,
+      to_name:    toName,
+      items_list: itemsList,
+      total:      `₪${total}`,
+      shipping:   shipping === 0 ? 'חינם' : `₪${shipping}`,
+      grand_total:`₪${total + shipping}`,
+    });
+  } catch (err) {
+    console.error('EmailJS error:', err);
+  }
+}
+
 // ══════════════════════════════
 // SUPABASE
 // ══════════════════════════════
@@ -1486,14 +1738,30 @@ function filterProducts(filter, btn) {
 // ══════════════════════════════
 // NAVIGATION
 // ══════════════════════════════
+function toggleMenu() {
+  const isOpen = document.getElementById('nav-drawer').classList.contains('open');
+  isOpen ? closeMenu() : openMenu();
+}
+function openMenu() {
+  document.getElementById('hamburger-btn').classList.add('open');
+  document.getElementById('nav-drawer').classList.add('open');
+  document.getElementById('nav-overlay').classList.add('open');
+}
+function closeMenu() {
+  document.getElementById('hamburger-btn').classList.remove('open');
+  document.getElementById('nav-drawer').classList.remove('open');
+  document.getElementById('nav-overlay').classList.remove('open');
+}
+
 function navigate(screen) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.nav-drawer-item').forEach(b => b.classList.remove('active'));
   document.getElementById('screen-' + screen).classList.add('active');
-  document.getElementById('nav-' + screen).classList.add('active');
+  const drawerItem = document.getElementById('drawer-' + screen);
+  if (drawerItem) drawerItem.classList.add('active');
   if (screen === 'cart') renderCart();
-  // scroll to top
   document.getElementById('screen-' + screen).scrollTop = 0;
+  closeMenu();
 }
 
 // ══════════════════════════════
@@ -1610,12 +1878,16 @@ function removeFromCart(id) {
 }
 
 function updateCartBadge() {
-  const badge = document.getElementById('cart-badge');
+  const hamBadge    = document.getElementById('hamburger-badge');
+  const drawerBadge = document.getElementById('drawer-cart-badge');
   if (cart.length > 0) {
-    badge.style.display = 'flex';
-    badge.textContent = cart.length;
+    hamBadge.style.display    = 'flex';
+    hamBadge.textContent      = cart.length;
+    drawerBadge.style.display = 'flex';
+    drawerBadge.textContent   = cart.length;
   } else {
-    badge.style.display = 'none';
+    hamBadge.style.display    = 'none';
+    drawerBadge.style.display = 'none';
   }
 }
 
@@ -1703,12 +1975,16 @@ function handleCheckout(e) {
   const fd = new FormData(e.target);
   const firstName = fd.get('first_name') || '';
   const lastName  = fd.get('last_name')  || '';
-  saveLead({
-    name:   (firstName + ' ' + lastName).trim(),
-    email:  fd.get('email'),
-    phone:  fd.get('phone'),
-    source: 'checkout',
-  });
+  const fullName  = (firstName + ' ' + lastName).trim();
+  const email     = fd.get('email');
+  const phone     = fd.get('phone');
+
+  saveLead({ name: fullName, email, phone, source: 'checkout' });
+
+  const total    = cart.reduce((s, i) => s + i.price, 0);
+  const shipping = total >= 300 ? 0 : 35;
+  sendOrderConfirmationEmail({ toEmail: email, toName: firstName || fullName, items: cart, total, shipping });
+
   cart = [];
   updateCartBadge();
   document.getElementById('modal-message').textContent = 'תודה על הזמנתך! נחזור אליך תוך 24 שעות עם אישור ומועד אספקה. ❤️';
