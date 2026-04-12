@@ -16,6 +16,13 @@
   <meta property="og:image"       content="https://marililu.vercel.app/logo.svg" />
   <meta name="twitter:card"       content="summary" />
 
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#3D2318" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="MARILILU" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&family=Heebo:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -79,10 +86,16 @@
     }
     .screen.active { display: flex; }
 
-    @keyframes fadeSlide {
-      from { opacity: 0; transform: translateY(12px); }
-      to   { opacity: 1; transform: translateY(0); }
+    @keyframes slideFromRight {
+      from { opacity: 0; transform: translateX(36px); }
+      to   { opacity: 1; transform: translateX(0); }
     }
+    @keyframes slideFromLeft {
+      from { opacity: 0; transform: translateX(-36px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    .screen.slide-from-right { animation: slideFromRight 0.32s cubic-bezier(0.4,0,0.2,1) forwards; }
+    .screen.slide-from-left  { animation: slideFromLeft  0.32s cubic-bezier(0.4,0,0.2,1) forwards; }
 
     /* ── BOTTOM NAV ── */
     #bottom-nav {
@@ -1199,6 +1212,104 @@
     .nav-contact-link:hover { color: var(--vanilla); }
     .nav-contact-link svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.5; flex-shrink: 0; }
     .nav-contact-link .wa-icon { fill: #25D366; stroke: none; }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials-section { padding: 36px 24px; background: var(--vanilla); }
+    .testimonials-scroll {
+      display: flex; gap: 14px; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; margin-top: 20px;
+    }
+    .testimonials-scroll::-webkit-scrollbar { display: none; }
+    .testimonial-card {
+      flex-shrink: 0; width: 230px; background: var(--white);
+      border-radius: var(--radius-md); padding: 20px; border: 1px solid var(--sand);
+    }
+    .testimonial-stars { color: var(--tobacco); font-size: 13px; margin-bottom: 10px; letter-spacing: 2px; }
+    .testimonial-text {
+      font-family: var(--font-serif); font-size: 14px; line-height: 1.65;
+      color: var(--mahogany); margin-bottom: 14px; font-style: italic;
+    }
+    .testimonial-author { font-size: 11px; color: var(--mountain); font-weight: 500; }
+
+    /* ── PRODUCT SHEET ── */
+    .sheet-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.5); z-index: 8000;
+    }
+    .sheet-overlay.open { display: block; }
+    .product-sheet {
+      position: fixed; bottom: 0; left: 50%;
+      transform: translateX(-50%) translateY(100%);
+      width: 100%; max-width: 430px; max-height: 88dvh;
+      background: var(--white); border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      z-index: 8500; overflow-y: auto;
+      transition: transform 0.38s cubic-bezier(0.4,0,0.2,1);
+    }
+    .product-sheet.open { transform: translateX(-50%) translateY(0); }
+    .sheet-handle { width: 36px; height: 4px; background: var(--sand); border-radius: 2px; margin: 14px auto 0; }
+    .sheet-img-wrap { width: 100%; aspect-ratio: 3/4; max-height: 260px; overflow: hidden; }
+    .sheet-img-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center; font-size: 64px;
+    }
+    .sheet-body { padding: 20px 20px 36px; }
+    .sheet-type { font-size: 11px; letter-spacing: 0.15em; color: var(--tobacco); font-weight: 500; margin-bottom: 4px; }
+    .sheet-name { font-family: var(--font-serif); font-size: 26px; color: var(--mahogany); font-weight: 400; margin-bottom: 6px; }
+    .sheet-desc { font-size: 13px; color: var(--mountain); margin-bottom: 18px; }
+    .sheet-size-label { font-size: 12px; color: var(--mahogany); font-weight: 500; margin-bottom: 10px; letter-spacing: 0.05em; }
+    .sheet-size-grid { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 22px; }
+    .sheet-size-btn {
+      width: 48px; height: 48px; border: 1.5px solid var(--sand);
+      border-radius: var(--radius-sm); background: none;
+      font-family: var(--font-sans); font-size: 13px; font-weight: 500;
+      color: var(--mahogany); cursor: pointer; transition: all var(--transition);
+    }
+    .sheet-size-btn:hover { border-color: var(--tobacco); }
+    .sheet-size-btn.selected { background: var(--mahogany); color: var(--vanilla); border-color: var(--mahogany); }
+    .sheet-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      border-top: 1px solid var(--vanilla); padding-top: 16px;
+    }
+    .sheet-price { font-family: var(--font-serif); font-size: 26px; color: var(--mahogany); }
+    .sheet-add-btn {
+      background: var(--mahogany); color: var(--vanilla); border: none;
+      padding: 14px 28px; border-radius: 100px; font-family: var(--font-sans);
+      font-size: 14px; font-weight: 500; cursor: pointer; transition: background var(--transition);
+    }
+    .sheet-add-btn:hover { background: var(--mahogany2); }
+
+    /* ── SIZE GUIDE MODAL ── */
+    .size-guide-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.55); z-index: 9100;
+      align-items: center; justify-content: center; padding: 24px;
+    }
+    .size-guide-overlay.open { display: flex; }
+    .size-guide-modal {
+      background: var(--white); border-radius: var(--radius-lg);
+      padding: 28px 24px; width: 100%; max-width: 360px;
+      animation: modalIn 0.3s cubic-bezier(0.34,1.56,0.64,1) forwards;
+    }
+    .size-guide-title {
+      font-family: var(--font-serif); font-size: 22px;
+      color: var(--mahogany); margin-bottom: 16px; font-weight: 400;
+    }
+    .size-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .size-table th {
+      background: var(--mahogany); color: var(--vanilla);
+      padding: 8px 10px; text-align: center; font-weight: 500; font-family: var(--font-sans);
+    }
+    .size-table td {
+      padding: 8px 10px; text-align: center;
+      border-bottom: 1px solid var(--vanilla); color: var(--mahogany);
+    }
+    .size-table tr:last-child td { border-bottom: none; }
+    .size-table tr:nth-child(even) td { background: var(--light-bg); }
+    .size-guide-note { font-size: 11px; color: var(--mountain); margin-top: 12px; line-height: 1.5; }
+    .size-guide-close {
+      display: block; width: 100%; margin-top: 20px;
+      background: var(--mahogany); color: var(--vanilla); border: none;
+      padding: 13px; border-radius: 100px; font-family: var(--font-sans); font-size: 14px; cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -1250,6 +1361,36 @@
             כל קולקציה מגיעה ממקום אישי — מסע, צבע, תחושה.
             "אני מאמינה שבגד ים טוב מתחיל מהקשבה לגוף."
           </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Testimonials -->
+    <div class="testimonials-section">
+      <div class="section-label">לקוחות מספרות</div>
+      <div class="section-title">אהבה ממי שלובשת</div>
+      <div class="testimonials-scroll">
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-text">"קיבלתי את הבגד ים ואני פשוט לא מאמינה כמה הוא מושלם. הצבע בדיוק כמו שביקשתי, האיכות מעל ומעבר."</div>
+          <div class="testimonial-author">נועה כ. · תל אביב</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-text">"סוף סוף בגד ים שמתאים לגוף שלי בדיוק. ליהי הקשיבה לכל בקשה ויצרה משהו קסום."</div>
+          <div class="testimonial-author">מיכל ר. · חיפה</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-text">"הזמנתי סט מלא וקיבלתי אותו תוך שבוע. העיצוב יחיד במינו, קיבלתי המון מחמאות בחוף!"</div>
+          <div class="testimonial-author">שירה מ. · ירושלים</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-text">"הבד הכי נעים שיש. לובשת כבר עונה שלמה ועדיין נראה חדש. מוצר של איכות אמיתית."</div>
+          <div class="testimonial-author">דנה ל. · ראשון לציון</div>
         </div>
       </div>
     </div>
@@ -1446,7 +1587,10 @@
 
     <!-- STEP 4: Size -->
     <div class="step-panel" id="step-3" style="display:none">
-      <div class="step-title">בחרי מידה</div>
+      <div class="step-title" style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+        <span>בחרי מידה</span>
+        <button onclick="openSizeGuide()" style="flex-shrink:0;background:none;border:1.5px solid var(--sand);color:var(--mahogany);border-radius:100px;padding:6px 14px;font-size:12px;cursor:pointer;font-family:var(--font-sans);letter-spacing:0.04em">מדריך מידות</button>
+      </div>
       <div class="step-subtitle">שלב 4 מתוך 4</div>
 
       <div class="size-grid" style="margin-bottom:24px">
@@ -1626,6 +1770,46 @@
 <!-- Toast -->
 <div class="toast" id="toast"></div>
 
+<!-- Product Quick-View Sheet -->
+<div class="sheet-overlay" id="sheet-overlay" onclick="closeProductSheet()"></div>
+<div class="product-sheet" id="product-sheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-img-wrap" id="sheet-img-wrap"></div>
+  <div class="sheet-body">
+    <div class="sheet-type" id="sheet-type"></div>
+    <div class="sheet-name" id="sheet-name"></div>
+    <div class="sheet-desc" id="sheet-desc"></div>
+    <div class="sheet-size-label">בחרי מידה</div>
+    <div class="sheet-size-grid" id="sheet-sizes"></div>
+    <div class="sheet-footer">
+      <div class="sheet-price" id="sheet-price"></div>
+      <button class="sheet-add-btn" onclick="addSheetToCart()">הוסף לעגלה</button>
+    </div>
+  </div>
+</div>
+
+<!-- Size Guide Modal -->
+<div class="size-guide-overlay" id="size-guide-overlay" onclick="if(event.target===this)closeSizeGuide()">
+  <div class="size-guide-modal">
+    <div class="size-guide-title">מדריך מידות</div>
+    <table class="size-table">
+      <thead>
+        <tr><th>מידה</th><th>חזה (ס"מ)</th><th>מותן (ס"מ)</th><th>ירך (ס"מ)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>XS</td><td>76–80</td><td>60–64</td><td>84–88</td></tr>
+        <tr><td>S</td><td>81–85</td><td>65–69</td><td>89–93</td></tr>
+        <tr><td>M</td><td>86–90</td><td>70–74</td><td>94–98</td></tr>
+        <tr><td>L</td><td>91–96</td><td>75–80</td><td>99–104</td></tr>
+        <tr><td>XL</td><td>97–102</td><td>81–86</td><td>105–110</td></tr>
+        <tr><td>XXL</td><td>103–108</td><td>87–92</td><td>111–116</td></tr>
+      </tbody>
+    </table>
+    <div class="size-guide-note">* המידות הן הנחיה כללית. לבגד ים מותאם אישית נציגה תפנה אליך לאחר ההזמנה לוידוא מידות מדויקות.</div>
+    <button class="size-guide-close" onclick="closeSizeGuide()">הבנתי, תודה!</button>
+  </div>
+</div>
+
 
 
 <script>
@@ -1684,9 +1868,15 @@ async function saveLead({ name, email, phone, source }) {
 // ══════════════════════════════
 // STATE
 // ══════════════════════════════
-let cart = [];
+let cart = JSON.parse(localStorage.getItem('marililu_cart') || '[]');
 let currentStep = 0;
 let customOrder = { fabric: '', color: '', colorHex: '', cut: '', size: '' };
+const screenOrder = { home: 0, custom: 1, collection: 2, cart: 3 };
+let currentScreen = 'home';
+
+function saveCart() {
+  localStorage.setItem('marililu_cart', JSON.stringify(cart));
+}
 
 // ══════════════════════════════
 // PRODUCTS DATA
@@ -1713,7 +1903,7 @@ function renderProducts(filter = 'הכל') {
   const grid = document.getElementById('product-grid');
   const filtered = filter === 'הכל' ? products : products.filter(p => p.type === filter);
   grid.innerHTML = filtered.map(p => `
-    <div class="product-card">
+    <div class="product-card" onclick="openProductSheet(${p.id})">
       <div class="product-img img-empty-slot" style="aspect-ratio:3/4;border-radius:0;width:100%">
         <span class="slot-icon">📷</span>${p.name}
       </div>
@@ -1722,7 +1912,7 @@ function renderProducts(filter = 'הכל') {
         <div class="product-type">${p.type} · ${p.desc}</div>
         <div class="product-bottom">
           <div class="product-price">₪ ${p.price}</div>
-          <button class="add-btn" onclick="addToCart(${p.id})" title="הוסף לעגלה">+</button>
+          <button class="add-btn" onclick="event.stopPropagation();openProductSheet(${p.id})" title="הוסף לעגלה">+</button>
         </div>
       </div>
     </div>
@@ -1754,13 +1944,26 @@ function closeMenu() {
 }
 
 function navigate(screen) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const fromIdx = screenOrder[currentScreen] ?? 0;
+  const toIdx   = screenOrder[screen] ?? 0;
+  const dir     = toIdx >= fromIdx ? 'slide-from-right' : 'slide-from-left';
+
+  document.querySelectorAll('.screen').forEach(s => {
+    s.classList.remove('active', 'slide-from-right', 'slide-from-left');
+  });
   document.querySelectorAll('.nav-drawer-item').forEach(b => b.classList.remove('active'));
-  document.getElementById('screen-' + screen).classList.add('active');
+
+  const target = document.getElementById('screen-' + screen);
+  target.classList.add('active', dir);
+  target.addEventListener('animationend', () => {
+    target.classList.remove('slide-from-right', 'slide-from-left');
+  }, { once: true });
+
   const drawerItem = document.getElementById('drawer-' + screen);
   if (drawerItem) drawerItem.classList.add('active');
   if (screen === 'cart') renderCart();
-  document.getElementById('screen-' + screen).scrollTop = 0;
+  target.scrollTop = 0;
+  currentScreen = screen;
   closeMenu();
 }
 
@@ -1845,6 +2048,7 @@ function addCustomToCart() {
     emoji: '✨',
     custom: true
   });
+  saveCart();
   updateCartBadge();
   showToast('הפריט נוסף לעגלה!');
   // reset
@@ -1867,12 +2071,14 @@ function addToCart(productId) {
   const p = products.find(x => x.id === productId);
   if (!p) return;
   cart.push({ id: Date.now(), name: p.name, meta: p.type + ' · ' + p.desc, price: p.price, emoji: p.emoji, custom: false });
+  saveCart();
   updateCartBadge();
   showToast(p.name + ' נוסף לעגלה');
 }
 
 function removeFromCart(id) {
   cart = cart.filter(i => i.id !== id);
+  saveCart();
   updateCartBadge();
   renderCart();
 }
@@ -1986,6 +2192,7 @@ function handleCheckout(e) {
   sendOrderConfirmationEmail({ toEmail: email, toName: firstName || fullName, items: cart, total, shipping });
 
   cart = [];
+  saveCart();
   updateCartBadge();
   document.getElementById('modal-message').textContent = 'תודה על הזמנתך! נחזור אליך תוך 24 שעות עם אישור ומועד אספקה. ❤️';
   document.getElementById('success-modal').classList.add('open');
@@ -2023,10 +2230,66 @@ function showToast(msg) {
 }
 
 // ══════════════════════════════
+// PRODUCT QUICK-VIEW SHEET
+// ══════════════════════════════
+let sheetProductId = null;
+let sheetSelectedSize = null;
+
+function openProductSheet(productId) {
+  const p = products.find(x => x.id === productId);
+  if (!p) return;
+  sheetProductId = productId;
+  sheetSelectedSize = null;
+  document.getElementById('sheet-type').textContent  = p.type;
+  document.getElementById('sheet-name').textContent  = p.name;
+  document.getElementById('sheet-desc').textContent  = p.desc;
+  document.getElementById('sheet-price').textContent = '₪ ' + p.price;
+  document.getElementById('sheet-img-wrap').innerHTML =
+    `<div class="sheet-img-placeholder" style="background:${p.gradient}">${p.emoji || '👙'}</div>`;
+  const sizes = ['XS','S','M','L','XL','XXL'];
+  document.getElementById('sheet-sizes').innerHTML = sizes.map(s =>
+    `<button class="sheet-size-btn" onclick="selectSheetSize('${s}',this)">${s}</button>`
+  ).join('');
+  document.getElementById('sheet-overlay').classList.add('open');
+  document.getElementById('product-sheet').classList.add('open');
+}
+
+function closeProductSheet() {
+  document.getElementById('sheet-overlay').classList.remove('open');
+  document.getElementById('product-sheet').classList.remove('open');
+  sheetProductId = null;
+  sheetSelectedSize = null;
+}
+
+function selectSheetSize(size, btn) {
+  sheetSelectedSize = size;
+  document.querySelectorAll('.sheet-size-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+}
+
+function addSheetToCart() {
+  if (!sheetSelectedSize) { showToast('בחרי מידה תחילה'); return; }
+  const p = products.find(x => x.id === sheetProductId);
+  if (!p) return;
+  cart.push({ id: Date.now(), name: p.name, meta: p.type + ' · מידה ' + sheetSelectedSize, price: p.price, emoji: p.emoji || '👙', custom: false });
+  saveCart();
+  updateCartBadge();
+  showToast(p.name + ' נוסף לעגלה');
+  closeProductSheet();
+}
+
+// ══════════════════════════════
+// SIZE GUIDE
+// ══════════════════════════════
+function openSizeGuide()  { document.getElementById('size-guide-overlay').classList.add('open'); }
+function closeSizeGuide() { document.getElementById('size-guide-overlay').classList.remove('open'); }
+
+// ══════════════════════════════
 // INIT
 // ══════════════════════════════
 renderProducts();
 showStep(0);
+updateCartBadge();
 </script>
 </body>
 </html>

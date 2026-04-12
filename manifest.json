@@ -1,0 +1,20 @@
+{
+  "name": "MARILILU",
+  "short_name": "MARILILU",
+  "description": "בגדי ים בהתאמה אישית — מותג ישראלי בוטיק",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#1C1008",
+  "theme_color": "#3D2318",
+  "lang": "he",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
