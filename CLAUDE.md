@@ -59,13 +59,42 @@ Deploy by pushing to `main` — Vercel auto-deploys. **Always commit and push af
 
 **PWA:** `manifest.json` at root — name, theme color, SVG icon. `<link rel="manifest">` and Apple meta tags in `<head>`.
 
-**Assets:**
-- `logo.svg` — red square with "MARILILU" text (Cormorant Garamond, pink on red)
-- `manifest.json` — PWA manifest
-- `תמונות בגד ים/` — product/hero photos (WhatsApp exports, JPEG)
-- Hero background: `תמונות בגד ים/WhatsApp Image 2026-04-11 at 20.49.03.jpeg`
+## Assets
 
-**Image pattern:** Many sections use `.img-empty-slot` placeholder divs. `renderProducts()` renders placeholders — product objects have Unsplash URLs in the `img` field but they are not yet used as `<img>` tags. This is a known pending task.
+| File/Folder | Purpose |
+|---|---|
+| `logo.svg` | Red square with "MARILILU" text (Cormorant Garamond, pink on red) |
+| `manifest.json` | PWA manifest |
+| `og-image.jpg` | OG/social preview image (1200×630, dark bg + red logo square) — must be JPEG, not SVG |
+| `designer.jpg` | Designer portrait photo shown in the home screen designer card |
+| `imgs/` | All product and fabric photos with clean English filenames |
+| `תמונות בגד ים/` | Raw source photos (WhatsApp exports) — copy to `imgs/` with clean names before using |
+
+**`imgs/` naming convention:**
+- `prod-{name}.jpg` — product photos for collection screen (coral, stripe, lavender, emerald, leopard, rust, navy)
+- `fabric-{name}.jpg` — fabric texture photos for wizard step 1 (solid, stripe, leopard, tiger)
+
+## Products
+
+Products are defined in the `products` array in `<script>`. Each object: `{ id, name, type, price, desc, color, img }`. No Unsplash URLs — all `img` fields point to `/imgs/prod-*.jpg`.
+
+Current products (all type `סט מלא`, ₪380):
+- The Coral, The Stripe, The Lavender, The Emerald, The Leopard, The Rust, The Navy
+
+`renderProducts()` renders `<img>` tags directly (no placeholder slots). `openProductSheet()` also renders the image directly into the sheet.
+
+Filter tabs: הכל / סטים / הדפסים / צבע אחיד — `patternIds` array in `renderProducts()` controls which product IDs count as patterned.
+
+## Custom Order Wizard
+
+4 steps, each a `.step-panel` div shown/hidden by `showStep()`:
+
+| Step | ID | Content |
+|---|---|---|
+| 1 — Fabric | `step-0` | 4 fabric cards with real texture photos: חלק / פסים / הדפס נמר / הדפס זברה |
+| 2 — Color | `step-1` | Color swatches matching actual available colors: קורל, חרדל שרוף, לבנדר, ירוק כהה, טורקיז, נייבי, שוקולד, שחור, אפרסק, קרם |
+| 3 — Cut | `step-2` | Cut cards with real product photos as illustrations |
+| 4 — Size | `step-3` | XS–XXL size buttons + size guide modal trigger |
 
 ## Design Tokens
 
@@ -89,3 +118,5 @@ Deploy by pushing to `main` — Vercel auto-deploys. **Always commit and push af
 - Prices in ILS (₪), free shipping above ₪300; custom order fixed at ₪380
 - z-index layers: screens (default) → sheet overlay (8000) → product sheet (8500) → nav overlay (9000) → nav drawer (9500) → hamburger button (10000)
 - The `mailto:YOUR_EMAIL` in the nav drawer contact section is a placeholder pending the brand email address
+- OG image must always be JPEG or PNG — WhatsApp does not render SVG in link previews
+- When adding new product photos: copy raw file from `תמונות בגד ים/` to `imgs/` with a clean English filename, then reference `/imgs/filename.jpg` in the `products` array
