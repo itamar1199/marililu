@@ -20,7 +20,7 @@
 
   <!-- PWA -->
   <link rel="manifest" href="/manifest.json" />
-  <meta name="theme-color" content="#3D2318" />
+  <meta name="theme-color" content="#CA4535" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="MARILILU" />
@@ -33,14 +33,15 @@
   <style>
     /* ── TOKENS ── */
     :root {
-      --vanilla:   #F1EADA;
-      --tobacco:   #B59E7D;
-      --mountain:  #AAA398;
-      --sand:      #CEC1A8;
-      --mahogany:  #3D2318;
-      --mahogany2: #5C3825;
-      --dark:      #1C1008;
-      --light-bg:  #FAF7F2;
+      --vanilla:   #FDE8EE;
+      --tobacco:   #CA4535;
+      --blush:     #F0A0BC;
+      --mountain:  #9E8080;
+      --sand:      #EDD5DC;
+      --mahogany:  #2A1515;
+      --mahogany2: #4A2828;
+      --dark:      #160808;
+      --light-bg:  #FFF8F9;
       --white:     #FFFFFF;
 
       --font-serif: 'Cormorant Garamond', Georgia, serif;
@@ -124,7 +125,7 @@
       border: none;
       cursor: pointer;
       padding: 8px 16px;
-      color: rgba(241,234,218,0.5);
+      color: rgba(253,232,238,0.5);
       transition: color var(--transition);
       font-family: var(--font-sans);
       font-size: 10px;
@@ -154,7 +155,7 @@
     .hero {
       position: relative;
       height: 520px;
-      background: linear-gradient(160deg, var(--mahogany) 0%, var(--mahogany2) 40%, #7A5240 100%);
+      background: linear-gradient(160deg, var(--mahogany) 0%, var(--mahogany2) 40%, #8A1818 100%);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -171,7 +172,7 @@
     .hero-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to bottom, rgba(29,16,8,0.4) 0%, rgba(29,16,8,0.7) 100%);
+      background: linear-gradient(to bottom, rgba(22,8,8,0.4) 0%, rgba(22,8,8,0.7) 100%);
     }
     .hero-content {
       position: relative;
@@ -203,7 +204,7 @@
     }
     .btn-primary {
       background: var(--tobacco);
-      color: var(--vanilla);
+      color: var(--white);
       border: none;
       padding: 12px 28px;
       border-radius: 100px;
@@ -215,11 +216,11 @@
       transition: background var(--transition), transform 0.15s;
     }
     .btn-primary:active { transform: scale(0.97); }
-    .btn-primary:hover { background: var(--mahogany2); }
+    .btn-primary:hover { background: var(--mahogany); }
     .btn-outline {
       background: transparent;
       color: var(--vanilla);
-      border: 1px solid rgba(241,234,218,0.5);
+      border: 1px solid rgba(253,232,238,0.5);
       padding: 12px 28px;
       border-radius: 100px;
       font-family: var(--font-sans);
@@ -252,7 +253,7 @@
     .section-body {
       font-size: 14px;
       line-height: 1.8;
-      color: #5A4535;
+      color: #7A3535;
       font-weight: 300;
     }
     .divider {
@@ -296,7 +297,7 @@
     .designer-bio {
       font-size: 13px;
       line-height: 1.7;
-      color: #6A5040;
+      color: #6A3A3A;
       font-weight: 300;
     }
 
@@ -345,8 +346,8 @@
       justify-content: center;
       gap: 8px;
       margin-top: 20px;
-      background: rgba(241,234,218,0.1);
-      border: 1px solid rgba(241,234,218,0.2);
+      background: rgba(253,232,238,0.1);
+      border: 1px solid rgba(253,232,238,0.2);
       color: var(--vanilla);
       padding: 14px;
       border-radius: 100px;
@@ -358,7 +359,7 @@
       width: 100%;
       text-decoration: none;
     }
-    .insta-btn:hover { background: rgba(241,234,218,0.18); }
+    .insta-btn:hover { background: rgba(253,232,238,0.18); }
     .insta-btn svg { width: 18px; height: 18px; }
 
     /* contact */
@@ -397,7 +398,7 @@
       font-family: var(--font-serif);
     }
     .custom-header .section-body { 
-      color: rgba(206,193,168,0.7); 
+      color: rgba(237,213,220,0.75);
       font-size: 13px; 
     }
 
@@ -414,7 +415,7 @@
       transition: background var(--transition);
     }
     .step-dot.done { background: var(--tobacco); }
-    .step-dot.active { background: var(--mahogany); }
+    .step-dot.active { background: var(--blush); }
 
     .step-panel { padding: 28px 24px; }
     .step-title {
@@ -444,7 +445,7 @@
       text-align: center;
     }
     .fabric-card:hover { border-color: var(--tobacco); }
-    .fabric-card.selected { border-color: var(--mahogany); background: rgba(61,35,24,0.05); }
+    .fabric-card.selected { border-color: var(--tobacco); background: rgba(202,69,53,0.07); }
     .fabric-icon { font-size: 28px; margin-bottom: 8px; }
     .fabric-name {
       font-family: var(--font-serif);
@@ -503,7 +504,7 @@
       cursor: pointer;
       transition: border-color var(--transition), background var(--transition);
     }
-    .cut-card.selected { border-color: var(--mahogany); background: rgba(61,35,24,0.05); }
+    .cut-card.selected { border-color: var(--tobacco); background: rgba(202,69,53,0.07); }
     .cut-illustration {
       width: 100%;
       height: 80px;
@@ -544,7 +545,7 @@
       transition: all var(--transition);
     }
     .size-btn:hover { border-color: var(--tobacco); }
-    .size-btn.selected { background: var(--mahogany); color: var(--vanilla); border-color: var(--mahogany); }
+    .size-btn.selected { background: var(--tobacco); color: var(--white); border-color: var(--tobacco); }
 
     /* summary card */
     .summary-card {
@@ -641,9 +642,9 @@
       transition: all var(--transition);
     }
     .filter-tab.active {
-      background: var(--mahogany);
-      color: var(--vanilla);
-      border-color: var(--mahogany);
+      background: var(--tobacco);
+      color: var(--white);
+      border-color: var(--tobacco);
     }
 
     .product-grid {
@@ -902,8 +903,8 @@
 
     .pay-btn {
       width: 100%;
-      background: var(--mahogany);
-      color: var(--vanilla);
+      background: var(--tobacco);
+      color: var(--white);
       border: none;
       padding: 18px;
       border-radius: 100px;
@@ -915,7 +916,7 @@
       transition: background var(--transition);
       margin-top: 8px;
     }
-    .pay-btn:hover { background: var(--mahogany2); }
+    .pay-btn:hover { background: var(--mahogany); }
 
     .secure-note {
       display: flex;
@@ -962,8 +963,8 @@
     }
     .modal-body { font-size: 14px; color: var(--mountain); line-height: 1.6; margin-bottom: 24px; }
     .modal-btn {
-      background: var(--mahogany);
-      color: var(--vanilla);
+      background: var(--tobacco);
+      color: var(--white);
       border: none;
       padding: 14px 36px;
       border-radius: 100px;
@@ -1046,10 +1047,10 @@
       width: 44px;
       height: 44px;
       border-radius: 50%;
-      background: rgba(29,16,8,0.72);
+      background: rgba(22,8,8,0.72);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(241,234,218,0.18);
+      border: 1px solid rgba(253,232,238,0.18);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -1060,7 +1061,7 @@
       padding: 0;
       transition: background var(--transition);
     }
-    .hamburger-btn:hover { background: rgba(29,16,8,0.92); }
+    .hamburger-btn:hover { background: rgba(22,8,8,0.92); }
     .hamburger-btn span {
       display: block;
       width: 20px;
@@ -1121,7 +1122,7 @@
 
     .nav-drawer-top {
       padding: 60px 24px 20px;
-      border-bottom: 1px solid rgba(241,234,218,0.1);
+      border-bottom: 1px solid rgba(253,232,238,0.1);
       display: flex;
       align-items: center;
       gap: 14px;
@@ -1152,7 +1153,7 @@
       font-family: var(--font-sans);
       font-size: 15px;
       font-weight: 400;
-      color: rgba(241,234,218,0.55);
+      color: rgba(253,232,238,0.55);
       letter-spacing: 0.03em;
       transition: color var(--transition), background var(--transition);
       text-align: right;
@@ -1188,14 +1189,14 @@
     }
 
     .nav-drawer-contact {
-      border-top: 1px solid rgba(241,234,218,0.1);
+      border-top: 1px solid rgba(253,232,238,0.1);
       padding: 16px 24px 28px;
     }
     .nav-drawer-contact-title {
       font-family: var(--font-serif);
       font-size: 11px;
       letter-spacing: 0.15em;
-      color: rgba(241,234,218,0.38);
+      color: rgba(253,232,238,0.38);
       margin-bottom: 6px;
     }
     .nav-contact-link {
@@ -1203,7 +1204,7 @@
       align-items: center;
       gap: 12px;
       padding: 10px 0;
-      color: rgba(241,234,218,0.65);
+      color: rgba(253,232,238,0.65);
       text-decoration: none;
       font-size: 13px;
       font-family: var(--font-sans);
@@ -1225,7 +1226,7 @@
       flex-shrink: 0; width: 230px; background: var(--white);
       border-radius: var(--radius-md); padding: 20px; border: 1px solid var(--sand);
     }
-    .testimonial-stars { color: var(--tobacco); font-size: 13px; margin-bottom: 10px; letter-spacing: 2px; }
+    .testimonial-stars { color: var(--blush); font-size: 13px; margin-bottom: 10px; letter-spacing: 2px; }
     .testimonial-text {
       font-family: var(--font-serif); font-size: 14px; line-height: 1.65;
       color: var(--mahogany); margin-bottom: 14px; font-style: italic;
@@ -1266,18 +1267,18 @@
       color: var(--mahogany); cursor: pointer; transition: all var(--transition);
     }
     .sheet-size-btn:hover { border-color: var(--tobacco); }
-    .sheet-size-btn.selected { background: var(--mahogany); color: var(--vanilla); border-color: var(--mahogany); }
+    .sheet-size-btn.selected { background: var(--tobacco); color: var(--white); border-color: var(--tobacco); }
     .sheet-footer {
       display: flex; align-items: center; justify-content: space-between;
       border-top: 1px solid var(--vanilla); padding-top: 16px;
     }
     .sheet-price { font-family: var(--font-serif); font-size: 26px; color: var(--mahogany); }
     .sheet-add-btn {
-      background: var(--mahogany); color: var(--vanilla); border: none;
+      background: var(--tobacco); color: var(--white); border: none;
       padding: 14px 28px; border-radius: 100px; font-family: var(--font-sans);
       font-size: 14px; font-weight: 500; cursor: pointer; transition: background var(--transition);
     }
-    .sheet-add-btn:hover { background: var(--mahogany2); }
+    .sheet-add-btn:hover { background: var(--mahogany); }
 
     /* ── SIZE GUIDE MODAL ── */
     .size-guide-overlay {
@@ -1297,7 +1298,7 @@
     }
     .size-table { width: 100%; border-collapse: collapse; font-size: 13px; }
     .size-table th {
-      background: var(--mahogany); color: var(--vanilla);
+      background: var(--tobacco); color: var(--white);
       padding: 8px 10px; text-align: center; font-weight: 500; font-family: var(--font-sans);
     }
     .size-table td {
@@ -1309,7 +1310,7 @@
     .size-guide-note { font-size: 11px; color: var(--mountain); margin-top: 12px; line-height: 1.5; }
     .size-guide-close {
       display: block; width: 100%; margin-top: 20px;
-      background: var(--mahogany); color: var(--vanilla); border: none;
+      background: var(--tobacco); color: var(--white); border: none;
       padding: 13px; border-radius: 100px; font-family: var(--font-sans); font-size: 14px; cursor: pointer;
     }
   </style>
