@@ -1571,7 +1571,6 @@
         <button class="size-btn" onclick="selectSize('M',this)">M</button>
         <button class="size-btn" onclick="selectSize('L',this)">L</button>
         <button class="size-btn" onclick="selectSize('XL',this)">XL</button>
-        <button class="size-btn" onclick="selectSize('XXL',this)">XXL</button>
       </div>
 
       <div style="padding:0 0 20px">
@@ -1750,21 +1749,8 @@
 <!-- Size Guide Modal -->
 <div class="size-guide-overlay" id="size-guide-overlay" onclick="if(event.target===this)closeSizeGuide()">
   <div class="size-guide-modal">
-    <div class="size-guide-title">מדריך מידות</div>
-    <table class="size-table">
-      <thead>
-        <tr><th>מידה</th><th>חזה (ס"מ)</th><th>מותן (ס"מ)</th><th>ירך (ס"מ)</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>XS</td><td>76–80</td><td>60–64</td><td>84–88</td></tr>
-        <tr><td>S</td><td>81–85</td><td>65–69</td><td>89–93</td></tr>
-        <tr><td>M</td><td>86–90</td><td>70–74</td><td>94–98</td></tr>
-        <tr><td>L</td><td>91–96</td><td>75–80</td><td>99–104</td></tr>
-        <tr><td>XL</td><td>97–102</td><td>81–86</td><td>105–110</td></tr>
-        <tr><td>XXL</td><td>103–108</td><td>87–92</td><td>111–116</td></tr>
-      </tbody>
-    </table>
-    <div class="size-guide-note">* המידות הן הנחיה כללית. לבגד ים מותאם אישית נציגה תפנה אליך לאחר ההזמנה לוידוא מידות מדויקות.</div>
+    <img src="/imgs/size-chart.jpg" alt="טבלת מידות MARILILU" style="width:100%;border-radius:12px;display:block;margin-bottom:14px;" />
+    <div class="size-guide-note">* המידות בסנטימטרים. לבגד ים מותאם אישית נציגה תפנה אליך לאחר ההזמנה לוידוא מידות מדויקות.</div>
     <button class="size-guide-close" onclick="closeSizeGuide()">הבנתי, תודה!</button>
   </div>
 </div>
@@ -2201,7 +2187,7 @@ function openProductSheet(productId) {
   document.getElementById('sheet-price').textContent = '₪ ' + p.price;
   document.getElementById('sheet-img-wrap').innerHTML =
     `<img src="${p.img}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;display:block;" />`;
-  const sizes = ['XS','S','M','L','XL','XXL'];
+  const sizes = ['XS','S','M','L','XL'];
   document.getElementById('sheet-sizes').innerHTML = sizes.map(s =>
     `<button class="sheet-size-btn" onclick="selectSheetSize('${s}',this)">${s}</button>`
   ).join('');
