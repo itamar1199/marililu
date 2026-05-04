@@ -1571,6 +1571,7 @@
         <button class="size-btn" onclick="selectSize('M',this)">M</button>
         <button class="size-btn" onclick="selectSize('L',this)">L</button>
         <button class="size-btn" onclick="selectSize('XL',this)">XL</button>
+        <button class="size-btn" onclick="selectSize('XXL',this)">XXL</button>
       </div>
 
       <div style="padding:0 0 20px">
@@ -1749,7 +1750,10 @@
 <!-- Size Guide Modal -->
 <div class="size-guide-overlay" id="size-guide-overlay" onclick="if(event.target===this)closeSizeGuide()">
   <div class="size-guide-modal">
-    <img src="/imgs/size-chart.jpg" alt="טבלת מידות MARILILU" style="width:100%;border-radius:12px;display:block;margin-bottom:14px;" />
+    <img src="/imgs/size-chart.jpg" alt="טבלת מידות MARILILU" style="width:100%;border-radius:12px;display:block;margin-bottom:12px;" />
+    <div style="font-size:12px;color:var(--mahogany);background:var(--light-bg);border-radius:8px;padding:10px 12px;margin-bottom:10px;">
+      <strong>XXL</strong> — היקף חזה 103–108 · היקף מותן 87–92 · היקף אגן 111–116
+    </div>
     <div class="size-guide-note">* המידות בסנטימטרים. לבגד ים מותאם אישית נציגה תפנה אליך לאחר ההזמנה לוידוא מידות מדויקות.</div>
     <button class="size-guide-close" onclick="closeSizeGuide()">הבנתי, תודה!</button>
   </div>
@@ -2187,7 +2191,7 @@ function openProductSheet(productId) {
   document.getElementById('sheet-price').textContent = '₪ ' + p.price;
   document.getElementById('sheet-img-wrap').innerHTML =
     `<img src="${p.img}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;display:block;" />`;
-  const sizes = ['XS','S','M','L','XL'];
+  const sizes = ['XS','S','M','L','XL','XXL'];
   document.getElementById('sheet-sizes').innerHTML = sizes.map(s =>
     `<button class="sheet-size-btn" onclick="selectSheetSize('${s}',this)">${s}</button>`
   ).join('');
