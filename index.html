@@ -1483,14 +1483,24 @@
       color: var(--tobacco);
       font-weight: 400;
     }
+    .info-sheet-subtitle { font-size: 12px; color: var(--mountain); margin-top: 4px; }
     .info-sheet-body { padding: 20px 24px 44px; }
 
-    /* cuts grid inside sheet */
-    .cuts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    .cut-info-card { border-radius: var(--radius-sm); overflow: hidden; }
-    .cut-info-img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
-    .cut-info-name { font-family: var(--font-serif); font-size: 14px; color: var(--mahogany); padding: 7px 4px 2px; }
-    .cut-info-desc { font-size: 12px; color: var(--mountain); padding: 0 4px 8px; line-height: 1.4; }
+    /* cuts list inside sheet */
+    .cuts-category-title {
+      font-family: var(--font-serif); font-size: 22px; color: var(--tobacco);
+      padding-bottom: 10px; border-bottom: 1px solid var(--sand); margin-bottom: 14px;
+    }
+    .cuts-list { display: flex; flex-direction: column; gap: 14px; }
+    .cut-row { display: flex; align-items: flex-start; gap: 14px; }
+    .cut-num {
+      font-family: var(--font-serif); font-size: 18px; color: var(--tobacco);
+      min-width: 30px; padding-top: 1px; flex-shrink: 0;
+    }
+    .cut-details { flex: 1; }
+    .cut-name { font-family: var(--font-serif); font-size: 16px; color: var(--mahogany); margin-bottom: 3px; }
+    .cut-desc { font-size: 12px; color: var(--mountain); line-height: 1.55; }
+    .cuts-note { font-size: 11px; color: var(--mountain); margin-top: 20px; line-height: 1.6; padding: 12px; background: var(--light-bg); border-radius: var(--radius-sm); }
 
     /* fabrics list inside sheet */
     .fabrics-list { display: flex; flex-direction: column; gap: 18px; }
@@ -1981,40 +1991,146 @@
     </button>
     <div class="info-sheet-header">
       <div class="info-sheet-title">גזרות</div>
+      <div class="info-sheet-subtitle">כל גזרה מיוצרת בהתאמה אישית לפי הזמנה</div>
     </div>
     <div class="info-sheet-body">
-      <div class="cuts-grid">
-        <div class="cut-info-card">
-          <img class="cut-info-img" src="/imgs/cut-triangle.jpg" alt="טרייאנגל מכווץ" loading="lazy" />
-          <div class="cut-info-name">טרייאנגל מכווץ</div>
-          <div class="cut-info-desc">טופ עם כיווץ מרכזי, נשי ומחמיא</div>
+
+      <!-- בגדי גוף -->
+      <div class="cuts-category-title">בגדי גוף</div>
+      <div class="cuts-list">
+        <div class="cut-row">
+          <div class="cut-num">01</div>
+          <div class="cut-details">
+            <div class="cut-name">סטראפס</div>
+            <div class="cut-desc">ללא כתפיות, גזרה נקייה ומינימליסטית. נצחי ומחמיא לכל סוג גוף.</div>
+          </div>
         </div>
-        <div class="cut-info-card">
-          <img class="cut-info-img" src="/imgs/cut-thong.jpg" alt="חוטיני ברזילאי" loading="lazy" />
-          <div class="cut-info-name">חוטיני ברזילאי</div>
-          <div class="cut-info-desc">קשירות צד, חשיפה מינימלית</div>
+        <div class="cut-row">
+          <div class="cut-num">02</div>
+          <div class="cut-details">
+            <div class="cut-name">קלאסי</div>
+            <div class="cut-desc">כתפיות דקות וגזרה ישרה — בגד הגוף הנצחי שמתאים לכולן.</div>
+          </div>
         </div>
-        <div class="cut-info-card">
-          <img class="cut-info-img" src="/imgs/cut-v.jpg" alt="ברזילאי V" loading="lazy" />
-          <div class="cut-info-name">ברזילאי V</div>
-          <div class="cut-info-desc">גזרת V נועזת, מאריכה את הרגל</div>
+        <div class="cut-row">
+          <div class="cut-num">03</div>
+          <div class="cut-details">
+            <div class="cut-name">גבוה</div>
+            <div class="cut-desc">כתף אחת אסימטרית, על-הטרנד ונועזת. מושלם להפגנת סטייל.</div>
+          </div>
         </div>
-        <div class="cut-info-card">
-          <img class="cut-info-img" src="/imgs/cut-full.jpg" alt="סט מלא" loading="lazy" />
-          <div class="cut-info-name">סט מלא</div>
-          <div class="cut-info-desc">טופ + תחתון תואמים בבחירתך</div>
+        <div class="cut-row">
+          <div class="cut-num">04</div>
+          <div class="cut-details">
+            <div class="cut-name">קשירה</div>
+            <div class="cut-desc">קשירות בצידי הבטן — מתכוונן למידה ויוצר מחשוף בצד.</div>
+          </div>
         </div>
-        <div class="cut-info-card">
-          <img class="cut-info-img" src="/imgs/cut-back.jpg" alt="קשירות גב" loading="lazy" />
-          <div class="cut-info-name">קשירות גב</div>
-          <div class="cut-info-desc">שרוכים לגב, גמיש למידות</div>
+        <div class="cut-row">
+          <div class="cut-num">05</div>
+          <div class="cut-details">
+            <div class="cut-name">הלטר</div>
+            <div class="cut-desc">מחשוף V עמוק עם שכמיות הקושרות בצוואר — רומנטי וסקסי.</div>
+          </div>
         </div>
-        <div class="cut-info-card">
-          <img class="cut-info-img" src="/imgs/cut-animal.jpg" alt="הדפס חיה" loading="lazy" />
-          <div class="cut-info-name">הדפס חיה</div>
-          <div class="cut-info-desc">נמר / זברה, סטייל נועז</div>
+        <div class="cut-row">
+          <div class="cut-num">06</div>
+          <div class="cut-details">
+            <div class="cut-name">גבוה וקשירה</div>
+            <div class="cut-desc">שילוב של צווארון גבוה וקשירות בצד — דרמטי ומיוחד.</div>
+          </div>
         </div>
       </div>
+
+      <!-- חלקי עליון -->
+      <div class="cuts-category-title" style="margin-top:28px">חלקי עליון</div>
+      <div class="cuts-list">
+        <div class="cut-row">
+          <div class="cut-num">01</div>
+          <div class="cut-details">
+            <div class="cut-name">קלאסי</div>
+            <div class="cut-desc">טופ טריאנגל עם קשירה — הקלאסיקה הבלתי מתה של הביקיני.</div>
+          </div>
+        </div>
+        <div class="cut-row">
+          <div class="cut-num">02</div>
+          <div class="cut-details">
+            <div class="cut-name">טוויסט</div>
+            <div class="cut-desc">בנדו עם טוויסט עדין במרכז — יוצא דופן בפשטותו.</div>
+          </div>
+        </div>
+        <div class="cut-row">
+          <div class="cut-num">03</div>
+          <div class="cut-details">
+            <div class="cut-name">טוויסט (עם טבעת)</div>
+            <div class="cut-desc">טוויסט מרכזי עם טבעת מתכת — פרט קטן שעושה את ההבדל.</div>
+          </div>
+        </div>
+        <div class="cut-row">
+          <div class="cut-num">04</div>
+          <div class="cut-details">
+            <div class="cut-name">הלטר</div>
+            <div class="cut-desc">טריאנגל עם שכמיות הקושרות בצוואר — תומך ומחמיא.</div>
+          </div>
+        </div>
+        <div class="cut-row">
+          <div class="cut-num">05</div>
+          <div class="cut-details">
+            <div class="cut-name">פפיון</div>
+            <div class="cut-desc">קשירה קדמית בצורת פפיון — נשי, רומנטי, ופמיניני.</div>
+          </div>
+        </div>
+        <div class="cut-row">
+          <div class="cut-num">06</div>
+          <div class="cut-details">
+            <div class="cut-name">גבוה</div>
+            <div class="cut-desc">קרופ אסימטרי כתף אחת — אמצעת הבמה על חוף הים.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- חלקי תחתון -->
+      <div class="cuts-category-title" style="margin-top:28px">חלקי תחתון</div>
+      <div class="cuts-list">
+        <div class="cut-row">
+          <div class="cut-num">01</div>
+          <div class="cut-details">
+            <div class="cut-name">מיני</div>
+            <div class="cut-desc">תחתון מיני קצרצר. ניתן להוסיף רצועות צד במקום אלסטיק.</div>
+          </div>
+        </div>
+        <div class="cut-row">
+          <div class="cut-num">02</div>
+          <div class="cut-details">
+            <div class="cut-name">קשירה</div>
+            <div class="cut-desc">קשירות בצד — מתכוונן ומחמיא, מאריך את קו הירך.</div>
+          </div>
+        </div>
+        <div class="cut-row">
+          <div class="cut-num">03</div>
+          <div class="cut-details">
+            <div class="cut-name">קלאסי</div>
+            <div class="cut-desc">כיסוי מלא קלאסי. ניתן להוסיף רצועות צד במקום אלסטיק.</div>
+          </div>
+        </div>
+        <div class="cut-row">
+          <div class="cut-num">04</div>
+          <div class="cut-details">
+            <div class="cut-name">מיני מלא</div>
+            <div class="cut-desc">מיני עם כיסוי קדמי נוסף — ביטחון ועיצוב בו-זמנית. ניתן להוסיף רצועות.</div>
+          </div>
+        </div>
+        <div class="cut-row">
+          <div class="cut-num">05</div>
+          <div class="cut-details">
+            <div class="cut-name">חוטיני</div>
+            <div class="cut-desc">חוטיני מינימליסטי — לאמיצות בלב. ניתן להוסיף קשירה בצד.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cuts-note">* ניתן להוסיף רצועות בצד לגזרות המסומנות · ניתן לבחור חוטיני או קשירה בצד כאפשרות לכל תחתון</div>
+
       <button class="btn-primary" style="width:100%;margin-top:24px;padding:14px;font-size:14px" onclick="closeInfoSheet('cuts');navigate('custom')">להזמנה אישית ←</button>
     </div>
   </div>
