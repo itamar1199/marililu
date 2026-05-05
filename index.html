@@ -33,15 +33,15 @@
   <style>
     /* ── TOKENS ── */
     :root {
-      --vanilla:   #FDE8EE;
+      --vanilla:   #E8E3DA;
       --tobacco:   #CA4535;
       --blush:     #F0A0BC;
       --mountain:  #9E8080;
-      --sand:      #EDD5DC;
+      --sand:      #D5CEC5;
       --mahogany:  #2A1515;
       --mahogany2: #4A2828;
       --dark:      #160808;
-      --light-bg:  #FFF8F9;
+      --light-bg:  #F0EDE7;
       --white:     #FFFFFF;
 
       --font-serif: 'Cormorant Garamond', Georgia, serif;
@@ -253,7 +253,7 @@
     .section-body {
       font-size: 14px;
       line-height: 1.8;
-      color: #7A3535;
+      color: var(--mountain);
       font-weight: 300;
     }
     .divider {
@@ -297,7 +297,7 @@
     .designer-bio {
       font-size: 13px;
       line-height: 1.7;
-      color: #6A3A3A;
+      color: var(--mountain);
       font-weight: 300;
     }
 
@@ -385,21 +385,22 @@
        SCREEN 2 — CUSTOM ORDER
     ══════════════════════════════ */
     .custom-header {
-      background: var(--mahogany);
+      background: var(--light-bg);
       padding: 52px 24px 28px;
+      border-bottom: 1px solid var(--sand);
     }
-    .custom-header .section-label { 
-      color: var(--sand); 
+    .custom-header .section-label {
+      color: var(--mountain);
       font-family: var(--font-serif);
     }
-    .custom-header .section-title { 
-      color: var(--vanilla); 
-      font-size: 34px;
+    .custom-header .section-title {
+      color: var(--tobacco);
+      font-size: 38px;
       font-family: var(--font-serif);
     }
-    .custom-header .section-body { 
-      color: rgba(237,213,220,0.75);
-      font-size: 13px; 
+    .custom-header .section-body {
+      color: var(--mountain);
+      font-size: 13px;
     }
 
     .steps-progress {
@@ -610,21 +611,29 @@
        SCREEN 3 — COLLECTION
     ══════════════════════════════ */
     .collection-header {
-      background: var(--mahogany);
-      padding: 52px 24px 28px;
+      background: var(--light-bg);
+      padding: 52px 24px 20px;
+      border-bottom: 1px solid var(--sand);
     }
     .collection-header .section-label {
       font-family: var(--font-serif);
+      color: var(--mountain);
     }
     .collection-header .section-title {
       font-family: var(--font-serif);
+      color: var(--tobacco) !important;
+      font-size: 42px !important;
+    }
+    .collection-header .section-body {
+      color: var(--mountain) !important;
     }
     .filter-tabs {
       display: flex;
       gap: 8px;
-      padding: 16px 24px;
+      padding: 16px 20px;
       overflow-x: auto;
       scrollbar-width: none;
+      background: var(--light-bg);
     }
     .filter-tabs::-webkit-scrollbar { display: none; }
     .filter-tab {
@@ -650,22 +659,62 @@
     .product-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      padding: 0 16px;
+      gap: 20px 16px;
+      padding: 28px 20px 20px;
+      background: var(--light-bg);
     }
     .product-card {
-      background: var(--white);
-      border-radius: var(--radius-md);
-      overflow: hidden;
+      background: transparent;
+      border-radius: 0;
+      overflow: visible;
       cursor: pointer;
       transition: transform 0.2s;
     }
-    .product-card:active { transform: scale(0.98); }
+    .product-card:active { transform: scale(0.97); }
+
+    /* editorial image wrapper — swatch overflows this */
+    .card-img-wrap {
+      position: relative;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
     .product-img {
       width: 100%;
       aspect-ratio: 3/4;
       object-fit: cover;
       display: block;
+      border-radius: var(--radius-sm);
+    }
+    /* fabric swatch overlapping top-right corner */
+    .card-swatch {
+      position: absolute;
+      top: -10px;
+      right: -8px;
+      width: 44px;
+      height: 44px;
+      border-radius: 7px;
+      object-fit: cover;
+      border: 3px solid var(--light-bg);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.22);
+      z-index: 2;
+    }
+    .card-swatch-color {
+      position: absolute;
+      top: -10px;
+      right: -8px;
+      width: 44px;
+      height: 44px;
+      border-radius: 7px;
+      border: 3px solid var(--light-bg);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.22);
+      z-index: 2;
+    }
+    .card-number {
+      font-family: var(--font-serif);
+      font-size: 13px;
+      color: var(--tobacco);
+      letter-spacing: 0.06em;
+      padding: 10px 2px 2px;
     }
     .product-img-placeholder {
       width: 100%;
@@ -675,52 +724,49 @@
       justify-content: center;
       font-size: 42px;
     }
-    .product-info { padding: 12px; }
+    .product-info { padding: 4px 0 0; }
     .product-name {
       font-family: var(--font-serif);
-      font-size: 17px;
+      font-size: 16px;
       color: var(--mahogany);
       margin-bottom: 2px;
       font-weight: 400;
     }
     .product-type {
-      font-family: var(--font-serif);
-      font-size: 11px;
-      text-transform: none;
-      letter-spacing: 0.1em;
-      color: var(--mahogany);
-      margin-bottom: 8px;
-      font-weight: 400;
+      display: none;
     }
     .product-bottom {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-top: 4px;
     }
     .product-price {
       font-family: var(--font-serif);
-      font-size: 18px;
+      font-size: 16px;
       color: var(--mahogany);
       font-weight: 500;
     }
     .add-btn {
-      width: 32px; height: 32px;
+      width: 30px; height: 30px;
       border-radius: 50%;
-      background: var(--mahogany);
+      background: var(--tobacco);
       border: none;
-      color: var(--vanilla);
+      color: var(--white);
       display: flex; align-items: center; justify-content: center;
       cursor: pointer;
       font-size: 18px;
       transition: background var(--transition);
+      flex-shrink: 0;
     }
-    .add-btn:hover { background: var(--tobacco); }
+    .add-btn:hover { background: var(--mahogany); }
 
     /* inspiration strip */
     .inspo-strip {
       padding: 24px;
-      background: var(--vanilla);
-      margin: 16px 0 0;
+      background: var(--light-bg);
+      margin: 0;
+      border-top: 1px solid var(--sand);
     }
     .inspo-strip .section-label { margin-bottom: 14px; }
     .inspo-scroll {
@@ -765,14 +811,18 @@
        SCREEN 4 — CART & CHECKOUT
     ══════════════════════════════ */
     .cart-header {
-      background: var(--mahogany);
+      background: var(--light-bg);
       padding: 52px 24px 28px;
+      border-bottom: 1px solid var(--sand);
     }
     .cart-header .section-label {
       font-family: var(--font-serif);
+      color: var(--mountain);
     }
     .cart-header .section-title {
       font-family: var(--font-serif);
+      color: var(--tobacco) !important;
+      font-size: 38px !important;
     }
     .cart-count-badge {
       display: inline-flex;
@@ -1602,8 +1652,8 @@
     <div class="collection-header">
       <img src="logo.svg" alt="MARILILU" class="brand-logo-corner" />
       <div class="section-label">קולקציה</div>
-      <div class="section-title" style="color:var(--vanilla);font-size:34px">הפריטים שלנו</div>
-      <div class="section-body" style="color:var(--sand);font-size:13px">פריטים מוכנים · השראה מהסטודיו</div>
+      <div class="section-title">הפריטים שלנו</div>
+      <div class="section-body">פריטים מוכנים · השראה מהסטודיו</div>
     </div>
 
     <div class="filter-tabs" id="filter-tabs">
@@ -1647,7 +1697,7 @@
     <div class="cart-header">
       <img src="logo.svg" alt="MARILILU" class="brand-logo-corner" />
       <div class="section-label">עגלת קניות</div>
-      <div class="section-title" style="color:var(--vanilla);font-size:34px">ההזמנה שלך</div>
+      <div class="section-title">ההזמנה שלך</div>
       <div id="cart-count-display"></div>
     </div>
 
@@ -1828,13 +1878,13 @@ function saveCart() {
 // PRODUCTS DATA
 // ══════════════════════════════
 const products = [
-  { id:1, name:'The Coral',    type:'סט מלא', price:380, desc:'טרייאנגל מכווץ + חוטיני ברזילאי', color:'#E8463A', img:'/imgs/prod-coral.jpg' },
-  { id:2, name:'The Stripe',   type:'סט מלא', price:380, desc:'טרייאנגל מכווץ + חוטיני ברזילאי', color:'#3D2010', img:'/imgs/prod-stripe.jpg' },
-  { id:3, name:'The Lavender', type:'סט מלא', price:380, desc:'טרייאנגל מכווץ + ברזילאי V',       color:'#B5A8D0', img:'/imgs/prod-lavender.jpg' },
-  { id:4, name:'The Emerald',  type:'סט מלא', price:380, desc:'טרייאנגל מכווץ + חוטיני ברזילאי', color:'#1A5244', img:'/imgs/prod-emerald.jpg' },
-  { id:5, name:'The Leopard',  type:'סט מלא', price:380, desc:'טרייאנגל מכווץ + חוטיני ברזילאי', color:'#3D2010', img:'/imgs/prod-leopard.jpg' },
-  { id:6, name:'The Rust',     type:'סט מלא', price:380, desc:'טרייאנגל מכווץ + חוטיני ברזילאי', color:'#C85A2A', img:'/imgs/prod-rust.jpg' },
-  { id:7, name:'The Navy',     type:'סט מלא', price:380, desc:'טרייאנגל מכווץ + חוטיני ברזילאי', color:'#1A2744', img:'/imgs/prod-navy.jpg' },
+  { id:1, name:'The Coral',    type:'סט מלא', price:380, desc:'טרייאנגל מכווץ + חוטיני ברזילאי', color:'#E8463A', img:'/imgs/prod-coral.jpg',    swatch: null },
+  { id:2, name:'The Stripe',   type:'סט מלא', price:380, desc:'טרייאנגל מכווץ + חוטיני ברזילאי', color:'#3D2010', img:'/imgs/prod-stripe.jpg',   swatch: '/imgs/fabric-stripe.jpg' },
+  { id:3, name:'The Lavender', type:'סט מלא', price:380, desc:'טרייאנגל מכווץ + ברזילאי V',       color:'#B5A8D0', img:'/imgs/prod-lavender.jpg', swatch: null },
+  { id:4, name:'The Emerald',  type:'סט מלא', price:380, desc:'טרייאנגל מכווץ + חוטיני ברזילאי', color:'#1A5244', img:'/imgs/prod-emerald.jpg',  swatch: null },
+  { id:5, name:'The Leopard',  type:'סט מלא', price:380, desc:'טרייאנגל מכווץ + חוטיני ברזילאי', color:'#3D2010', img:'/imgs/prod-leopard.jpg',  swatch: '/imgs/fabric-leopard.jpg' },
+  { id:6, name:'The Rust',     type:'סט מלא', price:380, desc:'טרייאנגל מכווץ + חוטיני ברזילאי', color:'#C85A2A', img:'/imgs/prod-rust.jpg',     swatch: null },
+  { id:7, name:'The Navy',     type:'סט מלא', price:380, desc:'טרייאנגל מכווץ + חוטיני ברזילאי', color:'#1A2744', img:'/imgs/prod-navy.jpg',     swatch: null },
 ];
 
 function renderProducts(filter = 'הכל') {
@@ -1844,19 +1894,27 @@ function renderProducts(filter = 'הכל') {
     : filter === 'הדפס' ? products.filter(p => patternIds.includes(p.id))
     : filter === 'חלק'  ? products.filter(p => !patternIds.includes(p.id))
     : products.filter(p => p.type === filter);
-  grid.innerHTML = filtered.map(p => `
+  grid.innerHTML = filtered.map((p, i) => {
+    const num = String(i + 1).padStart(2, '0');
+    const swatchEl = p.swatch
+      ? `<img src="${p.swatch}" class="card-swatch" alt="fabric" loading="lazy" />`
+      : `<div class="card-swatch-color" style="background:${p.color}"></div>`;
+    return `
     <div class="product-card" onclick="openProductSheet(${p.id})">
-      <img src="${p.img}" alt="${p.name}" class="product-img" style="aspect-ratio:3/4;border-radius:0;width:100%;object-fit:cover;display:block;" loading="lazy" />
+      <div class="card-img-wrap">
+        <img src="${p.img}" alt="${p.name}" class="product-img" loading="lazy" />
+        ${swatchEl}
+      </div>
+      <div class="card-number">${num}</div>
       <div class="product-info">
         <div class="product-name">${p.name}</div>
-        <div class="product-type">${p.type} · ${p.desc}</div>
         <div class="product-bottom">
           <div class="product-price">₪ ${p.price}</div>
           <button class="add-btn" onclick="event.stopPropagation();openProductSheet(${p.id})" title="הוסף לעגלה">+</button>
         </div>
       </div>
-    </div>
-  `).join('');
+    </div>`;
+  }).join('');
 }
 
 function filterProducts(filter, btn) {
