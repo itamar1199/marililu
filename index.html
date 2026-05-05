@@ -166,8 +166,8 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: url("תמונות בגד ים/WhatsApp Image 2026-04-11 at 20.49.03.jpeg") center/cover no-repeat;
-      opacity: 0.35;
+      background: url("/imgs/studio-1.jpg") center/cover no-repeat;
+      opacity: 0.55;
     }
     .hero-overlay {
       position: absolute;
@@ -1379,6 +1379,175 @@
       background: var(--tobacco); color: var(--white); border: none;
       padding: 13px; border-radius: 100px; font-family: var(--font-sans); font-size: 14px; cursor: pointer;
     }
+
+    /* ═══════════════════════════════
+       HOME MOSAIC TILES
+    ═══════════════════════════════ */
+    .home-tiles {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .tiles-row {
+      display: flex;
+      gap: 3px;
+      direction: ltr;
+    }
+    .tile {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      flex: 1;
+    }
+    .tile-narrow { flex: 0 0 42%; }
+    .tile-wide   { flex: 0 0 58%; }
+    .tile-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .tile:active .tile-img { transform: scale(1.04); }
+    .tile-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(6,2,2,0.68) 0%, rgba(6,2,2,0.15) 55%, transparent 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 14px 16px;
+    }
+    .tile-label {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      color: #fff;
+      font-weight: 400;
+      line-height: 1.2;
+      letter-spacing: 0.03em;
+    }
+    .tile-label-lg { font-size: 28px; }
+    .tile-sub {
+      font-size: 11px;
+      color: rgba(255,255,255,0.72);
+      margin-top: 4px;
+      letter-spacing: 0.06em;
+    }
+
+    /* ═══════════════════════════════
+       INFO SHEETS (cuts / fabrics / ordering)
+    ═══════════════════════════════ */
+    .info-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 8600;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    .info-overlay.open { display: flex; }
+    .info-sheet {
+      width: 100%;
+      max-width: 430px;
+      max-height: 88dvh;
+      background: var(--white);
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      overflow-y: auto;
+      position: relative;
+      animation: slideUp 0.36s cubic-bezier(0.4,0,0.2,1) forwards;
+    }
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to   { transform: translateY(0); }
+    }
+    .info-sheet-close {
+      position: absolute;
+      top: 14px; left: 16px;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--light-bg);
+      border: none;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      color: var(--mahogany);
+      z-index: 10;
+    }
+    .info-sheet-header {
+      padding: 28px 24px 16px;
+      border-bottom: 1px solid var(--sand);
+    }
+    .info-sheet-title {
+      font-family: var(--font-serif);
+      font-size: 30px;
+      color: var(--tobacco);
+      font-weight: 400;
+    }
+    .info-sheet-body { padding: 20px 24px 44px; }
+
+    /* cuts grid inside sheet */
+    .cuts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .cut-info-card { border-radius: var(--radius-sm); overflow: hidden; }
+    .cut-info-img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
+    .cut-info-name { font-family: var(--font-serif); font-size: 14px; color: var(--mahogany); padding: 7px 4px 2px; }
+    .cut-info-desc { font-size: 12px; color: var(--mountain); padding: 0 4px 8px; line-height: 1.4; }
+
+    /* fabrics list inside sheet */
+    .fabrics-list { display: flex; flex-direction: column; gap: 18px; }
+    .fabric-info-card { display: flex; gap: 16px; align-items: center; }
+    .fabric-info-img { width: 80px; height: 80px; border-radius: var(--radius-sm); object-fit: cover; flex-shrink: 0; }
+    .fabric-info-name { font-family: var(--font-serif); font-size: 18px; color: var(--mahogany); }
+    .fabric-info-desc { font-size: 13px; color: var(--mountain); margin-top: 4px; line-height: 1.4; }
+
+    /* ordering info inside sheet */
+    .ordering-section { margin-bottom: 24px; }
+    .ordering-section-title {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      color: var(--tobacco);
+      margin-bottom: 10px;
+      font-weight: 400;
+    }
+    .ordering-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .ordering-list li {
+      font-size: 13px; color: var(--mahogany); line-height: 1.6;
+      padding-right: 16px; position: relative;
+    }
+    .ordering-list li::before {
+      content: '·';
+      position: absolute; right: 0;
+      color: var(--tobacco); font-size: 18px; line-height: 1.3;
+    }
+
+    /* ═══════════════════════════════
+       REVIEWS SECTION "אתן"
+    ═══════════════════════════════ */
+    .reviews-section { padding: 36px 24px; background: var(--white); }
+    .reviews-grid { display: flex; flex-direction: column; margin-top: 20px; }
+    .review-card {
+      display: flex; gap: 14px; padding: 20px 0;
+      border-bottom: 1px solid var(--sand);
+      align-items: flex-start;
+    }
+    .review-card:last-child { border-bottom: none; }
+    .review-photo {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      background: var(--vanilla);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      overflow: hidden;
+    }
+    .review-content { flex: 1; }
+    .review-name { font-weight: 600; color: var(--mahogany); font-size: 14px; margin-bottom: 1px; }
+    .review-location { font-size: 11px; color: var(--mountain); margin-bottom: 5px; }
+    .review-stars { color: var(--blush); font-size: 13px; margin-bottom: 6px; letter-spacing: 2px; }
+    .review-text {
+      font-family: var(--font-serif); font-size: 14px;
+      color: var(--mahogany); line-height: 1.65; font-style: italic;
+    }
   </style>
 </head>
 <body>
@@ -1388,110 +1557,117 @@
   <!-- ───────────────────────────── SCREEN 1: HOME ───────────────────────────── -->
   <section id="screen-home" class="screen active">
 
+    <!-- Hero: full-height model photo, brand name only -->
     <div class="hero">
       <div class="hero-overlay"></div>
       <div class="hero-content">
         <div class="brand-name">MARILILU</div>
         <div class="brand-tagline">Handcrafted Swimwear · Made for you</div>
-        <div class="hero-cta">
-          <button class="btn-primary" onclick="navigate('custom')">עצבי את שלך</button>
-          <button class="btn-outline" onclick="navigate('collection')">הקולקציה</button>
+      </div>
+    </div>
+
+    <!-- Mosaic navigation tiles -->
+    <div class="home-tiles">
+
+      <!-- Row 1: גזרות (narrow) + בדים (wide) — height 260px -->
+      <div class="tiles-row" style="height:260px">
+        <div class="tile tile-narrow" onclick="openInfoSheet('cuts')">
+          <img class="tile-img" src="/imgs/studio-1.jpg" alt="גזרות" loading="lazy" />
+          <div class="tile-overlay">
+            <div class="tile-label">גזרות</div>
+          </div>
         </div>
-      </div>
-    </div>
-
-    <!-- About -->
-    <div class="section">
-      <img src="logo.svg" alt="MARILILU" class="brand-logo-sm" />
-      <div class="section-label">אודות המותג</div>
-      <div class="section-title">בגדי ים שנולדו מאהבה לגוף הנשי</div>
-      <div class="section-body">
-        MARILILU הוא מותג בגדי ים ישראלי בוטיק, שנולד מתוך אמונה אחת פשוטה — כל אישה ראויה ללבוש בגד שנתפר עבורה בלבד.
-        כל פריט מעוצב ביד, מבדים מובחרים ואיכותיים, ומותאם אישית לגזרה ולצבע שיגרמו לה להרגיש הכי עצמה.
-        כי אנחנו לא מוכרות בגד ים — אנחנו מוכרות הרגשה.
-      </div>
-    </div>
-
-    <div class="divider"></div>
-
-    <!-- Designer -->
-    <div class="section">
-      <div class="section-label">המעצבת</div>
-      <div class="designer-card">
-        <img src="/designer.jpg" alt="ליהי אבוחצירא" class="designer-photo" style="object-fit:cover;" />
-        <div class="designer-info">
-          <div class="designer-name">ליהי אבוחצירא</div>
-          <div class="designer-title">מייסדת ומעצבת ראשית</div>
-          <div class="designer-bio">
-            מעצבת אופנה עם תשוקה של מעל עשור לעיצוב וסטיילינג.
-            כל קולקציה מגיעה ממקום אישי — מסע, צבע, תחושה.
-            "אני מאמינה שבגד ים טוב מתחיל מהקשבה לגוף."
+        <div class="tile tile-wide" onclick="openInfoSheet('fabrics')">
+          <img class="tile-img" src="/imgs/studio-2.jpg" alt="בדים" loading="lazy" />
+          <div class="tile-overlay">
+            <div class="tile-label">בדים</div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="divider"></div>
-
-    <!-- Testimonials -->
-    <div class="testimonials-section">
-      <div class="section-label">לקוחות מספרות</div>
-      <div class="section-title">אהבה ממי שלובשת</div>
-      <div class="testimonials-scroll">
-        <div class="testimonial-card">
-          <div class="testimonial-stars">★★★★★</div>
-          <div class="testimonial-text">"קיבלתי את הבגד ים ואני פשוט לא מאמינה כמה הוא מושלם. הצבע בדיוק כמו שביקשתי, האיכות מעל ומעבר."</div>
-          <div class="testimonial-author">נועה כ. · תל אביב</div>
+      <!-- Row 2: אתן (wide) + מידות (narrow) — height 240px -->
+      <div class="tiles-row" style="height:240px">
+        <div class="tile tile-wide" onclick="scrollToReviews()">
+          <img class="tile-img" src="/imgs/studio-3.jpg" alt="אתן" loading="lazy" />
+          <div class="tile-overlay">
+            <div class="tile-label">אתן</div>
+            <div class="tile-sub">הבנות שלנו</div>
+          </div>
         </div>
-        <div class="testimonial-card">
-          <div class="testimonial-stars">★★★★★</div>
-          <div class="testimonial-text">"סוף סוף בגד ים שמתאים לגוף שלי בדיוק. ליהי הקשיבה לכל בקשה ויצרה משהו קסום."</div>
-          <div class="testimonial-author">מיכל ר. · חיפה</div>
-        </div>
-        <div class="testimonial-card">
-          <div class="testimonial-stars">★★★★★</div>
-          <div class="testimonial-text">"הזמנתי סט מלא וקיבלתי אותו תוך שבוע. העיצוב יחיד במינו, קיבלתי המון מחמאות בחוף!"</div>
-          <div class="testimonial-author">שירה מ. · ירושלים</div>
-        </div>
-        <div class="testimonial-card">
-          <div class="testimonial-stars">★★★★★</div>
-          <div class="testimonial-text">"הבד הכי נעים שיש. לובשת כבר עונה שלמה ועדיין נראה חדש. מוצר של איכות אמיתית."</div>
-          <div class="testimonial-author">דנה ל. · ראשון לציון</div>
+        <div class="tile tile-narrow" onclick="openSizeGuide()">
+          <img class="tile-img" src="/imgs/studio-4.jpg" alt="מידות" loading="lazy" />
+          <div class="tile-overlay">
+            <div class="tile-label">מידות</div>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="divider"></div>
+      <!-- Row 3: ביצוע הזמנה — full width, height 170px -->
+      <div class="tiles-row" style="height:170px">
+        <div class="tile" onclick="openInfoSheet('ordering')">
+          <img class="tile-img" src="/imgs/prod-coral.jpg" alt="ביצוע הזמנה" loading="lazy" />
+          <div class="tile-overlay">
+            <div class="tile-label tile-label-lg">ביצוע הזמנה</div>
+            <div class="tile-sub">נהלים · אחריות · החלפות · החזרות</div>
+          </div>
+        </div>
+      </div>
 
-    <!-- Instagram -->
-    <div class="insta-section">
-      <div class="section-label">אינסטגרם</div>
-      <div class="section-title" style="color:var(--vanilla)">@___marililu___</div>
-      <div class="section-body" style="color:var(--sand);margin-bottom:0">
-        עקבי אחרינו לקבלת השראה יומיומית, הצצות מאחורי הקלעים ומהדורות חדשות.
+    </div><!-- /home-tiles -->
+
+    <!-- "אתן" — reviews with photo slots -->
+    <div id="reviews-section" class="reviews-section">
+      <div class="section-label">אתן</div>
+      <div class="section-title" style="color:var(--tobacco)">הבנות שלנו</div>
+      <div class="reviews-grid">
+
+        <div class="review-card">
+          <div class="review-photo">👙</div>
+          <div class="review-content">
+            <div class="review-name">נועה כ.</div>
+            <div class="review-location">תל אביב</div>
+            <div class="review-stars">★★★★★</div>
+            <div class="review-text">"קיבלתי את הבגד ים ואני פשוט לא מאמינה כמה הוא מושלם. הצבע בדיוק כמו שביקשתי, האיכות מעל ומעבר."</div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-photo">👙</div>
+          <div class="review-content">
+            <div class="review-name">מיכל ר.</div>
+            <div class="review-location">חיפה</div>
+            <div class="review-stars">★★★★★</div>
+            <div class="review-text">"סוף סוף בגד ים שמתאים לגוף שלי בדיוק. ליהי הקשיבה לכל בקשה ויצרה משהו קסום."</div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-photo">👙</div>
+          <div class="review-content">
+            <div class="review-name">שירה מ.</div>
+            <div class="review-location">ירושלים</div>
+            <div class="review-stars">★★★★★</div>
+            <div class="review-text">"הזמנתי סט מלא וקיבלתי אותו תוך שבוע. העיצוב יחיד במינו, קיבלתי המון מחמאות בחוף!"</div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-photo">👙</div>
+          <div class="review-content">
+            <div class="review-name">דנה ל.</div>
+            <div class="review-location">ראשון לציון</div>
+            <div class="review-stars">★★★★★</div>
+            <div class="review-text">"הבד הכי נעים שיש. לובשת כבר עונה שלמה ועדיין נראה חדש. מוצר של איכות אמיתית."</div>
+          </div>
+        </div>
+
       </div>
-      <div class="insta-grid" style="margin-top:20px">
-        <div class="insta-cell"><img src="/imgs/insta-1.jpg" alt="MARILILU Instagram" style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" /></div>
-        <div class="insta-cell"><img src="/imgs/insta-2.jpg" alt="MARILILU Instagram" style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" /></div>
-        <div class="insta-cell"><img src="/imgs/insta-3.jpg" alt="MARILILU Instagram" style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" /></div>
-        <div class="insta-cell"><img src="/imgs/insta-4.jpg" alt="MARILILU Instagram" style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" /></div>
-        <div class="insta-cell"><img src="/imgs/insta-5.jpg" alt="MARILILU Instagram" style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" /></div>
-        <div class="insta-cell"><img src="/imgs/insta-6.jpg" alt="MARILILU Instagram" style="width:100%;aspect-ratio:1;object-fit:cover;display:block;" loading="lazy" /></div>
-      </div>
-      <a href="https://www.instagram.com/___marililu___/" target="_blank" class="insta-btn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-          <circle cx="12" cy="12" r="4"/>
-          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-        </svg>
-        מעבר לאינסטגרם
-      </a>
-    </div>
+    </div><!-- /reviews-section -->
 
     <!-- Contact -->
-    <div class="section">
+    <div class="section" style="background:var(--light-bg)">
       <div class="section-label">צרי קשר</div>
-      <div class="section-title">נשמח לשמוע ממך</div>
+      <div class="section-title" style="color:var(--tobacco)">נשמח לשמוע ממך</div>
       <div class="section-body">לשאלות, הזמנות מיוחדות או שיתופי פעולה — אנחנו כאן.</div>
       <form class="contact-form" onsubmit="handleContact(event)">
         <input class="form-input" type="text" name="name" placeholder="שם מלא" required />
@@ -1797,6 +1973,159 @@
   </div>
 </div>
 
+<!-- ── INFO SHEET: CUTS ── -->
+<div class="info-overlay" id="cuts-overlay" onclick="if(event.target===this)closeInfoSheet('cuts')">
+  <div class="info-sheet">
+    <button class="info-sheet-close" onclick="closeInfoSheet('cuts')" aria-label="סגור">
+      <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="info-sheet-header">
+      <div class="info-sheet-title">גזרות</div>
+    </div>
+    <div class="info-sheet-body">
+      <div class="cuts-grid">
+        <div class="cut-info-card">
+          <img class="cut-info-img" src="/imgs/cut-triangle.jpg" alt="טרייאנגל מכווץ" loading="lazy" />
+          <div class="cut-info-name">טרייאנגל מכווץ</div>
+          <div class="cut-info-desc">טופ עם כיווץ מרכזי, נשי ומחמיא</div>
+        </div>
+        <div class="cut-info-card">
+          <img class="cut-info-img" src="/imgs/cut-thong.jpg" alt="חוטיני ברזילאי" loading="lazy" />
+          <div class="cut-info-name">חוטיני ברזילאי</div>
+          <div class="cut-info-desc">קשירות צד, חשיפה מינימלית</div>
+        </div>
+        <div class="cut-info-card">
+          <img class="cut-info-img" src="/imgs/cut-v.jpg" alt="ברזילאי V" loading="lazy" />
+          <div class="cut-info-name">ברזילאי V</div>
+          <div class="cut-info-desc">גזרת V נועזת, מאריכה את הרגל</div>
+        </div>
+        <div class="cut-info-card">
+          <img class="cut-info-img" src="/imgs/cut-full.jpg" alt="סט מלא" loading="lazy" />
+          <div class="cut-info-name">סט מלא</div>
+          <div class="cut-info-desc">טופ + תחתון תואמים בבחירתך</div>
+        </div>
+        <div class="cut-info-card">
+          <img class="cut-info-img" src="/imgs/cut-back.jpg" alt="קשירות גב" loading="lazy" />
+          <div class="cut-info-name">קשירות גב</div>
+          <div class="cut-info-desc">שרוכים לגב, גמיש למידות</div>
+        </div>
+        <div class="cut-info-card">
+          <img class="cut-info-img" src="/imgs/cut-animal.jpg" alt="הדפס חיה" loading="lazy" />
+          <div class="cut-info-name">הדפס חיה</div>
+          <div class="cut-info-desc">נמר / זברה, סטייל נועז</div>
+        </div>
+      </div>
+      <button class="btn-primary" style="width:100%;margin-top:24px;padding:14px;font-size:14px" onclick="closeInfoSheet('cuts');navigate('custom')">להזמנה אישית ←</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── INFO SHEET: FABRICS ── -->
+<div class="info-overlay" id="fabrics-overlay" onclick="if(event.target===this)closeInfoSheet('fabrics')">
+  <div class="info-sheet">
+    <button class="info-sheet-close" onclick="closeInfoSheet('fabrics')" aria-label="סגור">
+      <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="info-sheet-header">
+      <div class="info-sheet-title">בדים</div>
+    </div>
+    <div class="info-sheet-body">
+      <div class="fabrics-list">
+        <div class="fabric-info-card">
+          <img class="fabric-info-img" src="/imgs/fabric-solid.jpg" alt="בד חלק" loading="lazy" />
+          <div>
+            <div class="fabric-info-name">חלק</div>
+            <div class="fabric-info-desc">צבע אחיד נקי, מחמיא לכל גזרה. קיים בעשרה צבעים לבחירה.</div>
+          </div>
+        </div>
+        <div class="fabric-info-card">
+          <img class="fabric-info-img" src="/imgs/fabric-stripe.jpg" alt="פסים" loading="lazy" />
+          <div>
+            <div class="fabric-info-name">פסים</div>
+            <div class="fabric-info-desc">פסים עדינים, וייב נאוטי קלאסי ומחמיא.</div>
+          </div>
+        </div>
+        <div class="fabric-info-card">
+          <img class="fabric-info-img" src="/imgs/fabric-leopard.jpg" alt="הדפס נמר" loading="lazy" />
+          <div>
+            <div class="fabric-info-name">הדפס נמר</div>
+            <div class="fabric-info-desc">פרינט חיה נועז — אומץ ונשיות בכל מבט.</div>
+          </div>
+        </div>
+        <div class="fabric-info-card">
+          <img class="fabric-info-img" src="/imgs/fabric-tiger.jpg" alt="הדפס זברה" loading="lazy" />
+          <div>
+            <div class="fabric-info-name">הדפס זברה</div>
+            <div class="fabric-info-desc">מרקם עשיר ועוטף, מגע רך על העור.</div>
+          </div>
+        </div>
+      </div>
+      <button class="btn-primary" style="width:100%;margin-top:24px;padding:14px;font-size:14px" onclick="closeInfoSheet('fabrics');navigate('custom')">עצבי את שלך ←</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── INFO SHEET: ORDERING ── -->
+<div class="info-overlay" id="ordering-overlay" onclick="if(event.target===this)closeInfoSheet('ordering')">
+  <div class="info-sheet">
+    <button class="info-sheet-close" onclick="closeInfoSheet('ordering')" aria-label="סגור">
+      <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="info-sheet-header">
+      <div class="info-sheet-title">ביצוע הזמנה</div>
+    </div>
+    <div class="info-sheet-body">
+
+      <div class="ordering-section">
+        <div class="ordering-section-title">איך מזמינים?</div>
+        <ul class="ordering-list">
+          <li>בחרי פריט מהקולקציה או עצבי הזמנה אישית בשלב עצבי את שלך</li>
+          <li>מלאי את פרטי ההזמנה — מידה, כתובת ופרטי תשלום</li>
+          <li>תוך 24 שעות נאשר את ההזמנה בהודעה אישית</li>
+          <li>זמן ייצור: 7–14 ימי עסקים</li>
+          <li>משלוח חינם בהזמנות מעל ₪300</li>
+        </ul>
+      </div>
+
+      <div class="ordering-section">
+        <div class="ordering-section-title">אחריות ואיכות</div>
+        <ul class="ordering-list">
+          <li>כל פריט עובר בקרת איכות לפני שליחה</li>
+          <li>הבדים עמידים, איכותיים, ומתוכננים לים ולבריכה</li>
+          <li>אנחנו מוודאות שהפריט מגיע אלייך בשלמות מלאה</li>
+        </ul>
+      </div>
+
+      <div class="ordering-section">
+        <div class="ordering-section-title">החלפות</div>
+        <ul class="ordering-list">
+          <li>ניתן להחליף פריטים שלא נלבשו תוך 7 ימים מקבלה</li>
+          <li>ההחלפה כפופה לזמינות המידה / הצבע</li>
+          <li>עלות משלוח ההחזרה על חשבון הלקוחה</li>
+        </ul>
+      </div>
+
+      <div class="ordering-section">
+        <div class="ordering-section-title">החזרות</div>
+        <ul class="ordering-list">
+          <li>ניתן להחזיר פריטים שלא נלבשו תוך 7 ימים מקבלה</li>
+          <li>ההחזר יינתן כזיכוי לרכישה עתידית</li>
+          <li>פריטים בהתאמה אישית אינם ניתנים להחזרה</li>
+        </ul>
+      </div>
+
+      <div style="background:var(--light-bg);border-radius:var(--radius-md);padding:18px;margin-top:8px;text-align:center">
+        <div style="font-size:13px;color:var(--mahogany);line-height:1.8">
+          לכל שאלה — נשמח לעזור!<br/>
+          <strong>WhatsApp:</strong> 054-484-8686<br/>
+          <strong>אינסטגרם:</strong> @___marililu___
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <!-- Size Guide Modal -->
 <div class="size-guide-overlay" id="size-guide-overlay" onclick="if(event.target===this)closeSizeGuide()">
   <div class="size-guide-modal">
@@ -1965,6 +2294,7 @@ function navigate(screen) {
   localStorage.setItem('marililu_screen', screen);
   closeMenu();
   closeProductSheet();
+  closeAllInfoSheets();
 }
 
 // ══════════════════════════════
@@ -2277,6 +2607,19 @@ function addSheetToCart() {
   updateCartBadge();
   showToast(p.name + ' נוסף לעגלה');
   closeProductSheet();
+}
+
+// ══════════════════════════════
+// INFO SHEETS (cuts / fabrics / ordering)
+// ══════════════════════════════
+function openInfoSheet(id)  { document.getElementById(id + '-overlay').classList.add('open'); }
+function closeInfoSheet(id) { document.getElementById(id + '-overlay').classList.remove('open'); }
+function closeAllInfoSheets() {
+  ['cuts','fabrics','ordering'].forEach(id => closeInfoSheet(id));
+}
+function scrollToReviews() {
+  const el = document.getElementById('reviews-section');
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
 }
 
 // ══════════════════════════════
