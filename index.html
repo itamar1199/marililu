@@ -1558,9 +1558,20 @@
       max-height: 600px;
       padding: 14px 0 4px;
     }
-    .fabric-swatch-card { display: flex; flex-direction: column; gap: 6px; }
+    .fabric-swatch-card { display: flex; flex-direction: column; gap: 6px; cursor: pointer; }
+    .fabric-swatch-card.selected .fabric-swatch-img { outline: 2.5px solid var(--tobacco); outline-offset: 2px; }
     .fabric-swatch-img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius-sm); display: block; }
     .fabric-swatch-name { font-family: var(--font-serif); font-size: 13px; color: var(--mahogany); text-align: center; }
+    #fabric-preview {
+      margin-top: 18px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.4s ease, opacity 0.35s ease;
+    }
+    #fabric-preview.visible { max-height: 360px; opacity: 1; }
+    #fabric-preview img { width: 100%; height: 280px; object-fit: cover; object-position: center top; display: block; border-radius: var(--radius-md); }
 
     /* ordering info inside sheet */
     .ordering-section { margin-bottom: 24px; }
@@ -2211,31 +2222,31 @@
         </div>
       </div>
       <div class="fabric-colors-grid" id="fabric-cat-solid">
-        <div class="fabric-swatch-card">
+        <div class="fabric-swatch-card" onclick="showFabricPreview('/imgs/color-preview-coral.jpg','קורל',this)">
           <img src="/imgs/fabric-color-coral.jpg" alt="קורל" class="fabric-swatch-img" loading="lazy" />
           <div class="fabric-swatch-name">קורל</div>
         </div>
-        <div class="fabric-swatch-card">
+        <div class="fabric-swatch-card" onclick="showFabricPreview('/imgs/color-preview-lavender.jpg','לבנדר',this)">
           <img src="/imgs/fabric-color-lavender.jpg" alt="לבנדר" class="fabric-swatch-img" loading="lazy" />
           <div class="fabric-swatch-name">לבנדר</div>
         </div>
-        <div class="fabric-swatch-card">
+        <div class="fabric-swatch-card" onclick="showFabricPreview('','טורקיז',this)">
           <img src="/imgs/fabric-color-teal.jpg" alt="טורקיז" class="fabric-swatch-img" loading="lazy" />
           <div class="fabric-swatch-name">טורקיז</div>
         </div>
-        <div class="fabric-swatch-card">
+        <div class="fabric-swatch-card" onclick="showFabricPreview('/imgs/hero-bg.jpg','חלוד',this)">
           <img src="/imgs/fabric-color-rust.jpg" alt="חלוד" class="fabric-swatch-img" loading="lazy" />
           <div class="fabric-swatch-name">חלוד</div>
         </div>
-        <div class="fabric-swatch-card">
+        <div class="fabric-swatch-card" onclick="showFabricPreview('/imgs/prod-navy.jpg','נייבי',this)">
           <img src="/imgs/fabric-color-navy.jpg" alt="נייבי" class="fabric-swatch-img" loading="lazy" />
           <div class="fabric-swatch-name">נייבי</div>
         </div>
-        <div class="fabric-swatch-card">
+        <div class="fabric-swatch-card" onclick="showFabricPreview('/imgs/color-preview-chocolate.jpg','שוקולד',this)">
           <img src="/imgs/fabric-color-chocolate.jpg" alt="שוקולד" class="fabric-swatch-img" loading="lazy" />
           <div class="fabric-swatch-name">שוקולד</div>
         </div>
-        <div class="fabric-swatch-card">
+        <div class="fabric-swatch-card" onclick="showFabricPreview('/imgs/color-preview-black.jpg','שחור',this)">
           <img src="/imgs/fabric-color-black.jpg" alt="שחור" class="fabric-swatch-img" loading="lazy" />
           <div class="fabric-swatch-name">שחור</div>
         </div>
@@ -2251,22 +2262,26 @@
         </div>
       </div>
       <div class="fabric-colors-grid" id="fabric-cat-prints">
-        <div class="fabric-swatch-card">
+        <div class="fabric-swatch-card" onclick="showFabricPreview('/imgs/prod-leopard.jpg','נמר',this)">
           <img src="/imgs/fabric-print-leopard.jpg" alt="נמר" class="fabric-swatch-img" loading="lazy" />
           <div class="fabric-swatch-name">נמר</div>
         </div>
-        <div class="fabric-swatch-card">
+        <div class="fabric-swatch-card" onclick="showFabricPreview('','זברה',this)">
           <img src="/imgs/fabric-print-zebra.jpg" alt="זברה" class="fabric-swatch-img" loading="lazy" />
           <div class="fabric-swatch-name">זברה</div>
         </div>
-        <div class="fabric-swatch-card">
+        <div class="fabric-swatch-card" onclick="showFabricPreview('/imgs/prod-stripe.jpg','פסים נייבי',this)">
           <img src="/imgs/fabric-print-stripe-navy.jpg" alt="פסים נייבי" class="fabric-swatch-img" loading="lazy" />
           <div class="fabric-swatch-name">פסים נייבי</div>
         </div>
-        <div class="fabric-swatch-card">
+        <div class="fabric-swatch-card" onclick="showFabricPreview('','פסים חומים',this)">
           <img src="/imgs/fabric-print-stripe-brown.jpg" alt="פסים חומים" class="fabric-swatch-img" loading="lazy" />
           <div class="fabric-swatch-name">פסים חומים</div>
         </div>
+      </div>
+
+      <div id="fabric-preview">
+        <img id="fabric-preview-img" src="" alt="" />
       </div>
 
       <button class="btn-primary" style="width:100%;margin-top:24px;padding:14px;font-size:14px" onclick="closeInfoSheet('fabrics');navigate('custom')">עצבי את שלך ←</button>
@@ -2833,6 +2848,20 @@ function toggleFabricCat(cat) {
   const arrow = document.getElementById('fabric-arrow-' + cat);
   const isOpen = grid.classList.toggle('open');
   if (arrow) arrow.style.transform = isOpen ? 'rotate(180deg)' : '';
+}
+function showFabricPreview(src, name, el) {
+  document.querySelectorAll('.fabric-swatch-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  const preview = document.getElementById('fabric-preview');
+  const img = document.getElementById('fabric-preview-img');
+  if (src) {
+    img.src = src;
+    img.alt = name;
+    preview.classList.add('visible');
+    setTimeout(() => preview.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+  } else {
+    preview.classList.remove('visible');
+  }
 }
 function scrollToReviews() {
   const el = document.getElementById('reviews-section');
