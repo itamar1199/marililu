@@ -496,6 +496,28 @@
       min-height: 20px;
     }
 
+    /* color preview */
+    #color-preview {
+      margin-top: 18px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.4s ease, opacity 0.35s ease;
+    }
+    #color-preview.visible {
+      max-height: 360px;
+      opacity: 1;
+    }
+    #color-preview img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      border-radius: var(--radius-md);
+    }
+
     /* cut / style */
     .cut-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
     .cut-card {
@@ -1765,18 +1787,19 @@
       <div class="step-title">בחרי צבע</div>
       <div class="step-subtitle">שלב 2 מתוך 4</div>
       <div class="color-grid">
-        <div class="color-swatch" style="background:#E8463A" onclick="selectColor('קורל','#E8463A',this)"></div>
-        <div class="color-swatch" style="background:#C85A2A" onclick="selectColor('חרדל שרוף','#C85A2A',this)"></div>
-        <div class="color-swatch" style="background:#B5A8D0" onclick="selectColor('לבנדר','#B5A8D0',this)"></div>
-        <div class="color-swatch" style="background:#1A5244" onclick="selectColor('ירוק כהה','#1A5244',this)"></div>
-        <div class="color-swatch" style="background:#2A7B6F" onclick="selectColor('טורקיז','#2A7B6F',this)"></div>
-        <div class="color-swatch" style="background:#1A2744" onclick="selectColor('נייבי','#1A2744',this)"></div>
-        <div class="color-swatch" style="background:#3D2010" onclick="selectColor('שוקולד','#3D2010',this)"></div>
-        <div class="color-swatch" style="background:#2C2C2C" onclick="selectColor('שחור','#2C2C2C',this)"></div>
-        <div class="color-swatch" style="background:#D4A58A" onclick="selectColor('אפרסק','#D4A58A',this)"></div>
-        <div class="color-swatch" style="background:#F1EADA;border:1.5px solid var(--sand)" onclick="selectColor('קרם','#F1EADA',this)"></div>
+        <div class="color-swatch" style="background:#E8463A" data-preview="/imgs/color-preview-coral.jpg" onclick="selectColor('קורל','#E8463A',this)"></div>
+        <div class="color-swatch" style="background:#C85A2A" data-preview="/imgs/hero-bg.jpg" onclick="selectColor('חרדל שרוף','#C85A2A',this)"></div>
+        <div class="color-swatch" style="background:#B5A8D0" data-preview="/imgs/color-preview-lavender.jpg" onclick="selectColor('לבנדר','#B5A8D0',this)"></div>
+        <div class="color-swatch" style="background:#1A5244" data-preview="/imgs/color-preview-green.jpg" onclick="selectColor('ירוק כהה','#1A5244',this)"></div>
+        <div class="color-swatch" style="background:#2A7B6F" data-preview="" onclick="selectColor('טורקיז','#2A7B6F',this)"></div>
+        <div class="color-swatch" style="background:#1A2744" data-preview="/imgs/prod-navy.jpg" onclick="selectColor('נייבי','#1A2744',this)"></div>
+        <div class="color-swatch" style="background:#3D2010" data-preview="/imgs/color-preview-chocolate.jpg" onclick="selectColor('שוקולד','#3D2010',this)"></div>
+        <div class="color-swatch" style="background:#2C2C2C" data-preview="/imgs/color-preview-black.jpg" onclick="selectColor('שחור','#2C2C2C',this)"></div>
+        <div class="color-swatch" style="background:#D4A58A" data-preview="" onclick="selectColor('אפרסק','#D4A58A',this)"></div>
+        <div class="color-swatch" style="background:#F1EADA;border:1.5px solid var(--sand)" data-preview="" onclick="selectColor('קרם','#F1EADA',this)"></div>
       </div>
       <div class="color-name-display" id="color-name">בחרי צבע מהרשימה</div>
+      <div id="color-preview"><img id="color-preview-img" src="" alt="" /></div>
     </div>
 
     <!-- STEP 3: Cut -->
@@ -2538,6 +2561,16 @@ function selectColor(name, hex, el) {
   document.getElementById('color-name').textContent = name;
   document.getElementById('sum-color').textContent = name;
   document.getElementById('sum-color-dot').style.background = hex;
+  const preview = document.getElementById('color-preview');
+  const img = document.getElementById('color-preview-img');
+  const src = el.dataset.preview || '';
+  if (src) {
+    img.src = src;
+    img.alt = name;
+    preview.classList.add('visible');
+  } else {
+    preview.classList.remove('visible');
+  }
 }
 
 function selectCut(name, id) {
