@@ -1509,12 +1509,36 @@
       border: 1px solid var(--sand);
     }
 
-    /* fabrics list inside sheet */
-    .fabrics-list { display: flex; flex-direction: column; gap: 18px; }
-    .fabric-info-card { display: flex; gap: 16px; align-items: center; }
-    .fabric-info-img { width: 80px; height: 80px; border-radius: var(--radius-sm); object-fit: cover; flex-shrink: 0; }
-    .fabric-info-name { font-family: var(--font-serif); font-size: 18px; color: var(--mahogany); }
-    .fabric-info-desc { font-size: 13px; color: var(--mountain); margin-top: 4px; line-height: 1.4; }
+    /* fabrics accordion inside sheet */
+    .fabric-cat-card {
+      position: relative; border-radius: var(--radius-sm); overflow: hidden;
+      cursor: pointer; height: 120px;
+    }
+    .fabric-cat-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s ease; }
+    .fabric-cat-card:active .fabric-cat-img { transform: scale(1.03); }
+    .fabric-cat-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(6,2,2,0.72) 0%, rgba(6,2,2,0.1) 60%, transparent 100%);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 12px 16px;
+    }
+    .fabric-cat-name { font-family: var(--font-serif); font-size: 26px; color: #fff; font-weight: 400; }
+    .fabric-cat-sub { font-size: 11px; color: rgba(255,255,255,0.72); margin-top: 2px; }
+    .fabric-cat-arrow { position: absolute; top: 12px; left: 14px; font-size: 20px; color: #fff; transition: transform 0.3s ease; }
+
+    .fabric-colors-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s ease;
+      padding: 0;
+    }
+    .fabric-colors-grid.open {
+      max-height: 600px;
+      padding: 14px 0 4px;
+    }
+    .fabric-swatch-card { display: flex; flex-direction: column; gap: 6px; }
+    .fabric-swatch-img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius-sm); display: block; }
+    .fabric-swatch-name { font-family: var(--font-serif); font-size: 13px; color: var(--mahogany); text-align: center; }
 
     /* ordering info inside sheet */
     .ordering-section { margin-bottom: 24px; }
@@ -2157,38 +2181,78 @@
     </button>
     <div class="info-sheet-header">
       <div class="info-sheet-title">בדים</div>
+      <div class="info-sheet-subtitle">לחצי על קטגוריה לצפייה בצבעים</div>
     </div>
     <div class="info-sheet-body">
-      <div class="fabrics-list">
-        <div class="fabric-info-card">
-          <img class="fabric-info-img" src="/imgs/fabric-solid.jpg" alt="בד חלק" loading="lazy" />
-          <div>
-            <div class="fabric-info-name">חלק</div>
-            <div class="fabric-info-desc">צבע אחיד נקי, מחמיא לכל גזרה. קיים בעשרה צבעים לבחירה.</div>
-          </div>
-        </div>
-        <div class="fabric-info-card">
-          <img class="fabric-info-img" src="/imgs/fabric-stripe.jpg" alt="פסים" loading="lazy" />
-          <div>
-            <div class="fabric-info-name">פסים</div>
-            <div class="fabric-info-desc">פסים עדינים, וייב נאוטי קלאסי ומחמיא.</div>
-          </div>
-        </div>
-        <div class="fabric-info-card">
-          <img class="fabric-info-img" src="/imgs/fabric-leopard.jpg" alt="הדפס נמר" loading="lazy" />
-          <div>
-            <div class="fabric-info-name">הדפס נמר</div>
-            <div class="fabric-info-desc">פרינט חיה נועז — אומץ ונשיות בכל מבט.</div>
-          </div>
-        </div>
-        <div class="fabric-info-card">
-          <img class="fabric-info-img" src="/imgs/fabric-tiger.jpg" alt="הדפס זברה" loading="lazy" />
-          <div>
-            <div class="fabric-info-name">הדפס זברה</div>
-            <div class="fabric-info-desc">מרקם עשיר ועוטף, מגע רך על העור.</div>
-          </div>
+
+      <!-- Category: חלק -->
+      <div class="fabric-cat-card" onclick="toggleFabricCat('solid')">
+        <img src="/imgs/fabric-solid.jpg" alt="חלק" class="fabric-cat-img" loading="lazy" />
+        <div class="fabric-cat-overlay">
+          <div class="fabric-cat-name">חלק</div>
+          <div class="fabric-cat-sub">7 צבעים זמינים</div>
+          <div class="fabric-cat-arrow" id="fabric-arrow-solid">▾</div>
         </div>
       </div>
+      <div class="fabric-colors-grid" id="fabric-cat-solid">
+        <div class="fabric-swatch-card">
+          <img src="/imgs/fabric-color-coral.jpg" alt="קורל" class="fabric-swatch-img" loading="lazy" />
+          <div class="fabric-swatch-name">קורל</div>
+        </div>
+        <div class="fabric-swatch-card">
+          <img src="/imgs/fabric-color-lavender.jpg" alt="לבנדר" class="fabric-swatch-img" loading="lazy" />
+          <div class="fabric-swatch-name">לבנדר</div>
+        </div>
+        <div class="fabric-swatch-card">
+          <img src="/imgs/fabric-color-teal.jpg" alt="טורקיז" class="fabric-swatch-img" loading="lazy" />
+          <div class="fabric-swatch-name">טורקיז</div>
+        </div>
+        <div class="fabric-swatch-card">
+          <img src="/imgs/fabric-color-rust.jpg" alt="חלוד" class="fabric-swatch-img" loading="lazy" />
+          <div class="fabric-swatch-name">חלוד</div>
+        </div>
+        <div class="fabric-swatch-card">
+          <img src="/imgs/fabric-color-navy.jpg" alt="נייבי" class="fabric-swatch-img" loading="lazy" />
+          <div class="fabric-swatch-name">נייבי</div>
+        </div>
+        <div class="fabric-swatch-card">
+          <img src="/imgs/fabric-color-chocolate.jpg" alt="שוקולד" class="fabric-swatch-img" loading="lazy" />
+          <div class="fabric-swatch-name">שוקולד</div>
+        </div>
+        <div class="fabric-swatch-card">
+          <img src="/imgs/fabric-color-black.jpg" alt="שחור" class="fabric-swatch-img" loading="lazy" />
+          <div class="fabric-swatch-name">שחור</div>
+        </div>
+      </div>
+
+      <!-- Category: הדפסים -->
+      <div class="fabric-cat-card" style="margin-top:12px" onclick="toggleFabricCat('prints')">
+        <img src="/imgs/fabric-print-leopard.jpg" alt="הדפסים" class="fabric-cat-img" loading="lazy" />
+        <div class="fabric-cat-overlay">
+          <div class="fabric-cat-name">הדפסים</div>
+          <div class="fabric-cat-sub">4 הדפסים זמינים</div>
+          <div class="fabric-cat-arrow" id="fabric-arrow-prints">▾</div>
+        </div>
+      </div>
+      <div class="fabric-colors-grid" id="fabric-cat-prints">
+        <div class="fabric-swatch-card">
+          <img src="/imgs/fabric-print-leopard.jpg" alt="נמר" class="fabric-swatch-img" loading="lazy" />
+          <div class="fabric-swatch-name">נמר</div>
+        </div>
+        <div class="fabric-swatch-card">
+          <img src="/imgs/fabric-print-zebra.jpg" alt="זברה" class="fabric-swatch-img" loading="lazy" />
+          <div class="fabric-swatch-name">זברה</div>
+        </div>
+        <div class="fabric-swatch-card">
+          <img src="/imgs/fabric-print-stripe-navy.jpg" alt="פסים נייבי" class="fabric-swatch-img" loading="lazy" />
+          <div class="fabric-swatch-name">פסים נייבי</div>
+        </div>
+        <div class="fabric-swatch-card">
+          <img src="/imgs/fabric-print-stripe-brown.jpg" alt="פסים חומים" class="fabric-swatch-img" loading="lazy" />
+          <div class="fabric-swatch-name">פסים חומים</div>
+        </div>
+      </div>
+
       <button class="btn-primary" style="width:100%;margin-top:24px;padding:14px;font-size:14px" onclick="closeInfoSheet('fabrics');navigate('custom')">עצבי את שלך ←</button>
     </div>
   </div>
@@ -2745,6 +2809,12 @@ function openInfoSheet(id)  { document.getElementById(id + '-overlay').classList
 function closeInfoSheet(id) { document.getElementById(id + '-overlay').classList.remove('open'); }
 function closeAllInfoSheets() {
   ['cuts','fabrics','ordering'].forEach(id => closeInfoSheet(id));
+}
+function toggleFabricCat(cat) {
+  const grid = document.getElementById('fabric-cat-' + cat);
+  const arrow = document.getElementById('fabric-arrow-' + cat);
+  const isOpen = grid.classList.toggle('open');
+  if (arrow) arrow.style.transform = isOpen ? 'rotate(180deg)' : '';
 }
 function scrollToReviews() {
   const el = document.getElementById('reviews-section');
